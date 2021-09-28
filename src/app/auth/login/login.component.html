@@ -1,0 +1,36 @@
+<form [formGroup]="loginForm">
+
+  <h3 class="heading-bold f-28 mb-auto-40">Log In</h3>
+  <div *ngIf="responseMessage" class="error-block f-14 mb-auto-20">
+    {{responseMessage}} <img (click)="emptyResponseMessage()" alt="login" class="m-0" src="../../../assets/errorClose.svg">
+  </div>
+
+
+  <mat-form-field class="w-100 mb-auto-20" appearance="outline">
+    <mat-label>Email</mat-label>
+    <input (keyup)="emptyResponseMessage()" formControlName="email" placeholder="Email" value="" matInput type="email">
+    <mat-error *ngIf="loginForm.hasError('required','email')">Email is mandatory</mat-error>
+    <mat-error *ngIf="!loginForm.hasError('required','email') && loginForm.hasError('pattern','email')">
+      Enter valid email</mat-error>
+  </mat-form-field>
+
+
+  <mat-form-field class="w-100 mb-auto-10" appearance="outline">
+    <mat-label>Password</mat-label>
+    <input (keyup)="emptyResponseMessage()" formControlName="password" value="" placeholder="Password" matInput
+      type="password">
+    <mat-error *ngIf="loginForm.hasError('required','password')" class="error-text">Password is mandatory
+    </mat-error>
+    <mat-error *ngIf="!loginForm.hasError('required','password') && loginForm.hasError('minlength','password') "
+      class="error-text">Enter the password at least 8 characters</mat-error>
+  </mat-form-field>
+
+
+  <button type="button" [routerLink]="['/forgot-password']" mat-button color="primary" class="f-right w-100 fw-400">Forgot
+    Password?</button>
+  <button type="submit" (click)="onLoginFormSubmit()" mat-flat-button color="primary" class="f-right w-100 mt-20 btn-shadow fw-400">
+    <mat-spinner *ngIf="isSubmitted" class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+    <p class="m-0" *ngIf="!isSubmitted">LOG IN</p>
+  </button>
+
+</form>

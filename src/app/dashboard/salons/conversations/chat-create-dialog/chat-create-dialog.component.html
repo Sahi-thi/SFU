@@ -1,0 +1,13 @@
+<p class="f-16 pb-30 popup-text m-0">Are you sure, You want to create chat conversation?</p>
+<div class="f-right flex">
+    <button (click)="createDialog()" *ngIf="!isAPILoading" type="button"
+        class="auth-button-80 btn-shadow fw-400 f-16 mr-10" mat-flat-button color="primary">
+        <span>YES</span>
+    </button>
+    <button type="button" *ngIf="isAPILoading" class="auth-button-80 btn-shadow fw-400 f-16 mr-10" mat-flat-button
+        color="primary">
+        <mat-spinner class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+    </button>
+    <button type="button" [mat-dialog-close] class="auth-button-80 mr-10 fw-400 f-16" mat-button color="primary"
+        (click)="cancel()">NO</button>
+</div>

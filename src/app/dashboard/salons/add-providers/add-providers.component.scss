@@ -1,0 +1,175 @@
+@import "../../../../theme/deep-styles.scss";
+
+.add-provider-main {
+  max-width: 640px;
+  width: 90%;
+}
+
+.add-provider-card {
+  padding: 40px 40px 20px;
+}
+.cover-image-wrapper {
+  height: 130px;
+  width: 130px;
+  border-radius: 4px;
+}
+.upload-wrapper {
+  box-sizing: border-box;
+  border-radius: 4px;
+  border-width: 1.5px;
+  border-style: dashed;
+}
+.preview-image {
+  object-fit: cover;
+}
+.half-input {
+  width: calc(50% - 8px);
+  @media screen and (max-width: 430px) {
+    width: 100%;
+  }
+}
+.form-heading {
+  font-weight: 500;
+}
+.half-sub-input {
+  width: calc(50% - 5px);
+}
+.provider-clear::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.provider-back {
+  line-height: 28px;
+  height: 36px;
+  padding: 0 10px 0 0;
+  max-width: calc(100% - 90px);
+  h3 {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    font-weight: 500;
+  }
+  button {
+    width: 24px;
+  }
+}
+
+.addOwnerBtn {
+  height: 30px;
+  line-height: 30px;
+}
+.remove-btn {
+  margin-left: calc(100% - 90px);
+  margin-top: 10px;
+  height: 30px;
+  line-height: 30px;
+}
+.provider-divider {
+  margin: 20px 0 40px -40px;
+  height: 2px;
+  background-color: #efefef;
+  width: calc(100% + 80px);
+  overflow: auto;
+}
+.providers-details-block::after {
+  content: "";
+  display: block;
+  clear: both;
+}
+.add-service-btn {
+  position: absolute;
+  bottom: -36px;
+  left: 0;
+}
+.add-service-floating::after {
+  content: "";
+  clear: both;
+  display: block;
+}
+.add-service-floating {
+  min-height: 165px;
+}
+.add-service-block::after {
+  content: '';
+  display: block;
+  clear: both;
+}
+
+
+
+
+
+
+.recommend-rituals {
+  button {
+    width: 190px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height: 32px;
+    font-weight: lighter;
+    border-radius: 16px;
+    &.active {
+      background: linear-gradient(180deg, #ffca77 0%, #d0963c 100%);
+    }
+    img {
+      filter: brightness(500%);
+    }
+  }
+  .mat-ripple {
+    border-radius: 16px;
+  }
+}
+.recommend-rituals {
+  button {
+    width: auto;
+  }
+}
+
+::ng-deep .rituals {
+  width: 190px;
+  .mat-checkbox-layout {
+    position: relative;
+    width: 100%;
+  }
+  .mat-checkbox-inner-container {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+  }
+  .mat-ripple {
+    height: 100% !important;
+    width: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    border-radius: 0;
+  }
+  .mat-checkbox-checkmark,
+  .mat-checkbox-mixedmark,
+  .mat-checkbox-frame,
+  .mat-ripple {
+    display: none;
+  }
+  .mat-checkbox-background {
+    background-color: #8ba6b9;
+    border-radius: 16px;
+  }
+  .mat-checkbox-label {
+    z-index: 1;
+    padding: 5px 18px;
+    display: flex;
+    color: #ffffff;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    width: 100%;
+    img {
+      filter: brightness(500%);
+    }
+  }
+}
+::ng-deep .rituals.mat-checkbox-checked .mat-checkbox-background {
+  background: linear-gradient(180deg, #ffca77 0%, #d0963c 100%) !important;
+}
+.rituals-cat {
+  width: auto;
+}

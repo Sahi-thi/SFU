@@ -1,0 +1,14 @@
+.invite-dialog {
+    .heading {
+        color: #191529;
+        font-weight: 500;
+        line-height: 28px;
+    }
+}
+::ng-deep .invite-email .mat-form-field-wrapper {
+    margin: 0;
+    padding-bottom: 40px;
+}
+::ng-deep .invite-email input {
+    height: 100% !important;
+}

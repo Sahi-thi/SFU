@@ -1,0 +1,157 @@
+<div *ngIf="!isApiLoading else loadSpinner">
+    <ng-container *ngIf="servicesList?.length >0 else emptyServiceTemplate">
+
+        <div *ngIf="isAddType === 'Service'">
+            <div class="select-heading f-20">Select Services</div>
+
+            <div class="select-accordion">
+                <div class="select-items-list m-auto"
+                    *ngFor="let serviceType of servicesList ; let serviceTypeIndex = index">
+
+                    <p class="mt-30 mb-10 f-12 form-heading"> {{serviceType.service_type}}</p>
+
+                    <mat-accordion>
+                        <mat-expansion-panel
+                            *ngFor="let service of serviceType.salon_services ; let serviceIndex = index "
+                            (opened)="panelOpenState = true" (closed)="panelOpenState = false" class="appt-panel-block">
+                            <mat-expansion-panel-header class="appt-check-block">
+                                <mat-panel-title>
+                                    <div class="flex align-seperate w-100">
+                                        <mat-checkbox [checked]='service.isServiceChecked'
+                                            [disabled]="!service.isServiceChecked"
+                                            [indeterminate]="service.isServiceChecked"
+                                            (change)='onChangeServiceCheck(serviceTypeIndex,serviceIndex)'
+                                            (click)="$event.stopPropagation();" color="primary"
+                                            class="w-100 serviceProductCheck h-100 flex align-start">
+                                            {{service.service_name}}
+                                        </mat-checkbox>
+                                        <span
+                                            *ngIf="service.max_price != '0.00' else onlyMinPrice">${{service.min_price}}
+                                            - ${{service.max_price}} </span>
+                                        <ng-template #onlyMinPrice>
+                                            <span>${{service.min_price}}
+                                                <ng-container *ngIf="service.max_price == '0.00'">
+                                                    {{service.provider_max_price == service.min_price ?
+                                                    '' : '- $' + service.provider_max_price}}
+                                                </ng-container>
+                                            </span>
+                                        </ng-template>
+                                    </div>
+                                </mat-panel-title>
+                                <!-- <mat-panel-description>
+                                    Currently I am {{panelOpenState ? 'open' : 'closed'}}
+                                </mat-panel-description> -->
+                            </mat-expansion-panel-header>
+                            <div>
+                                <mat-radio-group color="primary" class="appt-radio-block">
+                                    <mat-radio-button [checked]='provider.isChecked' [value]='provider.provider_name'
+                                        *ngFor="let provider of service.provider_services|slice:0:3 ; let i = index"
+                                        (change)="radioChange( service,provider, serviceTypeIndex, serviceIndex,i)">
+                                        {{provider.provider_name}}
+                                        <span>${{provider.price}}</span>
+                                    </mat-radio-button>
+                                    <ng-container *ngIf='isMoreBtnClicked'>
+                                        <mat-radio-button [checked]='provider.isChecked'
+                                            [value]='provider.provider_name'
+                                            (change)="radioChange( service,provider, serviceTypeIndex, serviceIndex,i+3)"
+                                            *ngFor="let provider of service.provider_services|slice : 3 : service.provider_services.length + 1; let i = index ">
+                                            {{provider.provider_name}}
+                                            <span>$ {{provider.price}}</span>
+                                        </mat-radio-button>
+                                    </ng-container>
+                                </mat-radio-group>
+                            </div>
+
+
+
+                            <button *ngIf="service.provider_services.length > 4" (click)="showRadioGroup()" mat-button
+                                color="primary" class="fw-400">
+                                <span *ngIf='!isMoreBtnClicked'>+{{service.provider_services.length - 3}} MORE SERVICES
+                                </span>
+
+                                <span *ngIf='isMoreBtnClicked'> LESS SERVICES </span>
+                            </button>
+                        </mat-expansion-panel>
+                    </mat-accordion>
+                </div>
+            </div>
+
+            <div class="select-buttons flex align-end">
+                <button type="button" class="auth-button-80 mr-10 fw-400" [mat-dialog-close] mat-button
+                    color="primary">CANCEL</button>
+                <button (click)="onClickAddServices()" type="submit" class="auth-button-80 btn-shadow fw-400"
+                    mat-flat-button color="primary">
+                    <mat-spinner *ngIf="false" class="auth-spinner" strokeWidth="3" diameter='31'></mat-spinner>
+                    <span>ADD</span>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #emptyServiceTemplate>
+
+        <div class="empty_servicesproduct_dialog flex align-center" *ngIf="isAddType === 'Service'">
+            <div>
+                <div class="empty-data-icon flex align-center m-auto">
+                    <div [inlineSVG]="'assets/grooming.svg'"></div>
+
+                </div>
+                <h2 class="f-18 empty-heading p-tb-20 m-0">Services List is Empty</h2>
+                <button [mat-dialog-close] class="auth-button-80 m-auto d-block btn-shadow fw-400" mat-flat-button
+                    color="primary">OK</button>
+            </div>
+        </div>
+
+    </ng-template>
+
+
+
+
+    <ng-container *ngIf="!isListEmpty else emptyProductTemplate">
+
+        <div *ngIf="isAddType === 'Product'">
+            <div class="select-heading f-20">Select Products</div>
+
+            <div class="select-items-list m-auto" *ngFor="let product of productsList ; let productListIndex = index">
+                <p class="mt-30 mb-10 f-12 form-heading">{{product.product_type_name}}</p>
+                <div class="list flex align-left" *ngFor="let item of product.products; let productIndex= index">
+                    <mat-checkbox class="mr-20" color="primary" (click)="$event.stopPropagation()"
+                        [checked]='item.isChecked' (change)="onClickCheckBox(item.id,item)">
+                    </mat-checkbox>
+                    <p class="f-14 m-0">{{item.name}} </p>
+                    <div class="f-16">$<span>{{item.price}}</span></div>
+                </div>
+            </div>
+
+
+            <div class="select-buttons flex align-end">
+                <button type="button" class="auth-button-80 mr-10 fw-400" [mat-dialog-close] mat-button
+                    color="primary">CANCEL</button>
+                <button type="submit" (click)="applyFilter()" class="auth-button-80 btn-shadow fw-400" mat-flat-button
+                    color="primary">
+                    <mat-spinner *ngIf="isApiLoading" class="auth-spinner" strokeWidth="3" diameter='31'></mat-spinner>
+                    <span>ADD</span>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-template #emptyProductTemplate>
+        <div class="empty_servicesproduct_dialog flex align-center" *ngIf="isAddType === 'Product'">
+            <div>
+                <div class="empty-data-icon flex align-center m-auto mt-20">
+                    <div [inlineSVG]="'assets/product.svg'"></div>
+                </div>
+                <h2 class="f-18 empty-heading p-tb-20 m-0">Products List is Empty</h2>
+                <button [mat-dialog-close] class="auth-button-80 m-auto d-block btn-shadow fw-400" mat-flat-button
+                    color="primary">OK</button>
+            </div>
+        </div>
+    </ng-template>
+</div>
+
+<ng-template #loadSpinner>
+    <div class="productService-spinner w-100 flex align-center">
+        <mat-spinner color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+    </div>
+</ng-template>

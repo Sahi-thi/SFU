@@ -1,0 +1,33 @@
+<div class="o-hide">
+  <div class="table-skeleton o-auto">
+    <table cellpadding="0">
+      <thead>
+        <tr>
+          <th *ngFor="let heading of skeletonHead">{{ heading }}</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let i of [].constructor(8)">
+          <td *ngIf="!isAvatar" class="w-70">
+            <ngx-skeleton-loader animation="progress" appearance="circle"
+              [theme]="{ width: '40px', height: '40px', 'margin': '0'}"></ngx-skeleton-loader>
+          </td>
+          <td *ngFor="let col of skeletonColumn" class="pr-20 {{col}}">
+            <ngx-skeleton-loader animation="progress" [theme]="{ height: '22px', 'margin': '0' }">
+            </ngx-skeleton-loader>
+          </td>
+          <ng-container *ngIf="!isEditDelete">
+            <td *ngFor="let j of [].constructor(2)" class="pr-20 w-40">
+              <ngx-skeleton-loader animation="progress" [theme]="{ height: '22px', 'margin': '0' }">
+              </ngx-skeleton-loader>
+            </td>
+          </ng-container>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+  <div class="page-count mb-20">
+    <ngx-skeleton-loader animation="progress"
+      [theme]="{ height: '47px', 'width': '300px', 'margin': '4px 0 4px', 'float': 'right' }"></ngx-skeleton-loader>
+  </div>
+</div>

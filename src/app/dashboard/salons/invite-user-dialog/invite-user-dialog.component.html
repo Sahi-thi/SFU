@@ -1,0 +1,22 @@
+<form class="invite-dialog" [formGroup]="inviteFormGroup">
+    <div class="heading f-20 mb-auto-30">Invite a User</div>
+    <mat-error class="pb-30"> {{responseMessage}} </mat-error>
+    <mat-form-field class="w-100 invite-email" appearance="outline">
+        <mat-label>Email</mat-label>
+        <input formControlName="email" type="email" aria-label="Email" matInput>
+    </mat-form-field>
+
+    <div class="align-end flex">
+        <button [mat-dialog-close] type="button" class="auth-button-80 mr-10 fw-400" mat-button
+            color="primary">CANCEL</button>
+        <button *ngIf="!isApiCalling else showLoader" (click)="onClickInvite()" type="submit"
+            class="auth-button-80 fw-400" mat-flat-button color="primary">
+            <span>INVITE</span>
+        </button>
+        <ng-template #showLoader>
+            <button type="submit" class="auth-button-80 fw-400" mat-flat-button color="primary">
+                <mat-spinner class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+            </button>
+        </ng-template>
+    </div>
+</form>

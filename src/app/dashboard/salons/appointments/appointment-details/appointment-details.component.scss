@@ -1,0 +1,150 @@
+@import "../../../../../theme/deep-styles.scss";
+
+.appointment-main {
+  max-width: 640px;
+  width: 90%;
+}
+.appointment-head h3 {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: calc(100% - 170px);
+  min-height: 37px;
+  line-height: 37px;
+}
+
+.appointment-status {
+  line-height: 14px;
+  padding: 4px 10px;
+  border-radius: 3px;
+}
+.Fulfilled {
+  background-color: rgba(110, 212, 0, 0.5);
+}
+.Confirmed {
+  background-color: rgba(171, 237, 221, 0.5);
+}
+.Cancelled {
+  background-color: rgba(239, 86, 78, 0.5);
+}
+.appointment-info {
+  padding: 30px 40px;
+  @media screen and (max-width: 430px) {
+    padding: 30px 20px;
+  }
+}
+.fw-500 {
+  font-weight: 500;
+}
+.form-heading {
+  line-height: 14px;
+  padding: 5px 0;
+}
+.details-labels {
+  font-weight: 500;
+  letter-spacing: 0.35px;
+  line-height: 22px;
+  min-width: 150px;
+  display: inline-block;
+  @media screen and (max-width: 430px) {
+    min-width: 120px;
+  }
+}
+.details-cont {
+  letter-spacing: 0.4px;
+  line-height: 22px;
+  word-break: break-word;
+}
+.appointment-category {
+  padding: 8px 40px;
+}
+.services-items-list,
+.products-items-list {
+  width: calc(100% - 80px);
+  .list {
+    border-width: 0 0 1.5px;
+    border-style: solid;
+    border-color: rgba(0, 0, 0, 0.1);
+    color: rgba(0, 0, 0, 0.8);
+    padding: 10px 0;
+    min-height: 60px;
+    .product {
+      flex: 1;
+      letter-spacing: 0.35px;
+      line-height: 20px;
+      p {
+        max-width: calc(100% - 100px);
+      }
+      .points {
+        border-radius: 2px;
+        background-color: #f3f6f7;
+        color: #6e6e6e;
+        line-height: 16px;
+        padding: 4px 6px;
+        height: 16px;
+      }
+    }
+    .product-details {
+      color: #6e6e6e;
+      line-height: 16px;
+      text-align: right;
+      span {
+        display: block;
+        margin-bottom: 8px;
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+    .product-bill {
+      line-height: 16px;
+      text-align: right;
+      min-width: 70px;
+      letter-spacing: 0.35px;
+      span {
+        display: block;
+        margin-bottom: 8px;
+        &:nth-of-type(1) {
+          color: #818181;
+        }
+        &:nth-of-type(2) {
+          color: #ef554e;
+        }
+        &:nth-of-type(3) {
+          color: rgba(0, 0, 0, 0.8);
+          font-weight: 500;
+        }
+        &:last-child {
+          margin-bottom: 0;
+        }
+      }
+    }
+  }
+}
+.bill {
+  color: rgba(0, 0, 0, 0.8);
+  letter-spacing: 0.5px;
+  line-height: 22px;
+  text-align: right;
+  padding: 20px 0;
+}
+.services-items-list .list:last-child {
+  border-width: 0;
+}
+
+.filter-spinner {
+  margin: 149px auto;
+}
+
+.empty-servicesProduct-icon {
+  height: 60px;
+  width: 60px;
+  border-radius: 50%;
+  img {
+    height: 30px;
+  }
+}
+.empty-servicesProduct-heading {
+  font-weight: 500;
+  line-height: 18px;
+}

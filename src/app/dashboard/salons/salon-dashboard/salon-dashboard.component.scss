@@ -1,0 +1,81 @@
+.example-container {
+  display: flex;
+  flex-direction: column;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+}
+.example-is-mobile .salon-inner-header {
+  position: fixed;
+  z-index: 2;
+}
+.example-sidenav-container {
+  flex: 1;
+}
+.example-is-mobile .example-sidenav-container {
+  flex: 1;
+  // flex: 1 0 auto;
+  margin-top: 80px !important;
+}
+.example-is-mobile .salon-side-nav {
+  top: 180px !important;
+}
+.salon-inner-header {
+  height: 80px;
+  padding: 0;
+  box-shadow: 0 1px 1px 0 rgba(0, 0, 0, 0.24);
+  z-index: 5;
+  margin-left: 0px;
+  transition: all 0.3s ease-in-out;
+  display: flex;
+}
+.salon-inner-header h1 {
+  font-size: 16px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.salon-inner-header button {
+  margin: 0 0 0 16px;
+}
+.salon-back-menu {
+  min-width: 270px;
+  transition: all 0.5s ease-out;
+  max-width: 270px;
+}
+.active {
+  margin-left: -270px;
+  transition: all 0.3s ease-in-out;
+  width: calc(100% + 270px);
+}
+
+.salon-side-nav.mat-drawer-side {
+  border-right: 0;
+}
+.salon-side-nav mat-nav-list {
+  padding: 0;
+}
+.salon-menu-items {
+  width: 270px;
+  font-weight: 300;
+  border-left: 4px solid transparent;
+  box-sizing: border-box;
+  height: 56px;
+  color: #ffffff;
+  transition: all 0.3s ease-in-out;
+  &:hover {
+    font-weight: normal;
+  }
+}
+.side-menu-active {
+  border-left-color: #ffffff;
+  font-weight: normal;
+  &:focus {
+    background-color: transparent;
+  }
+}
+.side-menu-padd {
+  padding: 0 12px;
+}

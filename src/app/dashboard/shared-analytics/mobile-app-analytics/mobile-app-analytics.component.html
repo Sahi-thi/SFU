@@ -1,0 +1,44 @@
+<mat-card *ngIf="!isNewUser" class="chart-section mb-auto-20 card-shadow mt-30">
+
+    <div class="flex align-seperate">
+        <div *ngIf="!isApiLoading && !isUsersApiLoading else showLoader" class="tabs c-pointer pb-30">
+            <div class="d-i-block f-12 active" >Users<br><span class="f-16">
+                    {{totalUsersCount}}
+                </span>
+            </div>
+        </div>
+        <div class="flex align-center chart-date-block pb-30">
+
+            <button class="flex align-center  c-pointer" type="button" mwlCalendarPreviousView [view]="view"
+                [(viewDate)]="viewDate" (viewDateChange)="onClickPreviousMonth(viewDate)">
+                <mat-icon aria-label="leftArrow">keyboard_arrow_left</mat-icon>
+            </button>
+
+            <p class="m-0 f-12">{{date}}</p>
+
+            <button class="flex align-center  c-pointer" type="button" mwlCalendarNextView [view]="view"
+                [(viewDate)]="viewDate" (viewDateChange)="onClickNextMonth(viewDate)">
+                <mat-icon aria-label="rightArrow">keyboard_arrow_right</mat-icon>
+            </button>
+
+        </div>
+    </div>
+
+
+    <div style="display: block; height: 280px;" *ngIf="!isChartList">
+        <canvas baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType">
+        </canvas>
+    </div>
+    <div *ngIf="!isChartList" class="chart-label f-16 t-center p-t-40"> Mobile App Users</div>
+
+    <ng-template #showLoader>
+        <mat-spinner color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+    </ng-template>
+
+
+    <div style="display:block;" *ngIf="isChartList">
+        <div class="flex align-center no-data"> {{responseMessage}} </div>
+    </div>
+
+</mat-card>

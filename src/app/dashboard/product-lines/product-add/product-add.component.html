@@ -1,0 +1,122 @@
+<form *ngIf="!isLoadingAPI && !isDropdownAPI; else productSpinner" [formGroup]="productFormGroup"
+    class="add-products-main p-t-30 mb-auto-20">
+
+    <div class="h-38 mb-20">
+        <div class="flex align-seperate product-btns-main f-right">
+            <div class="product-btns flex">
+                <button type="button" class="auth-button-80 mr-10 fw-400" mat-button color="primary"
+                    (click)="cancelProductForm(btnTitle)">CANCEL</button>
+                <button *ngIf="!isCallingProductAPI" (click)="submitProductForm(btnTitle)" type="submit"
+                    class="auth-button-80 btn-shadow fw-400" mat-flat-button color="primary">
+                    {{btnTitle}}
+                </button>
+                <button *ngIf="isCallingProductAPI" type="submit" class="auth-button-80 btn-shadow fw-400"
+                    mat-flat-button color="primary">
+                    <mat-spinner class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+                </button>
+            </div>
+        </div>
+        <h3 class="f-20 m-0"> {{productTitle}} </h3>
+    </div>
+    <mat-card class="add-section mb-auto-20 card-shadow">
+        <mat-error class="pb-30"> {{responseMessage}} </mat-error>
+        <p *ngIf="isUploading" class="loading t-center">Uploading product Image</p>
+        <div class="cover-image-wrapper mb-auto-40 make-relative o-hide">
+            <div class="upload-wrapper h-100 make-relative">
+                <span *ngIf="imgURL === null || imgURL === ''else showImage "
+                    class="make-center t-center">Upload<br>Logo</span>
+                <input [disabled]="btnTitle === 'EDIT'" #inputLogo class="h-100 w-100 glass make-absolute c-pointer"
+                    type="file" (change)="onClickUploadLogo($event)" accept=".png,.jpg,.jpeg" />
+
+                <ng-template #showImage>
+                    <img (click)="inputLogo.open()" alt="avatar" loading="lazy" src={{imgURL}}
+                        class="preview-image h-100 w-100" />
+                </ng-template>
+
+            </div>
+        </div>
+
+        <mat-form-field class="half-input f-left" appearance="outline">
+            <mat-label>Product Name</mat-label>
+            <input formControlName="product_name" placeholder="Product Name" matInput type="text" class="price">
+        </mat-form-field>
+
+        <div class="half-input f-right">
+            <mat-form-field class="w-100 " appearance="outline">
+                <mat-label>Price</mat-label>
+                <input formControlName="price" placeholder="Price" matInput type="tel" class="price" maxLength="6"
+                    (keydown)='validate($event)' />
+                <span *ngIf="productFormGroup.value.price" matPrefix>$</span>
+            </mat-form-field>
+        </div>
+
+        <mat-form-field class="w-100 clear" appearance="outline">
+            <mat-label>Skin Type</mat-label>
+            <mat-select formControlName="skin_type_ids" multiple>
+                <mat-option *ngFor="let skinType of productsDropDownData.skin_types" [value]="skinType.skin_type_id">
+                    {{skinType.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Skin Concern</mat-label>
+            <mat-select formControlName="skin_concern_ids" multiple>
+                <mat-option *ngFor="let skinConcern of productsDropDownData.skin_concerns"
+                    [value]="skinConcern.skin_concern_id">
+                    {{skinConcern.name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="w-100 allergies" appearance="outline">
+            <mat-label>Allergies</mat-label>
+            <mat-select formControlName="product_not_to_use_on_skin" multiple>
+                <mat-option *ngFor="let allergies of productsDropDownData.products_not_to_use_on_skin"
+                    [value]="allergies.concern_id">
+                    {{allergies.concern}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field #myTextarea class="w-100 ingredent-select" appearance="outline">
+            <mat-label>Ingredients</mat-label>
+            <textarea matInput cdkTextareaAutosize #autosize="cdkTextareaAutosize" cdkAutosizeMinRows="1"
+                cdkAutosizeMaxRows="20" autocomplete="off" (click)="openIngredientDialog()" readonly
+                placeholder="select Ingredient" formControlName="ingredient_ids" [value]="selectedIngredient"
+                class="product-textarea">
+            </textarea>
+        </mat-form-field>
+
+        <div class="half-input f-left">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Product Type</mat-label>
+                <mat-select formControlName="product_type_id">
+                    <mat-option *ngFor="let productType of productTypesDropDown" [value]="productType.product_type_id">
+                        {{productType.name}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <div class="half-input f-right">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Optimal Usage</mat-label>
+
+                <input type="tel" min="1" maxlength="2" matInput placeholder="Optimal Usage"
+                    formControlName="expires_in" (keydown)='validate($event)'>
+                <span matSuffix>months</span>
+            </mat-form-field>
+        </div>
+
+
+
+
+        <mat-form-field class="custom-textarea w-100 mb-auto-40 clear" appearance="outline">
+            <mat-label>Notes</mat-label>
+            <textarea formControlName="notes" matInput maxlength="150" placeholder="Notes"></textarea>
+            <mat-hint>Max 150 Characters</mat-hint>
+        </mat-form-field>
+
+    </mat-card>
+</form>
+
+<ng-template #productSpinner>
+    <mat-spinner class="table-no-show" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

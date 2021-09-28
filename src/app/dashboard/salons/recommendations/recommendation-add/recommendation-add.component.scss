@@ -1,0 +1,95 @@
+@import "../../../../../theme/deep-styles.scss";
+
+.add-recommend-main {
+  max-width: 640px;
+  width: 90%;
+}
+.add-recommend-main h3 {
+  font-weight: 500;
+  line-height: 28px;
+  padding: 4px 0;
+}
+.add-section {
+  padding: 35px 40px;
+}
+.half-input {
+  width: calc(50% - 8px);
+  @media screen and (max-width: 430px) {
+    width: 100%;
+  }
+}
+.form-heading {
+  font-weight: 500;
+}
+.recommend-rituals {
+  button {
+    width: 190px;
+    font-size: 13px;
+    letter-spacing: 0.5px;
+    line-height: 32px;
+    font-weight: lighter;
+    border-radius: 16px;
+    &.active {
+      background: linear-gradient(180deg, #ffca77 0%, #d0963c 100%);
+    }
+    img {
+      filter: brightness(500%);
+    }
+  }
+  .mat-ripple {
+    border-radius: 16px;
+  }
+}
+.recommend-rituals {
+  button {
+    width: auto;
+  }
+}
+
+::ng-deep .rituals {
+  width: 190px;
+  .mat-checkbox-layout {
+    position: relative;
+    width: 100%;
+  }
+  .mat-checkbox-inner-container {
+    width: 100% !important;
+    height: 100% !important;
+    position: absolute;
+  }
+  .mat-ripple {
+    height: 100% !important;
+    width: 100% !important;
+    top: 0 !important;
+    left: 0 !important;
+    border-radius: 0;
+  }
+  .mat-checkbox-checkmark,
+  .mat-checkbox-mixedmark,
+  .mat-checkbox-frame,
+  .mat-ripple {
+    display: none;
+  }
+  .mat-checkbox-background {
+    background-color: #8ba6b9;
+    border-radius: 16px;
+  }
+  .mat-checkbox-label {
+    z-index: 1;
+    padding: 5px 18px;
+    display: flex;
+    color: #ffffff;
+    font-size: 14px;
+    letter-spacing: 0.5px;
+    width: 100%;
+    img {
+      filter: brightness(500%);
+    }
+  }
+}
+::ng-deep .rituals.mat-checkbox-checked .mat-checkbox-background {
+  background: linear-gradient(180deg, #ffca77 0%, #d0963c 100%) !important;
+}
+.rituals-cat {
+  width: auto;
+}

@@ -1,0 +1,49 @@
+<h2 class="f-18 m-0 mb-24 filter-heading">Filter</h2>
+<form [formGroup]="rewardFilterFormGroup">
+<div class="half-input f-left">
+    <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Start Date</mat-label>
+        <input matInput  formControlName="startDate"  (focus)="startDate.open()"  [matDatepicker]="startDate"(dateChange)="onStartDateSlect($event.value)" readonly>
+        <mat-datepicker-toggle   matSuffix [for]="startDate" class="date-icon">
+            <mat-icon matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #startDate  ></mat-datepicker>
+    </mat-form-field>
+</div>
+
+<div class="half-input f-right">
+    <mat-form-field class="w-100" appearance="outline">
+        <mat-label>End Date</mat-label>
+        <input [min]="minDate"  (focus)="endDatePicker.open()" formControlName="endDate" matInput [matDatepicker]="endDatePicker" (dateChange)="onendDateSlect($event.value)"  readonly>
+        <mat-datepicker-toggle matSuffix [for]="endDatePicker" class="date-icon">
+            <mat-icon matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+        </mat-datepicker-toggle>
+        <mat-datepicker #endDatePicker></mat-datepicker>
+    </mat-form-field>
+</div>
+
+<mat-form-field class="w-100 mb-20" appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select [(value)]="status">
+        <mat-option *ngFor="let status of statuses" [id]="status.id" [value]="status.value">{{status.value}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<div class="mb-auto-30">
+    <button (click)="removeFilterData()" mat-dialog-close="clear" type="button" class="auth-button-80 fw-400"
+        mat-button color="primary">CLEAR</button>
+    <div class="f-right">
+        <button [mat-dialog-close] type="button" class="auth-button-80 mr-10 fw-400" mat-button
+            color="primary">CANCEL</button>
+        <button mat-dialog-close="save" (click)="applyFilter()" type="submit" class="auth-button-80 fw-400"
+            mat-flat-button color="primary">
+            <mat-spinner *ngIf="false" class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+            <span>APPLY</span>
+        </button>
+    </div>
+</div>
+
+</form>
+<ng-template #loadSpinner>
+    <mat-spinner color="primary" class="filter-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

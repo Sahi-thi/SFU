@@ -1,0 +1,151 @@
+<div class="appointments-main h-100">
+
+    <div class="table-tabs c-pointer o-hide d-i-block mt-20">
+        <button mat-flat-button class="f-14 fw-400" color="primary" (click)="onClickRegisteredAppointments()">
+            Registered User
+        </button>
+        <button mat-flat-button class="f-14 fw-400" (click)="onClickUnregisteredAppointments()">
+            Unregistered User
+        </button>
+    </div>
+
+    <div class="h-70 mb-auto-20">
+        <div class="table-header" *ngIf="this.searchString || this.service || this.status || this.appointment">
+            <div class="make-relative">
+                <input #input autocomplete="off" class="search-for-list mr-30"
+                    placeholder="Search for Client Name and Email" (keyup)="searchSalon($event.target.value)"
+                    [(value)]="searchString">
+                <mat-icon *ngIf="!searchString" class="search-icon" color="primary" aria-hidden="false"
+                    aria-label="search">
+                    search </mat-icon>
+                <mat-icon (click)="clearSearch()" *ngIf="searchString" class="search-icon" color="primary"
+                    aria-hidden="false" aria-label="close">close</mat-icon>
+            </div>
+
+
+            <div class="switch mt-30 i-flex">
+                <div class="tab flex align-center tab-sel"
+                    [routerLink]='["/home/salons/salon/" + salonId + "/appointments"]'>
+                    <mat-icon aria-label="menu">menu</mat-icon>
+                </div>
+                <div class="tab flex align-center tab-unsel" [routerLink]='["calendar-view"]'>
+                    <mat-icon aria-label="calender">today</mat-icon>
+                </div>
+            </div>
+
+            <div class="margin-left-auto flex">
+                <button onclick="this.blur()" #appFilter (click)="openFilter()" class="filter-icon" mat-icon-button
+                    color="primary">
+                    <div [inlineSVG]="'assets/filter.svg'"></div>
+                </button>
+
+                <button class="btn-shadow fw-400" [routerLink]='["create"]' type="button" mat-flat-button
+                    color="primary">
+                    <mat-spinner *ngIf="false" class="auth-spinner" strokeWidth="3" diameter='31'></mat-spinner>
+                    <span>CREATE APPOINTMENT</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isLoadingAPI&& !isAppointmentEmpty" class="table-card">
+        <table mat-table [dataSource]="appointmentDataSource">
+            <ng-container matColumnDef="avatar">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" class="c-pointer w-70">
+                    <img *ngIf="element.client_thumb_url !== '' else emptyImage" class="appointment-avatar"
+                        alt="avatar" src={{element.client_thumb_url}} loading="lazy" />
+                    <ng-template #emptyImage>
+                        <div class="table-empty-profile flex align-center">
+                            <div [inlineSVG]="'assets/empty_user.svg'"></div>
+                        </div>
+                    </ng-template>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="client_name">
+                <th mat-header-cell *matHeaderCellDef> Client Name </th>
+                <td mat-cell *matCellDef="let element" class="appointment-name pr-20 f-16 c-pointer">
+                    {{element.client_name}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element" class="appointment-email pr-20 f-16 c-pointer">
+                    {{element.client_email}}
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="phone_number">
+                <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+                <td mat-cell *matCellDef="let element" class="appointment-phone pr-20 f-16 c-pointer">
+                    {{formate.transform(element.client_number, 'US')}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="date">
+                <th mat-header-cell *matHeaderCellDef> Date &amp; Time </th>
+                <td mat-cell *matCellDef="let element" class="appointment-date pr-20 f-16 c-pointer">
+                    {{element.date| date :'MM/dd/yyyy'}}, {{element.time}}</td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element" class="appointment-status pr-20 f-16 c-pointer">
+                    {{element.status}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="edit">
+                <th mat-header-cell *matHeaderCellDef> </th>
+                <td (click)="openEditMenu()" mat-cell *matCellDef="let element"
+                    [routerLink]='[element.appointment_id +"/edit"]' class="w-40">
+                    <svg class="edit-icon" width="24px" height="24px" viewBox="0 0 24 24" version="1.1"
+                        xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+                        <path
+                            d="M3,17.46 L3,20.5 C3,20.78 3.22,21 3.5,21 L6.54,21 C6.67,21 6.8,20.95 6.89,20.85 L17.81,9.94 L14.06,6.19 L3.15,17.1 C3.05,17.2 3,17.32 3,17.46 Z M20.71,7.04 C21.1,6.65 21.1,6.02 20.71,5.63 L18.37,3.29 C17.98,2.9 17.35,2.9 16.96,3.29 L15.13,5.12 L18.88,8.87 L20.71,7.04 Z"
+                            fill="#6E6E6E"></path>
+                    </svg>
+                </td>
+            </ng-container>
+
+            <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+            <tr (click)="navigateToAppointmentDetails()" [routerLink]='[row.appointment_id+"/details"]' mat-row
+                *matRowDef="let row; columns: displayedColumns;">
+            </tr>
+        </table>
+    </div>
+
+    <div class="o-hide">
+        <mat-paginator *ngIf="!isLoadingAPI && !isAppointmentEmpty" class="table-paginator mb-auto-20 f-14"
+            [pageSize]="offset" [pageIndex]="currentPage - 1" [length]="metaData.total" [hidePageSize]="true"
+            showFirstLastButtons (page)="loadNextData($event)"></mat-paginator>
+    </div>
+
+    <div *ngIf="isAppointmentEmpty&&!isLoadingAPI" class="flex align-center empty-data-box">
+        <div>
+            <div class="empty-data-icon flex align-center mb-auto-40">
+                <div [inlineSVG]="'assets/appointments.svg'"></div>
+            </div>
+            <ng-container
+                *ngIf="this.searchString || this.service || this.status || this.appointment else createAppointment">
+                <h2 class="f-18 empty-heading mb-auto-20">No Appointments Added</h2>
+            </ng-container>
+            <ng-template #createAppointment>
+                <h2 class="f-18 empty-heading mb-auto-20">No Appointments Found</h2>
+                <p class="f-16 empty-para mb-auto-40">There are no appointments created. Please click on Create
+                    Appointment
+                    button below to create appointment</p>
+                <button class="btn-shadow fw-400 d-block m-auto mb-20" [routerLink]='["create"]' type="button"
+                    mat-flat-button color="primary">
+                    <span>CREATE APPOINTMENT</span>
+                </button>
+            </ng-template>
+        </div>
+    </div>
+
+    <div *ngIf="isLoadingAPI">
+        <app-table-loading [skeletonHead]='skeletonHead' [skeletonColumn]='skeletonColumn' [isEditDelete]=true>
+        </app-table-loading>
+    </div>
+
+</div>

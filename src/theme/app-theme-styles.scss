@@ -1,0 +1,202 @@
+@import "~@angular/material/theming";
+
+@mixin app-theme-styles($element-theme) {
+  $primary: map-get($element-theme, primary);
+  $accent: map-get($element-theme, accent);
+  $warn: map-get($element-theme, warn);
+
+  .disable-color, .product-desp, .routine-date-picker input, .print-cont, .product-line-edit p, .product-line-card div, .product-heading span, .content .heading, .delete-success, .delete-appointment {
+    color: mat-contrast($accent, 100);
+  }
+  .product-line-edit {
+    background-color: mat-contrast($primary, 400);
+  }
+  .search-input, .uploaded-file {
+    background-color: mat-color($primary, 100);
+  }
+  .salon-side-nav {
+    background-color: mat-color($primary, 50);
+  }
+  .heading-bold, .filter-heading{
+    color: mat-contrast($accent, 100);
+  }
+  // .input-label {
+  //   color: mat-contrast($accent, 150);
+  // }
+  // .mat-form-field.mat-focused .input-label {
+  //   color: mat-color($primary, 50);
+  // }
+  .edit-icon:hover path, .delete-icon:hover path, .mat-paginator-icon:hover path {
+    fill: mat-color($primary, 50);
+  }
+  .chat-icon:hover {
+    color: mat-color($primary, 50);
+  }
+  .auth-spinner circle {
+    stroke: mat-contrast($primary, 50);
+  }
+  .login-right {
+    &:before {
+      background-color: mat-color($accent, 150);
+    }
+  }
+  .error-text {
+    color: mat-color($warn, 50);
+  }
+  .error-block {
+    color: mat-color($warn, 50);
+    border-color: mat-color($warn, 50);
+    background-color: mat-contrast($warn, 50);
+  }
+  .login-para, .form-heading, .input-color, .mat-form-field input, .client-address mat-icon, .search-product-icon, .uploaded-file {
+    color: mat-contrast($primary, 150);
+  }
+  .uploaded-file {
+    border-color: mat-contrast($primary, 150);
+  }
+  .table-card .mat-header-cell {
+    color: mat-color($accent, 200);
+  }
+  .table-card .mat-cell, .client-address, .client-content, .add-note-title {
+    color: mat-contrast($accent, 100);
+  }
+  .table-card .mat-cell.deactivate {
+    color: mat-contrast($accent, 350);
+  }
+  .inactive-opacity { 
+    opacity: 0.4;
+  }
+  .table-card .mat-cell, .table-card .mat-header-cell {
+    border-bottom-color: mat-contrast($accent, 200);
+  }
+  .table-card table , .table-card {
+    border-color: mat-contrast($accent, 200);
+    background-color: mat-color($accent, 50);
+  }
+  .table-paginator, .product-paginator {
+    color: mat-color($primary, 150);
+    border-color: mat-color($primary, 200);
+  }
+  .add-salon-header h3, .daily-words-main h3, .add-daily-main h3, .or-text, .select-heading {
+    color: mat-contrast($primary, 200);
+  }
+  .upload-wrapper  {
+    border-color: mat-color($primary, 50);
+    color: mat-color($primary, 50);
+  }
+  .upload-image {
+    border-color: mat-contrast($primary, 100);
+  }
+  .play {
+    background-color: mat-color($accent, 200);
+  }
+  .empty-data-icon, .empty-servicesProduct-icon {
+    // background-color: rgba(139, 166, 185, 0.2);
+    background-color: mat-color($primary, 100);
+  }
+  .switch {
+    background-color: mat-contrast($primary, 50);
+  }
+  
+  .salon-inner-header, .pdf-viewer .content {
+    // background-color: rgba(139, 166, 185, 0.2);
+    background-color: mat-contrast($primary, 50);
+  }
+  // .empty-data-icon {
+  //   background-color: mat-contrast($primary, 50);
+  // }
+  .salon-inner-header, .empty-heading, .empty-para, .print-cont span, .print-date, .added-tag, .product-list, .product-desp, .product-menu, .menu-icon, .content .date, .content .description, .appointment-status, .empty-servicesProduct-heading, .notes-content {
+    color: mat-contrast($primary, 100) !important;
+  }
+  .added-tag {
+    background-color: mat-color($warn, 150);
+  }
+  .details-labels, .product-desp span, .accordion-heading small {
+    color: mat-contrast($accent, 300);
+  }
+  .details-cont, .routine-date-picker input::placeholder, .deleteServiceProduct .content, .notes-card h4 {
+    color: mat-color($accent, 250);
+  }
+  .salon_main, .details-main, .table-empty-profile, .add-salons-main, .client-empty-profile {
+    background-color: mat-contrast($primary, 250);
+  }
+  .bg-color {
+    background-color: mat-contrast($primary, 300);
+  }
+  .empty-avatar, .empty-profile, .routine-empty-product {
+    border-color: mat-color($primary, 50);
+  }
+  .mat-form-field input::placeholder {
+    color: mat-contrast($accent, 150);
+  }
+  .search-for-list {
+    background-color: mat-color($primary, 100);
+    color: mat-contrast($primary, 100);
+  }
+  .red-border {
+    border-color: mat-color($warn, 50);
+  }
+  .add-color-svg::after {
+    border-color: mat-color($primary, 250);
+  }
+  .fullscreen-loader {
+    background-color: mat-contrast($accent, 300);
+    .su-color {
+      color: mat-color($primary, 50);
+    }
+  }
+  // .provider-status {
+    // background-color: mat-color($warn, 100);
+    // color: mat-contrast($warn, 100);
+  // }
+  .status-active {
+    background-color: mat-color($warn, 100);
+    color: mat-contrast($warn, 100);
+  }
+  .status-inactive {
+    background-color: mat-contrast($warn,50);
+    color: mat-color($warn,50);
+  }
+  .accordion-content, .routine-spinner {
+    border-color: mat-contrast($accent, 400);
+  }
+  .product-name, .accordion-heading {
+    color: mat-color($accent, 350);
+  }
+  .feeling-desp {
+    color: mat-contrast($primary, 350);
+  }
+  .my-nav-item[color=accent]:hover {
+    background: mat-contrast($accent, 450);
+  }
+  .product-list-details {
+    border-color: mat-contrast($accent, 250);
+  }
+  .product-list-price p {
+    color: mat-contrast($primary, 200);
+  }
+  .appointment-category {
+    background-color: mat-color($primary,300);
+  }
+  .date-block, .chart-date-block {
+    button {
+      background-color: mat-color($accent,50);
+      color: mat-contrast($primary,100);
+    }
+    p {
+      color: mat-color($accent,250);
+    }
+  }
+  .date-block button:hover {
+    background-color: rgba(139, 166, 185, 0.15);
+  }
+  .pdf-viewer .header a {
+    color: mat-contrast($primary,50);
+  }
+  // .online .status {
+  //   background-color: mat-color($warn,200);
+  // }
+  // .offline .status {
+  //   background-color: mat-contrast($warn,150);
+  // }
+}

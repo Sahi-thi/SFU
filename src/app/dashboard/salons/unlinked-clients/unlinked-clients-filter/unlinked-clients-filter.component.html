@@ -1,0 +1,20 @@
+<h2 class="f-18 mb-auto-40 filter-heading">Filter</h2>
+
+<mat-form-field class="w-100 mb-auto-20" appearance="outline">
+    <mat-label>Status</mat-label>
+    <mat-select [(value)]="selectedStatus">
+        <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.value}}</mat-option>
+    </mat-select>
+</mat-form-field>
+
+<div class="mb-auto-30">
+    <button (click)="removeFilterData()" type="button" class="auth-button-80 fw-400" mat-button
+        color="primary">CLEAR</button>
+    <div class="f-right">
+        <button [mat-dialog-close] type="button" class="auth-button-80 mr-10 fw-400" mat-button
+            color="primary">CANCEL</button>
+        <button (click)="applyFilter()" type="submit" class="auth-button-80 fw-400" mat-flat-button color="primary">
+            APPLY
+        </button>
+    </div>
+</div>  

@@ -1,0 +1,37 @@
+@import "../../../../../theme/deep-styles.scss";
+
+.add-rewards-main {
+    max-width: 640px;
+    width: 90%;
+}
+.heading-block {
+    min-height: 37px;
+}
+.add-rewards-main h3 {
+    font-weight: 500;
+    line-height: 37px;
+}
+.add-section {
+    padding: 35px 40px 20px;
+}
+.add-section::after {
+    display: block;
+    content: '';
+    clear: both;
+}
+.half-input {
+    width: calc(50% - 8px);
+    @media screen and (max-width: 430px) {
+        width: 100%;
+    }
+}
+::ng-deep .date-icon button.mat-icon-button {
+    margin-right: -10px;
+    .mat-button-focus-overlay {
+        opacity: 0;
+    }
+}
+// ::ng-deep .percent .mat-form-field-suffix {
+//     right: inherit;
+//     left: 25px;
+// }

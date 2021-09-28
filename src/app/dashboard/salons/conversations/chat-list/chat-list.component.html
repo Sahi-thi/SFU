@@ -1,0 +1,81 @@
+<div class="search-block card-shadow flex align-seperate make-relative" [formGroup]="searchUsersListForm">
+
+    <input [ngStyle]="{display : (userRole=== 'SA') ? 'none':'' }" aria-label="Number"
+        formControlName="searchInputControl" matInput placeholder="Search..." class="search-for-list w-100 f-14"
+        [matAutocomplete]="auto">
+    <mat-autocomplete class="search-dropdown" (optionSelected)="userSelect($event.option)" #auto="matAutocomplete"
+        [displayWith]="displayFn">
+        <mat-option *ngFor="let user  of userList" [id]="user.quickblox_id" [value]="user" [disabled]=user.disable
+            style="height:50px">
+
+            <div class="profile-pic">
+                {{user.name}}
+            </div>
+        </mat-option>
+        <mat-option disabled *ngIf="isSearchListEmpty">
+            No Users found
+        </mat-option>
+    </mat-autocomplete>
+
+    <div [ngStyle]="{display : (userRole === 'SA') ? 'none':'' }" class="search-icon c-pointer">
+        <mat-icon *ngIf="!isSearchListLoading" aria-hidden="false" color="accent" aria-label="search">search
+        </mat-icon>
+        <mat-spinner *ngIf="isSearchListLoading" color="accent" strokeWidth="3" diameter='25'></mat-spinner>
+    </div>
+    <mat-progress-bar *ngIf="isChatUsersListLoading" mode="indeterminate" class="horizontal-progress w-100">
+    </mat-progress-bar>
+
+</div>
+
+
+<div class="chatters o-auto">
+    <div *ngIf="!isChatListEmpty" class="mt-20 h-100 flex align-center">
+        No Conversations available
+    </div>
+    <ng-container *ngFor="let chat of chats">
+        <div (click)="openChat(chat);" [ngClass]="{'active': (chat._id === selectedChat)? true:false}"
+            class="chat-list-item c-pointer online new">
+
+            <div class="person-details w-100">
+
+                <div class="messages-block flex align-seperate o-hide mb-10">
+                    <div class="f-16 candet mr-10 o-hide w-100">{{chat.name}}</div>
+                    <div class="f-12 time" *ngIf="chat.last_message_date_sent">
+                        {{chat.last_message_date_sent | DateAgoPipe }}
+                    </div>
+                </div>
+                <div class="time-block flex align-seperate o-hide">
+                    <div class="message-dark f-14 mr-10 o-hide w-100 flex align-left"
+                        *ngIf="chat.last_message && chat.unread_messages_count>0">
+                        <mat-icon *ngIf="chat.last_message.toLowerCase() === 'image' " class="f-24 mr-10 camer-icon">
+                            camera_alt </mat-icon>
+
+                        <mat-icon *ngIf="chat.last_message.toLowerCase() === 'pdf' " class="f-24 mr-10 camer-icon">
+                            picture_as_pdf </mat-icon>
+                        <span class="ellipse-class"> {{chat.last_message }} </span>
+                    </div>
+                    <div class="message-light f-14 mr-10 o-hide w-100 flex align-left"
+                        *ngIf="chat.last_message && chat.unread_messages_count == 0">
+                        <mat-icon *ngIf="chat.last_message.toLowerCase() === 'image' " class="f-24 mr-10 camer-icon">
+                            camera_alt </mat-icon>
+
+                        <mat-icon *ngIf="chat.last_message.toLowerCase() === 'pdf' " class="f-24 mr-10 camer-icon">
+                            picture_as_pdf </mat-icon>
+
+                        <span class="ellipse-class"> {{chat.last_message }} </span>
+                    </div>
+
+                    <div class="message-count f-12 t-center"
+                        *ngIf="chat.unread_messages_count && chat.unread_messages_count>0">
+                        {{chat.unread_messages_count}}
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+    </ng-container>
+
+
+</div>

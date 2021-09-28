@@ -1,0 +1,130 @@
+.client-main-block {
+    max-width: 700px;
+    width: 90%;
+}
+.mb-10 {
+    margin-bottom: 10px;
+}
+
+.client-accordion {
+    min-height: 120px !important;
+    padding: 0 30px;
+    mat-panel-title {
+        flex-flow: wrap;
+    }
+    &:hover {
+        background: transparent !important;
+    }
+}
+
+.accordion-icon {
+    border-radius: 50%;
+    padding: 6px;
+}
+.accordion-content {
+    border-width: 2px 0 0;
+    border-style: solid;
+    padding: 30px 30px 40px;
+}
+.routine-spinner {
+    height: 150px;
+    border-width: 2px 0 0;
+    border-style: solid;
+}
+.accordion-heading small {
+    font-weight: 500;
+}
+.product-name {
+    line-height: 16px;
+    font-weight: 500;
+}
+.product-image {
+    width: 40px;
+    img {
+        width: 40px;
+        height: 40px;
+        object-fit: cover;
+    }
+}
+.routine-empty-product {
+    height: 40px;
+    width: 40px;
+    border-width: 1px;
+    border-style: dashed;
+    img {
+        width: 60%;
+        height: 60%;
+    }
+}
+.product-desp span {
+    display: block;
+    margin-top: 4px;
+}
+.feeling-desp {
+    letter-spacing: 0.4px;
+    line-height: 22px;
+    display: inline;
+}
+.selfie-pic img {
+    width: 60px;
+    height: 60px;
+    object-fit: cover;
+    border-radius: 3px;
+}
+.form-heading {
+    font-weight: 500;
+}
+
+::ng-deep .mat-expansion-panel-body {
+    padding: 0 !important;
+}
+::ng-deep .mat-expansion-indicator {
+    padding: 7px 14px 11px;
+    border-radius: 50%;
+    box-shadow: 0 0 2px 0 rgba(0,0,0,0.12), 0 2px 2px 0 rgba(0,0,0,0.24);
+}
+::ng-deep .mat-expanded .mat-expansion-indicator {
+    box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 -2px 2px 0 rgba(0, 0, 0, 0.24);
+}
+
+.routine-date-picker {
+    margin-top: -66px;
+    float: right;
+    @media screen and (max-width: 660px) {
+        margin-top: 0;
+    }
+    
+}
+
+.routine-date-picker input,
+.routine-date-picker input::placeholder {
+    font-weight: 500;
+    line-height: 18px;
+    color: #757575;
+}
+::ng-deep .routine-date-picker button {
+    position: relative;
+}
+::ng-deep .routine-date-picker .mat-form-field-wrapper {
+    padding-bottom: 20px;
+    width: 126px;
+}
+::ng-deep .routine-date-picker .mat-form-field-flex {
+    border-radius: 1px !important;
+    padding: 0 0 0 10px !important;
+    background-color: #FFFFFF !important;
+    display: flex;
+    align-items: center;
+    height: 36px;
+}
+
+::ng-deep .routine-date-picker .mat-form-field-infix {
+    border-top: 0;
+    padding: 0;
+}
+
+::ng-deep .routine-date-picker .mat-form-field-underline,
+::ng-deep .routine-date-picker .mat-form-field-subscript-wrapper,
+::ng-deep .routine-date-picker .mat-button-focus-overlay {
+    display: none;
+}

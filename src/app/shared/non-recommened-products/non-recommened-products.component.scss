@@ -1,0 +1,17 @@
+.client-name {
+    padding: 24px 0 24px 40px;
+    border-bottom: 1.5px solid rgba(0,0,0,0.1);
+}
+.client-list {
+    padding: 20px 30px 40px 40px;
+    border-bottom: 1.5px solid rgba(0,0,0,0.1);
+    letter-spacing: 0.35px;
+    line-height: 22px;
+}
+.client-submit {
+    padding: 28px 40px;
+    button {
+        line-height: 19px;
+        padding: 0;
+    }
+}

@@ -1,0 +1,18 @@
+.chart-bottom-sec {
+    width: 90%;
+    max-width: 1080px;
+    gap: 20px;
+}
+.ova-charts {
+    width: 50%;
+}
+
+@media screen and (max-width: 900px) {
+    .ova-charts {
+        width: 100%;
+    }
+    .chart-bottom-sec {
+        gap: 0;
+        flex-flow: wrap;
+    }
+}

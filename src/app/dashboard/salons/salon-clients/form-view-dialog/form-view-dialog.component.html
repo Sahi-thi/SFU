@@ -1,0 +1,15 @@
+<div class="pdf-viewer m-auto">
+    <div class="header flex align-seperate">
+        <div>Form Name DDDv #</div>
+        <div>1/4</div>
+        <div>
+            <a [href]='fileName' target="_blank" rel="noopener">
+                <mat-icon class="mr-20 c-pointer">save</mat-icon>
+            </a>
+            <mat-icon class="c-pointer" [mat-dialog-close]>close</mat-icon>
+        </div>
+    </div>
+    <div class="content">
+        <pdf-viewer [src]='fileName' [render-text]="true" [original-size]="false" style="display: block;"></pdf-viewer>
+    </div>
+</div>

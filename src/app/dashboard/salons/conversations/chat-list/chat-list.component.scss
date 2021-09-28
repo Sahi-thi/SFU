@@ -1,0 +1,203 @@
+.search-block {
+  height: 64px;
+  border-radius: 2px;
+  background-color: #90adc1;
+  position: sticky;
+  top: 0;
+  z-index: 2;
+}
+
+.search-for-list {
+  border: 0px;
+  color: #ffffff;
+  caret-color: #ffffff;
+  width: 100%;
+  padding: 0 45px 0 20px;
+  box-sizing: border-box;
+  // line-height: 64px;
+
+  &:focus {
+    outline: 0px;
+  }
+
+  &::placeholder {
+    color: #ffffff;
+  }
+}
+
+.search-icon {
+  margin-right: 10px;
+  opacity: 0.8;
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+::ng-deep .mat-option {
+  border-bottom: 1px solid #cccccc;
+}
+
+.profile-pic {
+  display: flex;
+  align-items: center;
+
+  img {
+    border-radius: 3px;
+    object-fit: cover;
+  }
+}
+
+.no-profile {
+  font-size: 50px;
+  height: 50px;
+  width: 50px;
+  color: #6e6e6e;
+}
+::ng-deep .search-dropdown .mat-option {
+  height: 65px !important;
+}
+
+.chat-list-item.active {
+  background-color: #f6fbff;
+  border-right: 1px solid rgba(0, 0, 0, 0.1);
+}
+
+.chat-list-item {
+  height: 84px;
+  padding: 20px;
+  box-sizing: border-box;
+
+  &:hover {
+    background-color: #f6fbff;
+    border-right: 1px solid rgba(0, 0, 0, 0.1);
+  }
+
+  .profile-pic {
+    height: 50px;
+    width: 50px;
+
+    img {
+      object-fit: cover;
+      border-radius: 50%;
+    }
+
+    .no-profile {
+      font-size: 56px;
+      margin: -4px 0 0 -4px;
+      color: #6e6e6e;
+    }
+
+    .status {
+      height: 10px;
+      width: 10px;
+      border-radius: 50%;
+      border: 1px solid #ffffff;
+      position: absolute;
+      top: 3px;
+      right: 0;
+    }
+  }
+}
+
+.person-details {
+  color: #000000;
+  font-weight: 500;
+  line-height: 19px;
+  // width: calc(100% - 60px);
+  justify-content: space-between;
+  min-height: 45px;
+
+  .candet {
+    min-height: 19px;
+  }
+  .message {
+    color: #6e6e6e;
+    line-height: 16px;
+    font-weight: 400;
+  }
+
+  .message-dark {
+    color: #000000;
+    line-height: 16px;
+    font-size: 14px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .message-light {
+    color: #6e6e6e;
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 300;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  .ellipse-class {
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+    width: 340px;
+  }
+
+  .ellipse-class::first-letter {
+    text-transform: capitalize;
+  }
+
+  // .messages-block {
+  //   flex-direction: column;
+  //   align-items: flex-start;
+  // }
+
+  .time {
+    color: #6e6e6e;
+    line-height: 19px;
+    font-weight: 400;
+    white-space: nowrap;
+  }
+
+  // .time-block {
+  //   flex-direction: column;
+  //   align-items: flex-end;
+  // }
+
+  .message-count {
+    background-color: #efa586;
+    color: #ffffff;
+    line-height: 14px;
+    padding: 3px;
+    border-radius: 4px;
+    min-width: 14px;
+  }
+}
+
+.chat-list-item.new .message {
+  color: #000000;
+  font-weight: 500;
+}
+
+.person-details .candet,
+.person-details .message {
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.horizontal-progress {
+  position: absolute;
+  bottom: 0;
+}
+
+::ng-deep .horizontal-progress .mat-progress-bar-buffer {
+  background-color: #efa586;
+}
+
+.chatters {
+  height: calc(100% - 64px);
+}

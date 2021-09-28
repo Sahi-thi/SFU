@@ -1,0 +1,274 @@
+<div class="p-relative h-100">
+    <form *ngIf="!isLoadingAPI; else salonSpinner" [formGroup]="salonFormGroup"
+        class="add-salons-main p-t-30 mb-auto-20">
+        <div *ngIf="isUploadingImages" class="fullscreen-loader">
+            <div class="loader">
+                <h3 class="su-color t-center"> {{uploadSuccessMessages}} </h3>
+                <mat-spinner class="m-auto loader-size" color="primary" strokeWidth="4"></mat-spinner>
+                <h3 class="progress-value"> {{progressValue}} % </h3>
+            </div>
+        </div>
+
+        <div class="f-right flex">
+            <button type="button" (click)="onClickGoBack()" class="auth-button-80 mr-10 fw-400" mat-button
+                color="primary">CANCEL</button>
+            <button (click)="onSubmit()" type="submit" class="auth-button-80 btn-shadow fw-400" mat-flat-button
+                color="primary">
+                <mat-spinner *ngIf="isSalonAPI" class="auth-spinner" strokeWidth="3" diameter='31'></mat-spinner>
+                <span *ngIf="!isSalonAPI"> {{btnTitle}} </span>
+            </button>
+        </div>
+
+
+        <h3 class="f-20 mb-auto-20"> {{salonTitle}} </h3>
+
+        <mat-card class="add-section mb-auto-20 card-shadow">
+            <mat-error class="pb-30"> {{responseMessage}} </mat-error>
+            <div class="cover-image-wrapper mb-auto-30 make-relative o-hide">
+                <div class="upload-wrapper h-100 make-relative">
+                    <span *ngIf="imgURL === null || imgURL === ''; else showImage "
+                        class="make-center t-center">Upload<br>Logo</span>
+                    <input formControlName="salon_logo_s3_key_id" #inputLogo (change)="onClickUploadSalonLogo($event)"
+                        class="h-100 w-100 glass make-absolute c-pointer" type="file" accept=".png,.jpg,.jpeg" />
+                    <ng-template #showImage>
+                        <img loading="lazy" (click)="inputLogo.open()" src={{imgURL}}
+                            alt="avatar" class="preview-image h-100 w-100" />
+                    </ng-template>
+                </div>
+            </div>
+            <p class="mb-auto-30 f-12 form-heading">Studio Information</p>
+
+            <div class="w-100 clear">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Studio Name</mat-label>
+                    <input formControlName="name" placeholder="Studio Name" matInput type="text" autocomplete="off">
+                </mat-form-field>
+            </div>
+            <div class="w-100 clear">
+                <mat-form-field class="w-100 " appearance="outline">
+                    <mat-label>Phone Number</mat-label>
+                    <input id='tel' [preValue]="salonFormGroup?.value?.phone_number" maxlength="14"
+                        [phoneControl]="salonFormGroup?.controls['phone_number']" appPhoneNumberFormat
+                        formControlName="phone_number" placeholder="Phone Number" matInput type="tel">
+                </mat-form-field>
+            </div>
+
+            <div class="w-100 clear">
+                <mat-form-field class="w-100 " appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input formControlName="email" placeholder="email" matInput type="text">
+                    <mat-error
+                        *ngIf="!salonFormGroup.hasError('required','email') && salonFormGroup.hasError('pattern','email')">
+                        Enter valid email</mat-error>
+                </mat-form-field>
+            </div>
+
+            <div formArrayName="owners">
+                <div *ngFor="let owner of salonFormGroup.get('owners')['controls'];let i=index;">
+                    <p class="mb-auto-30 mt-20 f-12 form-heading flex align-seperate clear">
+                        Owner Information <mat-icon *ngIf="i > 0 && (btnTitle === 'ADD') " (click)="removeOwner(i)"
+                            class="f-20 cancel ">
+                            cancel
+                        </mat-icon>
+                        <mat-icon *ngIf="btnTitle === 'SAVE' && salon.owners.length <  i+1" (click)="removeOwner(i)"
+                            class="f-20 cancel "> cancel
+                        </mat-icon>
+                    </p>
+
+                    <div [formGroupName]="i">
+                        <div class="half-input f-left">
+                            <mat-form-field class="w-100" appearance="outline">
+                                <mat-label>Owner Name</mat-label>
+                                <input formControlName="salon_owner_name" placeholder="Owner Name" matInput type="text"
+                                    autocomplete="off">
+                            </mat-form-field>
+                        </div>
+                        <div class="half-input f-right">
+                            <mat-form-field class="w-100 " appearance="outline">
+                                <mat-label>Status</mat-label>
+                                <mat-select formControlName="status">
+                                    <mat-option *ngFor="let status of statuses" [value]="status.value">
+                                        {{status.value}}
+                                    </mat-option>
+                                </mat-select>
+                            </mat-form-field>
+                        </div>
+
+                        <div class="w-100 ">
+                            <mat-form-field class="w-100 " appearance="outline">
+                                <mat-label>Email</mat-label>
+                                <input formControlName="email" placeholder="email" matInput type="text">
+                                <mat-error
+                                    *ngIf="!salonFormGroup.hasError('required','email') && salonFormGroup.hasError('pattern','email')">
+                                    Enter valid email</mat-error>
+                            </mat-form-field>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+            <div class="w-100 clear mb-auto-30" appearance="outline">
+
+                <button type="button" mat-raised-button color="primary" class="w-100 f-16 fw-400 addOwnerBtn"
+                    (click)="addOwnerFormGroup()">
+                    <mat-icon>add</mat-icon>
+                    Add Owner
+                </button>
+            </div>
+
+            <mat-form-field class="w-100 clear" appearance="outline">
+                <mat-label>Address</mat-label>
+                <input (input)="getGeoLocation($event.target.value)" formControlName="address" placeholder="Address"
+                    matInput type="text" autocomplete="off">
+                <div *ngIf="isLatLng" class="f-12 error-text">Enter valid Address</div>
+            </mat-form-field>
+
+            <div class="half-input f-left">
+                <mat-form-field class="w-100 " appearance="outline">
+                    <mat-label>City</mat-label>
+                    <input formControlName="city" placeholder="City" matInput type="text" autocomplete="off">
+                    <mat-error *ngIf="false">Email is mandatory</mat-error>
+                    <mat-error *ngIf="false">Enter valid email</mat-error>
+                </mat-form-field>
+            </div>
+
+
+            <mat-form-field class="half-input f-right" appearance="outline">
+                <mat-label>State</mat-label>
+                <input type="text" aria-label="Number" matInput formControlName="state"
+                    (keyup)="searchState($event.target.value)" [matAutocomplete]="auto">
+                <mat-autocomplete [displayWith]="displayContactFn" #auto="matAutocomplete">
+                    <mat-option *ngFor="let state of states"
+                        (onSelectionChange)="onSelectionChanged($event,state.state_name)" [id]="state.state_id"
+                        [value]="state.state_id">
+                        {{state.state_name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+
+            <div class="half-input f-left">
+                <mat-form-field class="w-100 " appearance="outline">
+                    <mat-label>Zip Code</mat-label>
+                    <input (keypress)="numberOnly($event)" maxlength="5" formControlName="zipcode"
+                        placeholder="Zip Code" matInput type="text" autocomplete="off">
+                    <mat-error *ngIf="false">Email is mandatory</mat-error>
+                    <mat-error *ngIf="false">Enter valid email</mat-error>
+                </mat-form-field>
+            </div>
+
+
+            <mat-form-field class="half-input f-right" appearance="outline">
+                <mat-label>Status</mat-label>
+                <mat-select formControlName="status" [(value)]="selectedStatus">
+                    <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="clear"></div>
+
+            <p class="mb-auto-20 f-12 mt-20 form-heading">Open days</p>
+
+            <mat-form-field class="half-input f-left" appearance="outline">
+                <mat-label>From</mat-label>
+                <mat-select formControlName="days_from">
+                    <mat-option *ngFor="let day of dayFrom" [value]="day.value">{{day.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="half-input f-right" appearance="outline">
+                <mat-label>To</mat-label>
+                <mat-select formControlName="days_to">
+                    <mat-option *ngFor="let day of dayTo" [value]="day.value">{{day.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="clear"></div>
+
+            <p class="mb-auto-20 f-12 mt-20 form-heading">Time</p>
+
+            <mat-form-field class="w-130 f-left mr-10" appearance="outline">
+                <mat-label>From</mat-label>
+                <mat-select formControlName="time_from">
+                    <mat-option #option (onSelectionChange)="onTimeFromSelect($event, time.id); "
+                        *ngFor="let time of timeFrom; let i=index" [id]="time.id" [value]="time.value">{{time.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field class="w-130 f-left" appearance="outline">
+                <mat-label>To</mat-label>
+                <mat-select formControlName="time_to">
+                    <mat-option *ngFor="let time of updatedTimeTo" [value]="time.value">{{time.value}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="clear"></div>
+
+
+            <div class="picker">
+                <div class="color-half-input mr-16 mb-auto-20 f-left make-relative">
+                    <p class="mb-auto-20 f-12 mt-20 form-heading">Primary Color</p>
+                    <input (cpInputChange)="onEventLogPrimary('cpInputChange', $event)"
+                        (cpSliderDragEnd)="onEventLogPrimary('cpSliderDragStart', $event)" class="salon-picker"
+                        [ngClass]="{'active':primaryColor!==''}" [style.background]="primaryColor"
+                        [cpAlphaChannel]="'always'" [cpOutputFormat]="'rgba'" [cpPresetColors]="primaryPresetData"
+                        [cpAddColorButton]="true" [(colorPicker)]="primaryBgColor" [cpCancelButton]="true"
+                        [cpCancelButtonText]="'CANCEL'" cpSaveClickOutside="false" [cpOKButton]="true"
+                        [cpOKButtonText]="'APPLY'" [cpPosition]="'top'" [cpCancelButtonClass]="'picker-cancel'"
+                        [cpOKButtonClass]="'picker-apply'" />
+                    <img class="add-color-svg" alt="plus" src="assets/plus.svg">
+                </div>
+                <div class="color-half-input mb-auto-20 f-left make-relative picker">
+                    <p class="mb-auto-20 f-12 mt-20 form-heading">Secondary Color</p>
+
+                    <input (cpInputChange)="onEventLogSecondary('cpInputChange', $event)"
+                        (cpSliderDragEnd)="onEventLogSecondary('cpSliderDragEnd', $event)" class="salon-picker"
+                        [ngClass]="{'active': secondaryColor!== null }" [style.background]="secondaryColor"
+                        [cpAlphaChannel]="'always'" [cpOutputFormat]="'rgba'" [cpPresetColors]="['#fff', '#8ba6b9']"
+                        [cpAddColorButton]="true" [(colorPicker)]="secondaryBgColor" [cpCancelButton]="true"
+                        [cpCancelButtonText]="'CANCEL'" cpSaveClickOutside="false" [cpOKButton]="true"
+                        [cpOKButtonText]="'APPLY'" [cpPosition]="'top'"
+                        [cpCancelButtonClass]="'btn btn-primary btn-xs picker-cancel'"
+                        [cpOKButtonClass]="'picker-apply'" />
+                    <img class="add-color-svg" src="assets/plus.svg" alt="plus">
+                </div>
+            </div>
+            <mat-error> {{validationMessage }}</mat-error>
+
+
+            <p class="mb-auto-20 mt-20 f-12 form-heading">Upload Photos/Videos</p>
+
+            <div class="upload-sec">
+
+                <div *ngFor="let media of mediaURL;  let i = index"
+                    class="upload-image mr-10 mb-10 make-relative o-hide">
+                    <img (click)="removeImg(i, media)" alt="cancel" class="cancel-icon" src="assets/cancel.svg">
+                    <video
+                        *ngIf="media.type === 'video' || media.type === '.mp4' || media.type === '.MP4' ; else mediaImage"
+                        controls class="vid-resp">
+                        <source src="{{media.file || media.salon_media_url}}" type="video/mp4">
+                    </video>
+                    <ng-template #mediaImage>
+                        <img class="img-resp" src="{{media.file || media.salon_media_url}}" alt="salon_gallery"
+                            loading="lazy">
+                    </ng-template>
+                </div>
+
+
+                <div *ngIf="!isFilesLength && mediaURL.length !== 8 "
+                    class="cover-image-wrapper make-relative o-hide mr-10 mb-10">
+                    <div class="upload-wrapper h-100 make-relative">
+                        <span class="make-center">Upload<br>Photos/Videos</span>
+                        <input accept=".png,.jpeg,.jpg, .mp4, .MP4" formControlName="salon_media_key_ids"
+                            (change)="onClickUploadMedia($event)" class="h-100 w-100 glass make-absolute c-pointer"
+                            type="file" multiple />
+                    </div>
+                </div>
+            </div>
+            <mat-error> {{mediaValidation}} </mat-error>
+
+
+        </mat-card>
+    </form>
+</div>
+<ng-template #salonSpinner>
+    <mat-spinner class="table-no-show" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

@@ -1,0 +1,44 @@
+.my-nav-list {
+    padding: 0;
+    display: flex;
+    width: max-content;
+}
+.my-nav-item {
+    font-size: 12px;
+    font-weight: 500;
+    background-color: #ffffff;
+    border-width: 0 1px 0 0;
+    border-style: solid;
+    border-color: #fafafa;
+    color: rgba(0, 0, 0, 0.8);
+    height: 36px;
+    width: 115px;
+    &:focus {
+        background-color: #FFFFFF;
+    }
+}
+::ng-deep .remove-padd.mat-list-base .mat-list-item .mat-list-item-content {
+    padding: 0;
+}
+.my-nav-item.details-active {
+    background-color: #8ba6b9;
+    color: #FFFFFF;
+    &:hover {
+        background-color: #8ba6b9;
+    }
+}
+.client-info-main {
+    max-width: 700px;
+    width: 90%;
+}
+.client-header {
+    button {
+        margin-left: -12px;
+    }
+    h3 {
+        font-weight: 500;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}

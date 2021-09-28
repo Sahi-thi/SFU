@@ -1,0 +1,378 @@
+<!-- <meta name="viewport" content="width=device-width, height=device-height, user-scalable=no" /> -->
+
+<div *ngIf="!isFormSubmitted else showSuccessMessages" class="facial-consent-main">
+    <div class="facial-consent m-auto">
+        <form [formGroup]="facialConsentFormGroup">
+            <img class="d-block m-auto mb-24" src="assets/form_logo.png" loading="lazy" alt="logo" />
+            <h3 class="f-24 m-0 mb-24">Facial Consent Form</h3>
+            <h4 class="f-16 m-0 mb-24">CONTACT INFORMATION</h4>
+            <div class="half-input f-left mb-24">
+                <label class="d-block f-14 mb-4 lh-16">First Name <span>*</span></label>
+                <mat-form-field appearance="fill" class="w-100 custom-form">
+                    <input #myInput formControlName="first_name" matInput type="text">
+                    <mat-error *ngIf="facialConsentFormGroup.hasError('required','first_name')">Please enter your
+                        First Name</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="half-input f-right mb-24">
+                <label class="d-block f-14 mb-4 lh-16">Last Name <span>*</span></label>
+                <mat-form-field appearance="fill" class="w-100 custom-form">
+                    <input matInput type="text" formControlName="last_name">
+                    <mat-error *ngIf="facialConsentFormGroup.hasError('required','last_name')">Please enter your
+                        Last Name</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="clear phone-number mb-24">
+                <label class="d-block f-14 mb-4 lh-16">Phone Number <span>*</span></label>
+                <mat-form-field appearance="fill" class="w-100 custom-form">
+                    <input matInput type="tel" formControlName="phone_number" id="tel"
+                        [preValue]="facialConsentFormGroup.value.phone_number" maxlength="14"
+                        [phoneControl]="facialConsentFormGroup.controls['phone_number']" appPhoneNumberFormat>
+                    <mat-error *ngIf="facialConsentFormGroup.hasError('required','phone_number')">Please enter valid
+                        Phone Number</mat-error>
+                    <mat-error
+                        *ngIf="!facialConsentFormGroup.hasError('required','phone_number') && facialConsentFormGroup.hasError('minlength','phone_number')">
+                        Enter the Phone Number at least 10 characters</mat-error>
+                </mat-form-field>
+            </div>
+            <div class="email mb-24">
+                <label class="d-block f-14 mb-4 lh-16">Email <span>*</span></label>
+                <mat-form-field appearance="fill" class="w-100 custom-form mb-10">
+                    <input matInput type="email" formControlName="email">
+                    <mat-error *ngIf="facialConsentFormGroup.hasError('required','email')">Email is mandatory
+                    </mat-error>
+                    <mat-error
+                        *ngIf="!facialConsentFormGroup.hasError('required','email') && facialConsentFormGroup.hasError('pattern','email')">
+                        Enter valid email</mat-error>
+                </mat-form-field>
+            </div>
+            <h4 class="f-16 m-0 mb-24">YOUR SKIN</h4>
+            <div class="mb-24">
+                <label class="d-block f-14 mb-4 lh-16">What are your skin care goals? <span>*</span></label>
+                <mat-form-field appearance="fill" class="form-textarea w-100">
+                    <textarea matInput maxlength="150" formControlName="textarea_1"></textarea>
+                    <mat-error *ngIf="facialConsentFormGroup.hasError('required','textarea_1')">Please enter some text
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mb-24">
+                <label class="d-block f-14 mb-16 lh-16">What are your skin care challenges? <span>*</span></label>
+                <mat-checkbox formArrayName="checkbox_1" class="d-block mb-16 f-14 checkbox"
+                    *ngFor="let challenge of challenges" [value]="challenge" color="primary"
+                    (change)="onCheckboxChallengesChange($event)">
+                    {{challenge}}
+                </mat-checkbox>
+            </div>
+            <div class="mb-24" *ngIf="isChecked">
+                <label class="d-block f-14 mb-4 lh-16">Please feel free to add more detail.<span>*</span> </label>
+                <mat-form-field appearance="fill" class="form-textarea w-100">
+                    <textarea matInput maxlength="150" formControlName="textarea_2"></textarea>
+                </mat-form-field>
+            </div>
+            <div class="mb-24">
+                <label class="d-block f-14 mb-16 lh-16">Have you ever had a facial or skin treatment before?
+                    <span>*</span></label>
+                <mat-radio-group formControlName="radio_1" (change)="radioChange($event)">
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                    </mat-radio-button>
+                    <mat-radio-button class="d-block f-14 radio" value="No" color="primary">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="mb-24" *ngIf="isChecked1">
+                <label class="d-block f-14 mb-4 lh-16">If yes, when? <span>*</span></label>
+                <mat-form-field appearance="fill" class="w-100 custom-form">
+                    <input matInput type="text" formControlName="input_1">
+                    <mat-error *ngIf="facialConsentFormGroup.hasError('required','input_1')">Please enter some text
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="mb-24">
+                <label class="d-block f-14 mb-16 lh-16">What skin care products do you currently use?
+                    <span>*</span></label>
+                <mat-checkbox formArrayName="checkbox_2" class="d-block mb-16 f-14 checkbox"
+                    *ngFor="let product of products" [value]="product" color="primary"
+                    (change)="onCheckboxProductsChange($event)">
+                    {{product}}
+                </mat-checkbox>
+            </div>
+            <div class="mb-24 f-14 notes lh-20" *ngIf="checkProductsArray?.length > 0">If you are seeking corrective
+                treatments please detail the SPECIFIC products
+                (BRAND & PRODUCT TYPE/NAME) you are currently using so I can best answer any questions on ingredients
+                and
+                help you meet your skin care goals. </div>
+            <div *ngFor="let product of checkProductsArray;let i=index;">
+                <div class="mb-16">
+                    <label class="d-block f-14 mb-4 lh-16">{{product}}<span> *</span></label>
+                    <mat-form-field appearance="fill" class="w-100 custom-form">
+                        <input matInput type="text" formControlName="input_{{i+2}}">
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+                <label class="d-block f-14 mb-16 lh-20">Do you/have you used Retin-A, Renova, Adapalene, Accutant,
+                    Differen,
+                    Glycolic Acid, Lactic Acid, Mandelic Acid, Retinol, or other Vitamin A derivatives?
+                    <span>*</span></label>
+                <mat-radio-group formControlName="radio_2" (change)="onVitaminChange($event)">
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="currently using" color="primary">Yes,
+                        currently using</mat-radio-button>
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="last 30 days" color="primary">Yes, but not
+                        within the last 30 days</mat-radio-button>
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="last 6 months" color="primary">Yes, but
+                        not
+                        within the last 6 months</mat-radio-button>
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="No" color="primary">No</mat-radio-button>
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="not sure" color="primary">Not sure
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="mb-24" *ngIf="isChecked2">
+                <label class="d-block f-14 mb-4 lh-20">Please specify which product or type if you answered
+                    Yes.<span>*</span>
+                </label>
+                <mat-form-field appearance="fill" class="w-100 custom-form">
+                    <input matInput type="text" formControlName="input_11">
+                    <mat-error *ngIf="facialConsentFormGroup.hasError('required','input_11')">Please enter some text
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div>
+                <label class="d-block f-14 mb-16 lh-20">Have you received any of these hair removal services in the last
+                    30
+                    days? <span>*</span></label>
+                <mat-checkbox class="d-block mb-16 f-14 checkbox" formArrayName="checkbox_3"
+                    *ngFor="let service of services" [value]="service" color="primary"
+                    (change)="onCheckboxServicesChange($event)">
+                    {{service}}
+                </mat-checkbox>
+            </div>
+            <div class="mb-24" *ngIf="isChecked3">
+                <label class="d-block f-14 mb-4 lh-20">If checked, please note last time.<span>*</span> </label>
+                <mat-form-field appearance="fill" class="w-100 custom-form">
+                    <input matInput type="text" formControlName="input_12">
+                </mat-form-field>
+            </div>
+            <div class="mb-24">
+                <label class="d-block f-14 mb-16 lh-20">Have you ever received chemical peels, laser services, or
+                    microdermabrasion
+                    treatments? <span>*</span></label>
+                <mat-radio-group formControlName="radio_3">
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="last month" color="primary">Yes, within
+                        the
+                        last month</mat-radio-button>
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="2 to 3 months" color="primary">Yes, within
+                        the
+                        last 2-3 months</mat-radio-button>
+                    <mat-radio-button class="d-block f-14 radio" value="No" color="primary">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="mb-24">
+                <label class="d-block f-14 mb-16 lh-20">Have you ever received Botox, Juvederm, or other dermal fillers
+                    in the
+                    last two weeks? <span>*</span></label>
+                <mat-radio-group formControlName="radio_4">
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                    </mat-radio-button>
+                    <mat-radio-button class="d-block f-14 radio" value="No" color="primary">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <h4 class="f-16 m-0 mb-24">YOUR HEALTH</h4>
+            <div>
+                <label class="d-block f-14 mb-16 lh-20">Have you experienced any of these health conditions in the past
+                    or
+                    present? <span>*</span></label>
+                <mat-checkbox class="d-block mb-16 f-14 checkbox" formArrayName="checkbox_4"
+                    *ngFor="let health of healths" [value]="health" color="primary"
+                    (change)="onCheckboxHealthChange($event)">
+                    {{health}}
+                </mat-checkbox>
+            </div>
+            <div class="mb-24" *ngIf="isChecked7">
+                <label class="d-block f-14 mb-16 lh-20">If checked other than “None”, please provide further
+                    information.<span>*</span> </label>
+                <mat-form-field appearance="fill" class="form-textarea w-100">
+                    <textarea matInput maxlength="150" formControlName="textarea_3"></textarea>
+                </mat-form-field>
+            </div>
+            <div>
+                <label class="d-block f-14 mb-16 lh-20">Any known allergies? <span>*</span></label>
+                <mat-checkbox class="d-block mb-16 f-14 checkbox" formArrayName="checkbox_5"
+                    *ngFor="let allergy of allergies" [value]="allergy" color="primary"
+                    (change)="onCheckboxAllergiesChange($event)">
+                    {{allergy}}
+                </mat-checkbox>
+            </div>
+            <div class="mb-24" *ngIf="isChecked4">
+                <label class="d-block f-14 mb-4 lh-16">If "Other", please specify.<span>*</span> </label>
+                <mat-form-field appearance="fill" class="w-100 custom-form">
+                    <input matInput type="text" formControlName="input_13">
+                </mat-form-field>
+            </div>
+            <div>
+                <label class="d-block f-14 mb-16 lh-20">Have you used or been prescribed any medications (topical or
+                    oral) for
+                    acne/acne control? <span>*</span></label>
+                <mat-radio-group formControlName="radio_5" (change)="onRadiomedicationChange($event)">
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                    </mat-radio-button>
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="No" color="primary">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="mb-24" *ngIf="isChecked5">
+                <label class="d-block f-14 mb-4 lh-16">If yes, please specify what and date last used.<span>*</span>
+                </label>
+                <mat-form-field appearance="fill" class="w-100 custom-form">
+                    <input matInput type="text" formControlName="input_14">
+                    <mat-error *ngIf="facialConsentFormGroup.hasError('required','input_14')">Please enter some text
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <h4 class="f-16 m-0 mb-24">FEMALE CLIENTS</h4>
+            <div class="mb-24">
+                <label class="d-block f-14 mb-16 lh-20">Are you pregnant or trying to become pregnant?
+                    <span>*</span></label>
+                <mat-radio-group formControlName="radio_6">
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                    </mat-radio-button>
+                    <mat-radio-button class="d-block f-14 radio" value="No" color="primary">No</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div>
+                <label class="d-block f-14 mb-16 lh-20">Any menopause issues? <span>*</span></label>
+                <mat-radio-group formControlName="radio_7" (change)="onIssueChange($event)">
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                    </mat-radio-button>
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="No" color="primary">No</mat-radio-button>
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="N/A" color="primary">N/A
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="mb-24" *ngIf="isChecked6">
+                <label class="d-block f-14 mb-4 lh-16">If yes, please specify.<span>*</span> </label>
+                <mat-form-field appearance="fill" class="w-100 custom-form">
+                    <input matInput type="text" formControlName="input_15">
+                    <mat-error *ngIf="facialConsentFormGroup.hasError('required','input_15')">Please enter some text
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <h4 class="f-16 m-0 mb-24">MALE CLIENTS</h4>
+            <div class="mb-24">
+                <label class="d-block f-14 mb-16 lh-20">What is your current shaving system? <span>*</span></label>
+                <mat-radio-group formControlName="radio_8">
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="razor/wet shave" color="primary">Razor/Wet
+                        Shave</mat-radio-button>
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="electric" color="primary">Electric
+                    </mat-radio-button>
+                    <mat-radio-button class="d-block f-14 radio" value="N/A" color="primary">N/A</mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="mb-20">
+                <label class="d-block f-14 mb-16 lh-20">Do you experience irritation from shaving?
+                    <span>*</span></label>
+                <mat-radio-group formControlName="radio_9">
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                    </mat-radio-button>
+                    <mat-radio-button class="d-block mb-16 f-14 radio" value="No" color="primary">No</mat-radio-button>
+                    <mat-radio-button class="d-block f-14 radio mb-36" value="N/A" color="primary">N/A
+                    </mat-radio-button>
+                </mat-radio-group>
+            </div>
+            <div class="mb-36 f-14 notes lh-20">Post Facial Care/Waxing Instructions: Aerobic exercise and/or vigorous
+                physical
+                activity should be avoided for 48 hours. Direct sunlight exposure is to be avoided immediately following
+                the treatment (including any strong UV light exposure and/or tanning beds). If some sun exposure cannot
+                be
+                avoided first apply a broad spectrum sunscreen of SPF 30. Sunscreen (with a minimum SPF 15) should
+                become
+                part of your daily skin care regimen as skin can potentially become more sensitize to the sun as a
+                result
+                of this treatment. Unless otherwise specified, in the evening following your treatment, cleanse your
+                skin
+                with a mild cleanser and water followed by a non-active moisturizer. Do not apply additional exfoliating
+                ingredients/products the day of your service as over-exfoliation can result in irritation or further
+                sensitivity. Consult your skin care professional before resuming topical treatments. Enzyme peels,
+                DermaFile
+                or DermaDisc treatments, chemical peels or facial waxing can result in skin flushing/redness or slight
+                skin
+                flaking or sensitivity for up to 48-72 hours post treatment. DO NOT peel, pick, rub, or scratch your
+                skin at
+                any time, whatsoever. This can potentially cause damage or compromise your results. <span>*</span></div>
+            <div class="mb-36">
+                <mat-checkbox formControlName="checkbox_6" class="d-block mb-16 f-14 checkbox conf" color="primary">
+                    I have read the post care instructions and agree to adhere to them.</mat-checkbox>
+            </div>
+            <div class="mb-10 f-14 notes">Reservation & Cancellation Policy for all current and future appointments: a
+                valid
+                credit card is required for all appointments. Please do not forget to confirm your appointment when you
+                receive your reminder from Clementine's Salon & Skincare. In the event of cancellations received less
+                than
+                24 hours prior to appointment, a cancellation fee equal to 50% of the reserved service booking will
+                incur.
+                No Shows will be charged 100%. <span>*</span></div>
+            <div class="mb-36">
+                <mat-checkbox formControlName="checkbox_7" value='Yes' class="d-block mb-20 f-14 checkbox conf"
+                    color="primary">
+                    I understand the servariont and cancellation policies at this salon and consent to my credit card
+                    on file being charged if I fail to give 24 hour notice for appointments.</mat-checkbox>
+            </div>
+            <div class="mb-20 f-14 notes">I understand, have read and completed this questionnaire truthfully. I agree
+                that
+                this constitutes full disclosure, and that it supersedes any previous verbal or written disclosures. I
+                understand that withholding information or providing misinformation may result in contraindications
+                and/or
+                irritation to the skin from treatments received. The treatments I receive here are voluntary and I
+                release
+                this skin care professional from liability and assume full responsibility thereof. <span>*</span></div>
+            <div class="mb-24">
+                <mat-checkbox class="d-block f-14 checkbox conf" formControlName="checkbox_8" value='Yes'
+                    color="primary">Yes
+                </mat-checkbox>
+            </div>
+            <div class="mb-10">
+                <label class="d-block f-14 mb-4">Signature <span>*</span></label>
+                <div class="sig-container">
+                    <signature-pad (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"
+                        [options]="signaturePadOptions"></signature-pad>
+                </div>
+            </div>
+            <button [disabled]="!isSignatureEmpty && facialConsentFormGroup.invalid" mat-flat-button color="primary"
+                class="f-16 btn-shadow fw-400 mb-24" (click)="clearSignature()">
+                <span>Clear</span>
+            </button>
+            <div class="mb-36">
+                <label class="d-block f-14 mb-4 lh-16">Date <span>*</span></label>
+                <mat-form-field appearance="fill" class="form-date-picker">
+                    <input autocomplete="off" formControlName="date" matInput [matDatepicker]="dp3" [min]="minDate"
+                        placeholder="Choose a date" class="f-14 fw-400" [readonly]="true">
+                    <mat-datepicker-toggle color="primary" matSuffix [for]="dp3"></mat-datepicker-toggle>
+                    <mat-datepicker #dp3 color="primary"></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div>
+                <button *ngIf="!isApiCalling else showLoader"
+                    [disabled]="facialConsentFormGroup.invalid || !isSignatureEmpty" type="submit"
+                    (click)="submitClientConsentForm()" mat-flat-button color="primary"
+                    class="form-submit-btn f-16 d-block m-auto p-t-40 fw-400">
+                    Submit
+                </button>
+            </div>
+
+            <ng-template #showLoader>
+                <div class="loader-wrapper flex align-center w-100 h-100">
+                    <mat-spinner class="form-spinner" color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+                </div>
+            </ng-template>
+        </form>
+    </div>
+</div>
+
+
+<ng-template #showSuccessMessages>
+    <div class="flex h-100 align-center">
+        <div>
+            <p class="mb-auto-40 t-center"> {{responseMessage}} </p>
+            <button class="d-block m-auto" (click)="postForms('ok');" mat-flat-button color="primary"> OK </button>
+        </div>
+    </div>
+</ng-template>

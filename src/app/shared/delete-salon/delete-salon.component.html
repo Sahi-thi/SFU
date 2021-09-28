@@ -1,0 +1,25 @@
+<ng-container *ngIf="!isDeleted; else showSuccess">
+  <mat-error> {{responseMessage}} </mat-error>
+  <p class="f-16 pb-30 popup-text m-0">Are you sure you want to delete this {{listType}}? </p>
+  <div class="f-right flex pb-30">
+    <button type="button" [mat-dialog-close] class="auth-button-80 mr-10 fw-400 f-16" mat-button
+      color="primary">NO</button>
+    <button (click)="deleteListItem()" type="submit" class="auth-button-80 btn-shadow fw-400 f-16" mat-flat-button
+      color="primary">
+      <mat-spinner *ngIf="isApiLoading" class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+      <span *ngIf="!isApiLoading">YES</span>
+    </button>
+  </div>
+</ng-container>
+
+
+<ng-template #showSuccess>
+  <div class="pb-30 clear">
+    <img class="mb-auto-24 d-block" src="assets/successIcon.svg" alt="success" loading="lazy">
+    <div class="delete-success mb-auto-20 f-24 t-center">Deleted Successfully</div>
+    <button [mat-dialog-close]='listId' type="submit" class="auth-button-80 btn-shadow fw-400 f-16 d-block m-auto"
+      mat-flat-button color="primary">
+      OK
+    </button>
+  </div>
+</ng-template>

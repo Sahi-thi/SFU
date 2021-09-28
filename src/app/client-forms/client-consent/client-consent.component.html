@@ -1,0 +1,233 @@
+<div *ngIf="!isFormSubmitted else showSuccessMessages" class="client-consent-main">
+    <div class="client-consent m-auto">
+
+
+        <form [formGroup]="clientConsentFormGroup">
+
+            <div>
+                <img class="d-block m-auto mb-24" src="assets/form_logo.png" loading="lazy" alt="logo" />
+                <h3 class="f-24 m-0 mb-24">Client Consent: Waxing</h3>
+                <div class="half-input f-left mb-24">
+                    <label class="d-block f-14 mb-4 lh-16">First Name <span>*</span></label>
+                    <mat-form-field appearance="fill" class="w-100 custom-form">
+                        <input matInput type="text" formControlName="first_name">
+                        <mat-error *ngIf="clientConsentFormGroup.hasError('required','first_name')">Please enter your
+                            First Name</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="half-input f-right mb-24">
+                    <label class="d-block f-14 mb-4 lh-16">Last Name <span>*</span></label>
+                    <mat-form-field appearance="fill" class="w-100 custom-form">
+                        <input matInput type="text" formControlName="last_name">
+                        <mat-error *ngIf="clientConsentFormGroup.hasError('required','last_name')">Please enter your
+                            Last Name</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="clear phone-number mb-24">
+                    <label class="d-block f-14 mb-4 lh-16">Phone Number <span>*</span></label>
+                    <mat-form-field appearance="fill" class="w-100 custom-form ">
+                        <input matInput type="tel" formControlName="phone_number" id="tel"
+                            [preValue]="clientConsentFormGroup.value.phone_number" maxlength="14"
+                            [phoneControl]="clientConsentFormGroup.controls['phone_number']" appPhoneNumberFormat>
+                        <mat-error *ngIf="clientConsentFormGroup.hasError('required','phone_number')">Please enter valid
+                            Phone Number</mat-error>
+                        <mat-error
+                            *ngIf="!clientConsentFormGroup.hasError('required','phone_number') && clientConsentFormGroup.hasError('minlength','phone_number')">
+                            Enter the Phone Number at least 10 characters</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="email mb-24">
+                    <label class="d-block f-14 mb-4 lh-16">Email <span>*</span></label>
+                    <mat-form-field appearance="fill" class="w-100 custom-form ">
+                        <input matInput type="email" formControlName="email">
+                        <mat-error *ngIf="clientConsentFormGroup.hasError('required','email')">Email is mandatory
+                        </mat-error>
+                        <mat-error
+                            *ngIf="!clientConsentFormGroup.hasError('required','email') && clientConsentFormGroup.hasError('pattern','email')">
+                            Enter valid email</mat-error>
+                    </mat-form-field>
+                </div>
+
+                <div class="mb-24">
+                    <label class="d-block f-14 mb-16 lh-20">Have you used any Alpha Hydroxy Acid (AHA) or glycolic
+                        products in
+                        the
+                        past 48-72 hours? <span>*</span></label>
+                    <mat-radio-group formControlName="checkbox_1">
+                        <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                        </mat-radio-button>
+                        <mat-radio-button class="d-block f-14 radio" value="No" color="primary">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="mb-24">
+                    <label class="d-block f-14 mb-16 lh-20">Are you using Retin-a, Renova, or Accutane (an oral form of
+                        Retin-a)? <span>*</span></label>
+                    <mat-radio-group formControlName="checkbox_2">
+                        <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                        </mat-radio-button>
+                        <mat-radio-button class="d-block f-14 radio" value="No" color="primary">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="mb-24">
+                    <label class="d-block f-14 mb-16 lh-20">Are you using any other skin thinning products and/or
+                        drugs? <span>*</span></label>
+                    <mat-radio-group formControlName="checkbox_3">
+                        <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                        </mat-radio-button>
+                        <mat-radio-button class="d-block f-14 radio" value="No" color="primary">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+            </div>
+
+            <div>
+
+                <div class="mb-24">
+                    <label class="d-block f-14 mb-16 lh-20">Are you exposed to the sun on a daily basis or are you
+                        considering
+                        spending more time in the sun soon? <span>*</span></label>
+                    <mat-radio-group formControlName="checkbox_4">
+                        <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                        </mat-radio-button>
+                        <mat-radio-button class="d-block f-14 radio" value="No" color="primary">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="mb-24">
+                    <label class="d-block f-14 mb-16 lh-20">Do you use a tanning bed? <span>*</span></label>
+                    <mat-radio-group formControlName="checkbox_5">
+                        <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                        </mat-radio-button>
+                        <mat-radio-button class="d-block f-14 radio" value="No" color="primary">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="mb-24">
+                    <label class="d-block f-14 mb-16 lh-20">Are you diabetic? <span>*</span></label>
+                    <mat-radio-group formControlName="checkbox_6">
+                        <mat-radio-button class="d-block mb-16 f-14 radio" value="Yes" color="primary">Yes
+                        </mat-radio-button>
+                        <mat-radio-button class="d-block f-14 radio" value="No" color="primary">No</mat-radio-button>
+                    </mat-radio-group>
+                </div>
+
+                <div class="mb-24">
+                    <label class="d-block f-14 mb-4 lh-20">Are you currently taking medications? If so, please list
+                        all(including over the counter drugs/herbal supplements):</label>
+                    <mat-form-field appearance="fill" class=" w-100 form-textarea">
+                        <textarea formControlName="textarea_1" matInput maxlength="150"></textarea>
+                        <mat-error *ngIf="clientConsentFormGroup.hasError('required','textarea_1')">Please enter some
+                            text
+                        </mat-error>
+                    </mat-form-field>
+                </div>
+            </div>
+            <div>
+
+                <div class="mb-24">
+                    <label class="d-block f-14 mb-4 lh-20">What skin products do you regularly use on your skin?</label>
+                    <mat-form-field appearance="fill" class="form-textarea w-100">
+                        <textarea formControlName="textarea_2" matInput maxlength="150"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <div class="mb-24">
+                    <label class="d-block f-14 mb-4 lh-20">Have you ever been treated for cancer? If yes, when and what
+                        types
+                        of therapies were used?</label>
+                    <mat-form-field appearance="fill" class="form-textarea w-100">
+                        <textarea matInput maxlength="150" formControlName="textarea_3"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <div class="mb-24">
+                    <label class="d-block f-14 mb-4 lh-20">Please list any other illness/condition you are currently
+                        being
+                        treated for by a medical professional.</label>
+                    <mat-form-field appearance="fill" class="form-textarea w-100">
+                        <textarea matInput maxlength="150" formControlName="textarea_4"></textarea>
+                    </mat-form-field>
+                </div>
+
+                <div class="mb-24 f-14 notes t-justify lh-20">Please note that waxing does have certain side effects
+                    such as skin
+                    removal, redness, swelling, tenderness, etc.</div>
+                <div class="mb-24 f-14 notes t-justify lh-20">I have read the above information and if I have any
+                    concerns, I
+                    will
+                    address
+                    these
+                    with my esthetician. I give
+                    permission to my esthetician to perform the waxing procedure we have discussed and will hold her and
+                    her
+                    staff
+                    harmless from any liability that may result from this treatment. I have given an accurate account of
+                    the
+                    questions
+                    asked above including all known allergies or prescription drugs or products I am currently ingesting
+                    or
+                    using
+                    topically. I understand my esthetician will take every precaution to minimize or eliminate negative
+                    reactions
+                    as much as possible.</div>
+                <div class="mb-24 f-14 notes t-justify lh-20">I have read and understand the post-treatment home care
+                    instructions. I am
+                    willing
+                    to follow recommendations
+                    made by my esthetician for a home care regimen that can minimize or eliminate possible negative
+                    reactions.
+                    In the event that I may have additional questions or concerns regarding my treatment or suggested
+                    home
+                    product / post-treatment care, I will consult the esthetician immediately.</div>
+                <div class="mb-10">
+                    <label class="d-block f-14 mb-4 lh-16">Signature <span>*</span></label>
+                    <div class="sig-container">
+                        <signature-pad (onBeginEvent)="drawStart()" (onEndEvent)="drawComplete()"
+                            [options]="signaturePadOptions"></signature-pad>
+                    </div>
+                </div>
+                <button [disabled]="!isSignatureEmpty" mat-flat-button color="primary"
+                    class="f-16 btn-shadow fw-400 mb-24" (click)="clearSignature()">
+                    <span>Clear</span>
+                </button>
+                <div>
+                    <label class="d-block f-14 mb-4 lh-16">Date <span>*</span></label>
+                    <mat-form-field appearance="fill" class="form-date-picker">
+                        <input autocomplete="off" formControlName="date" matInput [matDatepicker]="dp3" [min]="minDate"
+                            placeholder="Choose a date" class="f-14 fw-400" [readonly]="true">
+                        <mat-datepicker-toggle color="primary" matSuffix [for]="dp3"></mat-datepicker-toggle>
+                        <mat-datepicker #dp3 color="primary"></mat-datepicker>
+                    </mat-form-field>
+                </div>
+            </div>
+
+            <div class="p-t-40">
+                <button *ngIf="!isApiCalling else showLoader"
+                    [disabled]="clientConsentFormGroup.invalid || !isSignatureEmpty" type="submit"
+                    (click)="submitClientConsentForm()" mat-flat-button color="primary"
+                    class="form-submit-btn f-16 d-block m-auto p-t-40 fw-400">
+                    Submit
+                </button>
+            </div>
+
+            <ng-template #showLoader>
+                <div class="loader-wrapper flex align-center w-100 h-100">
+                    <mat-spinner class="form-spinner" color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+                </div>
+            </ng-template>
+        </form>
+    </div>
+</div>
+
+<ng-template #showSuccessMessages>
+    <div class="flex h-100 align-center">
+        <div>
+            <p class="mb-auto-40 t-center"> {{responseMessage}} </p>
+            <button class="d-block m-auto" (click)="postForms('ok');" mat-flat-button color="primary"> OK </button>
+        </div>
+    </div>
+</ng-template>

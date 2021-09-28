@@ -1,0 +1,87 @@
+@import "../../../theme/deep-styles.scss";
+
+.facial-consent-main {
+  background-color: rgba(158, 158, 158, 0.2);
+  // overflow-y: auto;
+  // min-height: 100%;
+
+  scroll-behavior: smooth;
+  // -webkit-overflow-scrolling: touch;
+  // position: relative;
+  // bottom: 0px;
+}
+form {
+  padding: 0 20px 85px 20px;
+  // height: 100%;
+  overflow: auto;
+  img {
+    margin-top: 40px !important;
+  }
+  .form-submit-btn {
+    // margin-bottom: 85px !important;
+  }
+}
+.facial-consent {
+  // height: 100%;
+  max-width: 768px;
+  // padding: 40px 0 85px;
+  box-sizing: border-box;
+  > * {
+    color: #2c425c;
+  }
+  h3 {
+    line-height: 28px;
+    font-weight: 500;
+  }
+  h4 {
+    line-height: 19px;
+    font-weight: 500;
+  }
+  label span,
+  .notes span {
+    color: #c80000;
+  }
+}
+.lh-16 {
+  line-height: 16px;
+}
+.lh-20 {
+  line-height: 20px;
+}
+
+.half-input {
+  width: calc(50% - 10px);
+  @media screen and (max-width: 359px) {
+    width: 100%;
+  }
+}
+.phone-number {
+  width: 100%;
+  max-width: 280px;
+}
+.email {
+  width: 100%;
+  max-width: 520px;
+}
+.sig-container {
+  overflow: hidden;
+  background-color: #ffffff;
+}
+.form-submit-btn {
+  max-width: 305px;
+  width: 90%;
+  font-weight: bold;
+}
+.loader-wrapper {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(44, 66, 92, 0.3);
+}
+.form-date-picker input::placeholder {
+  font-size: 14px;
+  font-weight: 400;
+}
+::ng-deep .form-textarea .mat-form-field-wrapper {
+  height: 100%;
+}

@@ -1,0 +1,47 @@
+::ng-deep .product-price-search .mat-form-field-flex {
+  margin-top: 10px;
+}
+::ng-deep .product-options .mat-option-text {
+  overflow: visible;
+}
+::ng-deep .product-options .mat-option-text .mat-checkbox {
+  display: block;
+  padding: 12px 0px;
+}
+::ng-deep .product-options .mat-option-text .mat-checkbox .mat-checkbox-layout {
+  display: flex;
+}
+::ng-deep
+  .product-options
+  .mat-option-text
+  .mat-checkbox
+  .mat-checkbox-layout
+  .mat-checkbox-inner-container {
+  margin-left: 0;
+}
+::ng-deep
+  .product-options
+  .mat-option-text
+  .mat-checkbox
+  .mat-checkbox-layout
+  .mat-checkbox-label {
+  flex: 1;
+  white-space: initial;
+}
+.in-spinner {
+  margin-left: 5px;
+}
+.dialog-container {
+  min-height: 150px;
+}
+.empty-text {
+  text-align: center;
+}
+.ingredent-search {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  background: #ffffff;
+  padding-top: 4px;
+  margin: 0 7px;
+}

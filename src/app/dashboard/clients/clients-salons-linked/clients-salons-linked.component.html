@@ -1,0 +1,44 @@
+<div *ngIf="!isSalonLinkedLoader else showSpinner " class="salon-link-block m-auto">
+    <mat-card class="mb-auto-10 card-shadow salon-link-card c-pointer" (click)="onClickSalon(salon)" *ngFor="let salon of salonsLinkedList">
+        <div class="img-sec mr-20 mb-10">
+            <img *ngIf="salon.salon_thumb_logo_url; else emptyProfile"
+                    src={{salon.salon_thumb_logo_url}} loading="lazy" alt="user_photo" class="mb-20">
+                <ng-template #emptyProfile>
+                    <div class="client-empty-profile flex align-center mb-20">
+                        <img src="assets/empty_profile.svg" alt="avatar" loading="lazy" />
+                    </div>
+                </ng-template>
+        </div>
+        <div class="salon-details mr-20 o-hide">
+            <div class="mb-10 f-16 o-hide">{{salon.name}}</div>
+            <ul class="f-14">
+                <li>{{salon.email}}</li>
+                <li>{{salon.phone_number}}</li>
+                <li>{{salon.state}},{{salon.city}}</li>
+            </ul>
+        </div>
+        <div class="salon-status f-12 active"
+        [ngClass]="(salon.status ==='Active')?'status-active':'status-inactive'"> {{salon.status}}</div>
+    </mat-card>
+
+    <div class="o-hide">
+        <mat-paginator class="salon-linked-paginator mb-auto-20 f-14" [pageSize]="offset" [hidePageSize]="true"
+        [pageIndex]="currentPage - 1" [length]="metaData.total" (page)="loadNextData($event)"
+        *ngIf="!isEmptySalonsLinkedList" showFirstLastButtons></mat-paginator>
+    </div>
+   
+</div>
+
+
+
+<div *ngIf="isEmptySalonsLinkedList" class="flex align-center empty-salon-linked m-auto">
+    <div>
+        <div class="empty-data-icon flex align-center mb-auto-40">
+            <div [inlineSVG]="'assets/empty_salon.svg'"></div>
+        </div>
+        <h2 class="f-18 empty-heading mb-auto-20">No Salons Linked Yet!</h2>
+    </div>
+</div>
+<ng-template #showSpinner>
+    <mat-spinner color="primary" class="table-no-show" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

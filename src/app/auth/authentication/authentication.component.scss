@@ -1,0 +1,57 @@
+@import "../../../theme/app-theme-styles.scss";
+@import '../../../theme/mixin-variables.scss';
+
+.login-main::after {
+    content: '';
+    display: block;
+    clear: both;
+}
+.login-main, .login-left, .login-right {
+    @include display(flex);
+    @include align(center, center);
+}
+.login-left {
+    @include background-image('../../../assets/loginBg.svg', cover);
+    img {
+        width: 328px;
+    }
+    @media screen and (max-width: 650px) {
+        display: none;
+    }
+}
+.login-right {
+    position: relative;
+    .bg-logo {
+        display: none;
+        position: fixed;
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+    }
+    @media screen and (max-width: 650px) {
+        width: 100% !important;
+        @include background-image('../../../assets/loginBg.svg', cover);
+        &:before {
+            content: " ";
+            position: fixed;
+            top: 0;
+            left: 0;
+            height: 100%;
+            width: 100%;
+            z-index: 1;
+        }
+        .bg-logo {
+            display: block;
+        }
+    }
+}
+.centered-block {
+    width: 270px;
+    margin: auto;
+    position: relative;
+    z-index: 2;
+    padding: 20px 0;
+}
+.auth-icon {
+    @include display(block);
+}

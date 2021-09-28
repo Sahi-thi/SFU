@@ -1,0 +1,5 @@
+<div class="client-name f-20"> <b>{{product.brand_name}} ({{product.total_count}})</b> </div>
+<div class="client-list f-14"> {{product.products.replaceAll(',', ', ' )}} </div>
+<div class="client-submit f-16 flex align-end">
+    <button [mat-dialog-close] mat-button color="primary">CANCEL</button>
+</div>

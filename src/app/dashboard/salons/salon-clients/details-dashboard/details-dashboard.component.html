@@ -1,0 +1,30 @@
+<div class="client-info-main m-auto">
+    <div class="client-header flex align-left p-t-30">
+        <button mat-icon-button (click)="backToClients()" [routerLink]="['/home/salons/salon/' + salonId + '/clients']"
+            aria-hidden="false" aria-label="Back" class="mr-10 c-pointer">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h3 class="f-20 m-0"> {{clientName}} </h3>
+    </div>
+    <div class="mt-20 pb-30">
+        <mat-nav-list class="my-nav-list">
+            <a [routerLink]="[ clientId + '/information' ]" class="my-nav-item" routerLinkActive="details-active"
+                mat-list-item>
+                <div class="m-auto">Information</div>
+            </a>
+            <a [routerLink]="[ clientId + '/routine' ]" class="my-nav-item" routerLinkActive="details-active"
+                mat-list-item>
+                <div class="m-auto">Routine</div>
+            </a>
+            <a [routerLink]="[ clientId + '/signed-forms' ]" class="my-nav-item active"
+                routerLinkActive="details-active" mat-list-item>
+                <div class="m-auto">Forms Signed</div>
+            </a>
+            <a [routerLink]="[ clientId + '/notes' ]" class="my-nav-item active" routerLinkActive="details-active"
+                mat-list-item>
+                <div class="m-auto">Notes</div>
+            </a>
+        </mat-nav-list>
+    </div>
+</div>
+<router-outlet></router-outlet>

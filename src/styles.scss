@@ -1,0 +1,151 @@
+@import "src/theme/common-styles.scss";
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+input:-webkit-autofill,
+input:-webkit-autofill:hover,
+input:-webkit-autofill:focus,
+textarea:-webkit-autofill,
+textarea:-webkit-autofill:hover,
+textarea:-webkit-autofill:focus,
+select:-webkit-autofill,
+select:-webkit-autofill:hover,
+select:-webkit-autofill:focus {
+  transition: background-color 5000s ease-in-out 0s;
+  -webkit-text-fill-color: #666666;
+}
+// global custom input styles
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+/* Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}
+.filter-dialog .mat-dialog-container {
+  padding: 30px 30px 0;
+}
+.filter-client-dialog .mat-dialog-container {
+  padding: 0;
+  max-height: 90vh;
+}
+.mat-paginator-icon {
+  cursor: pointer;
+}
+
+/* loading dots */
+
+// body {
+//   background-color: #47d1da;}
+// p {
+//   color: white;
+//   font: 300 4em/150% Impact;
+//   text-align: center;}
+
+/* loading dots */
+.loading {
+  color: rgb(139 166 185);
+  margin-top: -45px !important;
+  font-size: 20px;
+  // text-align: right;
+}
+.loading:after {
+  content: " .";
+  animation: dots 1s steps(5, end) infinite;
+  font-size: 50px;
+}
+
+@keyframes dots {
+  0%,
+  20% {
+    color: rgba(0, 0, 0, 0);
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  40% {
+    color: rgb(139 166 185);
+    text-shadow: 0.25em 0 0 rgba(0, 0, 0, 0), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  60% {
+    text-shadow: 0.25em 0 0 rgb(139 166 185), 0.5em 0 0 rgba(0, 0, 0, 0);
+  }
+  80%,
+  100% {
+    text-shadow: 0.25em 0 0 rgb(139 166 185), 0.5em 0 0 rgb(139 166 185);
+  }
+}
+
+.formList-dialog {
+  max-height: 312px !important;
+  // max-height: 85vh !important;
+  overflow: auto;
+}
+.serviceProduct-dialog {
+  max-height: 90% !important;
+  overflow: auto;
+  position: relative !important;
+}
+.remove-serviceProduct .mat-dialog-container {
+  padding: 0;
+}
+.formList-dialog {
+  height: 76vh;
+}
+.video-dialog {
+  height: 76vh;
+}
+
+.formList-dialog-confirm {
+  height: auto;
+  overflow: auto;
+}
+.chat-dialog {
+  overflow: auto;
+}
+.chat-dialog {
+  overflow: auto;
+}
+.ingredient-add {
+  top: 50%;
+  // transform: translateY(-50%);
+  left: 50%;
+  transform: translate(-50%, -50%);
+  position: absolute !important;
+  .mat-dialog-container {
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%),
+      0 1px 10px 0 rgb(0 0 0 / 12%);
+  }
+}
+.ingredient-edit {
+  .mat-dialog-container {
+    box-shadow: 0 2px 4px -1px rgb(0 0 0 / 20%), 0 4px 5px 0 rgb(0 0 0 / 14%),
+      0 1px 10px 0 rgb(0 0 0 / 12%);
+  }
+}
+.backdropBackground,
+.editBackdropBackground {
+  background-color: transparent;
+}
+
+// @media screen and (max-width: 1024px) {
+//   .ingredient-add {
+//     left: 50%;
+//     transform: translate(-50%, -50%);
+//   }
+// }
+.product-ingredient-dialog .mat-dialog-container {
+  padding: 0 8px 0px 8px;
+  overflow: unset;
+}
+.invite-dialog .mat-dialog-container {
+  padding: 40px;
+}

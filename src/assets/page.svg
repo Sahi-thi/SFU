@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>50A3DC98-E06A-42D9-AA94-6754C7A2C667</title>
+    <g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Super-Admin---Add-Client" transform="translate(-390.000000, -240.000000)">
+            <g id="Group-5" transform="translate(370.000000, 224.000000)">
+                <g id="description-24px" transform="translate(20.000000, 16.000000)">
+                    <polygon id="form" points="0 0 24 0 24 24 0 24"></polygon>
+                    <path d="M8,16 L16,16 L16,18 L8,18 L8,16 Z M8,12 L16,12 L16,14 L8,14 L8,12 Z M14,2 L6,2 C4.9,2 4,2.9 4,4 L4,20 C4,21.1 4.89,22 5.99,22 L18,22 C19.1,22 20,21.1 20,20 L20,8 L14,2 Z M18,20 L6,20 L6,4 L13,4 L13,9 L18,9 L18,20 Z" id="Shape" fill="#6E6E6E" fill-rule="nonzero"></path>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

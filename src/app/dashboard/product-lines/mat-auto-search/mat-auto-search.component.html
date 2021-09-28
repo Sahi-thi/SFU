@@ -1,0 +1,23 @@
+<div class="dialog-container">
+    <div class="flex align-left ingredent-search">
+        <mat-form-field class="w-100 ingredent-search">
+            <mat-label>Search Ingredient</mat-label>
+            <input [value]="searchString" [formControl]="searchControl" placeholder="Search Ingredient" matInput
+                type="text" />
+        </mat-form-field>
+        <mat-spinner *ngIf='isApiLoading' class="in-spinner" strokeWidth="2" diameter='30'></mat-spinner>
+    </div>
+    <div class="empty-text"> {{emptyMessage}} </div>
+
+
+    <mat-selection-list #selectionList (selectionChange)="onSelection($event)">
+        <mat-list-option [selected]="ingredient.isChecked" [value]='ingredient' color="primary"
+            *ngFor="let ingredient of ingredients">
+            {{ingredient.name}}
+        </mat-list-option>
+    </mat-selection-list>
+
+    <!-- <mat-selection-list #selected (selectionChange)="onSelection($event, selected.selectedOptions.selected)" >
+        <mat-list-option *ngFor="let readingType of readingTypes" [value] ="readingType"> -->
+
+</div>

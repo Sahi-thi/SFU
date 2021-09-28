@@ -1,0 +1,87 @@
+<mat-card *ngIf="!isServices" class="chart-section mb-auto-20 card-shadow">
+    <div class="flex align-seperate">
+        <div *ngIf="!isApiLoading && !isServiceApiLoading else showLoader" class="tabs c-pointer pb-30">
+            <div class="d-i-block f-12 active" (click)="onClickProductsTab()">Products<br><span class="f-16">
+                    {{productsCount}} </span></div>
+            <div class="d-i-block f-12" (click)="onClickServicesTab()">Services<br>
+                <span class="f-16">{{servicesCount}}</span>
+            </div>
+        </div>
+
+        <div class="flex align-center chart-date-block pb-30">
+
+            <button class="flex align-center c-pointer" type="button" mwlCalendarPreviousView [view]="view"
+                [(viewDate)]="viewDate" (viewDateChange)="onClickPreviousMonth(viewDate)">
+                <mat-icon aria-label="leftArrow">keyboard_arrow_left</mat-icon>
+            </button>
+
+            <p class="m-0 f-12">{{date}}</p>
+
+            <button class="flex align-center c-pointer" type="button" mwlCalendarNextView [view]="view"
+                [(viewDate)]="viewDate" (viewDateChange)="onClickNextMonth(viewDate)">
+                <mat-icon aria-label="rightArrow">keyboard_arrow_right</mat-icon>
+            </button>
+
+        </div>
+    </div>
+
+    <div style="display: block;" *ngIf="!isChartList">
+        <canvas height="280" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" style="height: 280px">
+        </canvas>
+    </div>
+    <div *ngIf="!isChartList" class="chart-label f-16 t-center p-t-40">Sales</div>
+
+    <ng-template #showLoader>
+        <mat-spinner color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+    </ng-template>
+
+    <div *ngIf="isChartList">
+        <div class="flex align-center no-data"> {{responseMessage}} </div>
+    </div>
+
+</mat-card>
+
+<mat-card *ngIf="isServices" class="chart-section mb-auto-20 card-shadow">
+    <div class="flex align-seperate">
+        <div *ngIf="!isApiLoading && !isServiceApiLoading else showLoader" class="tabs c-pointer pb-30">
+            <div class="d-i-block f-12" (click)="onClickProductsTab()">Products<br><span class="f-16">
+                    {{productsCount}} </span>
+            </div>
+            <div class="d-i-block f-12 active" (click)="onClickServicesTab()">Services<br>
+                <span class="f-16">{{servicesCount}}</span>
+            </div>
+        </div>
+
+        <div class="flex align-center chart-date-block pb-30">
+            <button class="flex align-center c-pointer" type="button" mwlCalendarPreviousView [view]="view"
+                [(viewDate)]="viewDate" (viewDateChange)="onClickPreviousMonth(viewDate)">
+                <mat-icon aria-label="leftArrow">keyboard_arrow_left</mat-icon>
+            </button>
+
+            <p class="m-0 f-12">{{date}}</p>
+
+            <button class="flex align-center c-pointer" type="button" mwlCalendarNextView [view]="view"
+                [(viewDate)]="viewDate" (viewDateChange)="onClickNextMonth(viewDate)">
+                <mat-icon aria-label="rightArrow">keyboard_arrow_right</mat-icon>
+            </button>
+
+        </div>
+    </div>
+
+    <div *ngIf="!isChartList" style="display: block;">
+        <canvas height="280" baseChart [datasets]="barChartData" [labels]="barChartLabels" [options]="barChartOptions"
+            [plugins]="barChartPlugins" [legend]="barChartLegend" [chartType]="barChartType" style="height: 280px">
+        </canvas>
+    </div>
+    <div *ngIf="!isChartList" class="chart-label f-16 t-center p-t-40">Sales</div>
+
+    <ng-template #showLoader>
+        <mat-spinner color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+    </ng-template>
+
+    <div *ngIf="isChartList">
+        <div class="flex align-center no-data"> {{responseMessage}} </div>
+    </div>
+
+</mat-card>

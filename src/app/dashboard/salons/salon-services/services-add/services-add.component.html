@@ -1,0 +1,87 @@
+<form *ngIf="!isLoadingAPI; else serviceSpinner" [formGroup]="servicesFormGroup"
+    class="add-service-main p-t-30 mb-auto-20">
+    <div class="f-right flex">
+        <button [disabled]="isFormAPICalling" (click)="cancelServiceForm(btnTitle)" type="button"
+            class="auth-button-80 mr-10 fw-400" mat-button color="primary">CANCEL</button>
+
+
+        <button *ngIf="!isFormAPICalling else btnSpinner" (click)="submitServiceForm()" type="submit"
+            class="auth-button-80 btn-shadow fw-400" mat-flat-button color="primary">
+            {{btnTitle}}
+        </button>
+        <ng-template #btnSpinner>
+            <button type="submit" class="auth-button-80 btn-shadow fw-400" mat-flat-button color="primary">
+                <mat-spinner class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+            </button>
+        </ng-template>
+    </div>
+
+    <h3 class="f-20 mb-auto-20"> {{serviceTitle}} </h3>
+
+    <mat-card class="add-section mb-auto-20 card-shadow">
+
+        <mat-error class="pb-30 t-center"> {{responseMessage}} </mat-error>
+        <mat-error class="pb-30 t-center"> {{validateErrorMessage}} </mat-error>
+
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Service Type</mat-label>
+            <mat-select formControlName="service_type">
+                <mat-option (onSelectionChange)="onSelectServiceType($event,type.service_type)"
+                    *ngFor="let type of serviceTypes" [value]="type.type_id">{{type.service_type}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Service</mat-label>
+            <input formControlName="service" id='tel' placeholder="Service" matInput type="text">
+        </mat-form-field>
+
+        <div class="half-input f-left">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Min Price</mat-label>
+                <input formControlName="min_price" placeholder="Min price" matInput type="text" class="price"
+                    maxLength="6" (keydown)='validate($event)' />
+                <span *ngIf="servicesFormGroup.controls.min_price.value" matPrefix>$</span>
+            </mat-form-field>
+        </div>
+
+        <div class="half-input f-right">
+            <mat-form-field class="w-100 service-max-price" appearance="outline">
+                <mat-label>Max Price</mat-label>
+                <input formControlName="max_price" placeholder="Max price" matInput type="text" class="price"
+                    maxLength="6" (keydown)='validate($event)' />
+                <span *ngIf="servicesFormGroup.controls.max_price.value" matPrefix>$</span>
+                <span *ngIf="servicesFormGroup.controls.max_price.value === 0" matPrefix>$</span>
+
+            </mat-form-field>
+        </div>
+
+        <mat-form-field class="custom-textarea description-area w-100 " appearance="outline">
+            <mat-label class="service-textarea">Description</mat-label>
+            <textarea formControlName="description" matInput maxlength="150"></textarea>
+            <mat-hint>Max 150 Characters</mat-hint>
+        </mat-form-field>
+
+        <p class="mt-20 mb-20 f-12 form-heading">Forms</p>
+
+        <div class="half-input f-left">
+            <mat-checkbox [disabled]='disableCheckBoxes' [value]='facialFormValue' [checked]="isFacialForm"
+                (change)='onChangeFacialForm($event)' class="d-block mb-20 f-16 check" color="primary">
+                Facial Form
+            </mat-checkbox>
+        </div>
+        <div class="half-input f-right">
+            <mat-checkbox [disabled]='disableCheckBoxes' [value]='waxingFormValue' [checked]="isWaxingForm"
+                (change)='onChangeWaxingForm($event)' class="d-block mb-20 f-16 check" color="primary">
+                Waxing Form
+            </mat-checkbox>
+        </div>
+
+    </mat-card>
+
+</form>
+
+
+<ng-template #serviceSpinner>
+    <mat-spinner *ngIf="isLoadingAPI" class="table-no-show" color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

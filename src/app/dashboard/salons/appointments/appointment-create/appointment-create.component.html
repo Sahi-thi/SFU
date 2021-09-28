@@ -1,0 +1,188 @@
+<form *ngIf="!isLoadingAPI && !isAppointmentListLoading; else appointmentSpinner" [formGroup]="appointmentFormGroup"
+    class="create-appointment-main p-t-30 mb-auto-20">
+    <div class="appointment-back mb-20">
+        <div class="f-right flex align-center">
+            <button type="button" [disabled]="isCallingAppointment" class="mr-10 fw-400" mat-button color="primary"
+                (click)='goBack()'>CANCEL</button>
+
+            <button *ngIf="!isCallingAppointment else btnSpinner" (click)="submitAppointmentForm(buttonTitle)"
+                type="submit" class="auth-button-80 btn-shadow fw-400" mat-flat-button color="primary">
+                {{buttonTitle}}
+            </button>
+            <ng-template #btnSpinner>
+                <button type="submit" class="auth-button-80 btn-shadow fw-400" mat-flat-button color="primary">
+                    <mat-spinner class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+                </button>
+            </ng-template>
+        </div>
+        <h3 class="f-20 m-0"> {{appointmentTitle}} </h3>
+    </div>
+
+    <mat-card class="mb-auto-20 p-0 card-shadow">
+
+        <div class="recommend-card">
+            <mat-error class="p-b-16"> {{responseMessage}} </mat-error>
+            <mat-error class="p-b-16">{{dateErrorMessage}}</mat-error>
+            <p class="mb-auto-30 f-12 form-heading">Appointment Details</p>
+
+            <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Client Name</mat-label>
+                    <input formControlName="name" type="text" aria-label="Number" matInput
+                        (keyup)="searchClient($event.target.value)" [matAutocomplete]="autoClient">
+                    <mat-autocomplete (optionSelected)="clientNameChange($event)" [displayWith]="displayClientFn"
+                        #autoClient="matAutocomplete">
+                        <mat-option [disabled]='true' *ngIf="!isEmptyClientsList"> Select Client </mat-option>
+                        <mat-option [disabled]='true' *ngIf="isEmptyClientsList"> No Client Found
+                        </mat-option>
+                        <mat-option *ngFor="let client  of clientsList" [id]="client.client_id" [value]="client.name">
+                            {{client.name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+            <div class="half-input f-right">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input (keyup)="isEmailEntered()" formControlName="email" placeholder="Email" matInput type="email">
+                </mat-form-field>
+            </div>
+
+            <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Phone Number</mat-label>
+                    <input formControlName="phone_number" placeholder="Phone Number" matInput type="tel" id="tel"
+                        [preValue]="appointmentFormGroup.value.phone_number" maxlength="14"
+                        [phoneControl]="appointmentFormGroup.controls['phone_number']" appPhoneNumberFormat>
+                </mat-form-field>
+            </div>
+            <div class="half-input f-right">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Date</mat-label>
+                    <input formControlName="date" matInput [matDatepickerFilter]="myFilter" [matDatepicker]="picker"
+                        [min]="minDate" (focus)="picker.open()" (dateInput)="addEvent( $event)">
+                    <mat-datepicker-toggle matSuffix [for]="picker" class="date-icon">
+                        <mat-icon matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+            </div>
+
+            <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Time </mat-label>
+                    <mat-select formControlName="time" *ngIf="nextDay">
+                        <mat-option *ngFor="let time of timesArray" [disabled]="time.isTime === true"
+                            [value]="time.value">{{time.value}} </mat-option>
+                    </mat-select>
+
+                    <mat-select formControlName="time" *ngIf="!nextDay">
+                        <mat-option *ngFor="let time of timesArray" [value]="time.value">{{time.value}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="half-input f-right mb-auto-10">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Status</mat-label>
+                    <mat-select *ngIf="buttonTitle !== 'CREATE'" formControlName="status">
+                        <mat-option *ngFor="let status of appointmentStatus" [value]="status.name">{{status.name}}
+                        </mat-option>
+                    </mat-select>
+                    <mat-select *ngIf="buttonTitle === 'CREATE'" formControlName="status">
+                        <!-- status.name === 'Confirmed' ||  -->
+                        <mat-option *ngFor="let status of appointmentStatus" [value]="status.name" [disabled]="
+                        status.name === 'Confirmed' || 
+                             status.name === 'Fulfilled' || 
+                             status.name === 'Cancelled'">
+                            {{status.name}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <mat-form-field class="custom-textarea w-100 mb-auto-10" appearance="outline">
+                <mat-label>Notes</mat-label>
+                <textarea formControlName="notes" matInput maxlength="150"></textarea>
+            </mat-form-field>
+        </div>
+
+        <div class="add-slot flex align-seperate">
+            <p class="f-12">Services</p>
+            <button [disabled]='selectedDate === "" ' type="button" mat-button color="primary"
+                (click)="openDialog('Service')">ADD SERVICE</button>
+        </div>
+
+        <ng-container *ngIf='servicesList?.length && servicesList?.length > 0 else emptyServices'>
+            <div class="services-items-list m-auto">
+                <div class="list flex align-left" *ngFor="let service of servicesList">
+                    <p class="f-14 m-0">{{service.service}}</p>
+                    <div class="product-details f-12 fw-500 mr-10">
+                        <span>Price:</span>
+                        <span *ngIf='service.discount && service.discount != 0'> Discount: </span>
+                        <span *ngIf='service.discount && service.discount != 0'> Payable: </span>
+                    </div>
+                    <div class="f-16 bill-status">
+                        <span>${{service.price}}</span>
+                        <span *ngIf='service.discount && service.discount != 0'> -{{service.discount}}% </span>
+                        <span *ngIf='service.discount && service.discount != 0'>${{service.discount_price}}</span>
+                    </div>
+                    <img (click)="openDeleteServiceDialog('Service',service.service_id,service.service)"
+                        src="assets/cancel-small.svg" loading="lazy" alt="list_cancel" />
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-template #emptyServices>
+            <div class="empty-servicesProduct-icon flex align-center m-auto mt-20">
+                <img src="assets/grooming.svg" loading="lazy" alt="services" />
+            </div>
+            <h2 class="f-14 empty-servicesProduct-heading t-center p-tb-20 m-0">No Services Added</h2>
+        </ng-template>
+
+        <div class="add-slot flex align-seperate">
+            <p class="f-12">Products</p>
+            <button [disabled]='selectedDate === "" ' type="button" mat-button color="primary"
+                (click)="openDialog('Product')">ADD PRODUCTS</button>
+        </div>
+
+        <ng-container *ngIf='productsList?.length && productsList?.length > 0 else emptyProducts'>
+            <div class="products-items-list m-auto">
+                <div class="list flex align-left" *ngFor="let product of productsList">
+                    <p class="f-14 m-0">{{product.name}}</p>
+                    <div class="product-details f-12 fw-500 mr-10">
+                        <span>Price:</span>
+                        <span *ngIf='product.discount && product.discount != 0'> Discount: </span>
+                        <span *ngIf='product.discount && product.discount != 0'> Payable: </span>
+                    </div>
+                    <div class="f-16 bill-status">
+                        <span> ${{product.price}}</span>
+                        <span *ngIf='product.discount && product.discount != 0'> - {{product.discount}}% </span>
+                        <span *ngIf='product.discount && product.discount != 0'>${{ product.discount_price}} </span>
+
+                    </div>
+                    <img src="assets/cancel-small.svg"
+                        (click)="openDeleteProductDialog('Product',product.id,product.name)" loading="lazy"
+                        alt="list_cancel" />
+                </div>
+            </div>
+        </ng-container>
+
+        <ng-template #emptyProducts>
+            <div class="empty-servicesProduct-icon flex align-center m-auto mt-20">
+                <img src="assets/product.svg" loading="lazy" alt="empty_appointments_table" />
+            </div>
+            <h2 class="f-14 empty-servicesProduct-heading t-center p-tb-20 m-0">No Products Added</h2>
+        </ng-template>
+
+        <div *ngIf="productsList?.length > 0 || servicesList?.length > 0" class="bill f-18">
+            Total: $<span>{{totalPrice | number:'1.2-2'}}</span>
+        </div>
+
+    </mat-card>
+
+</form>
+
+<ng-template #appointmentSpinner>
+    <mat-spinner class="table-no-show" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

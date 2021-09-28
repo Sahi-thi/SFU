@@ -1,0 +1,81 @@
+<div *ngIf="!isCalendarApiLoading else showSpinner" class="appointments-main h-100">
+
+  <div class="table-header">
+
+    <div class="i-flex align-center mt-30 mr-30 date-block">
+
+      <button class="flex align-center" type="button" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="onClickPreviousMonth(viewDate)">
+        <mat-icon aria-label="leftArrow">keyboard_arrow_left</mat-icon>
+      </button>
+
+      <p class="m-0"> {{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }} </p>
+
+      <button class="flex align-center" type="button" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate"
+        (viewDateChange)="onClickNextMonth(viewDate)">
+        <mat-icon aria-label="rightArrow">keyboard_arrow_right</mat-icon>
+      </button>
+
+    </div>
+
+    <div class="switch mt-30 i-flex">
+      <div class="tab flex align-center tab-unsel" [routerLink]='["/home/salons/salon/" + salonId + "/appointments"]'>
+        <mat-icon aria-label="menu">menu</mat-icon>
+      </div>
+      <div class="tab flex align-center tab-sel"
+        [routerLink]='["/home/salons/salon/" + salonId + "/appointments/calendar-view"]'>
+        <mat-icon aria-label="calender">today</mat-icon>
+      </div>
+    </div>
+
+    <div class="margin-left-auto flex">
+      <button onclick="this.blur()" (click)="openFilter()" class="filter-icon" mat-icon-button color="primary">
+        <div [inlineSVG]="'assets/filter.svg'"></div>
+      </button>
+
+      <button class="btn-shadow fw-400" [routerLink]='["/home/salons/salon/" + salonId + "/appointments/create"]'
+        type="button" mat-flat-button color="primary">
+        <mat-spinner *ngIf="false" class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+        <span>CREATE APPOINTMENT</span>
+      </button>
+    </div>
+  </div>
+
+  <div class="o-auto">
+    <div [ngSwitch]="view" class="mb-20 calender-table">
+      <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [excludeDays]='excludeDays' [viewDate]="viewDate"
+        [events]="events" [refresh]="refresh" [cellTemplate]="customCellTemplate"
+        (eventClicked)="handleEvent('Clicked', $event.event, '')" (beforeViewRender)="beforeMonthViewRender($event)"
+        (eventTimesChanged)="eventTimesChanged($event)">
+      </mwl-calendar-month-view>
+    </div>
+  </div>
+
+  <mat-menu #beforeMenu="matMenu" yPosition="below" class="more-events-menu">
+    <div *ngFor="let i=index;let events of totalEvents">
+      <div class="events t-center f-12 c-pointer" [ngStyle]="{'background-color': events.color}"
+        [routerLink]='["/home/salons/salon/" + salonId + "/appointments/" + events.id+ "/details"]'>
+        {{events.title}} </div>
+    </div>
+  </mat-menu>
+
+  <ng-template #customCellTemplate let-day="day" let-locale="locale" let-tooltipPlacement="tooltipPlacement"
+    let-highlightDay="highlightDay" let-unhighlightDay="unhighlightDay" let-eventClicked="eventClicked"
+    let-tooltipTemplate="tooltipTemplate" let-tooltipAppendToBody="tooltipAppendToBody" let-tooltipDelay="tooltipDelay">
+    <div class="cal-cell-top">
+      <span class="cal-day-number">{{ day.date | calendarDate:'monthViewDayNumber':locale }}</span>
+      <div *ngFor="let i=index;let abc of day.events | slice:0:2">
+        <div class="t-center f-12 events c-pointer" [ngStyle]="{'background-color': abc.color}"
+          [routerLink]='["/home/salons/salon/" + salonId + "/appointments/"+ abc.id+ "/details"]'>
+          {{abc.title}} </div>
+      </div>
+    </div>
+    <a class="f-12 view-more c-pointer" *ngIf="day.badgeTotal >2" [matMenuTriggerFor]="beforeMenu"
+      (click)="handleEvent('Clicked',$event.event, day)">
+      +{{day.badgeTotal-2}} more</a>
+  </ng-template>
+</div>
+
+<ng-template #showSpinner>
+  <mat-spinner color="primary" class="table-no-show" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

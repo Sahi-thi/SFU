@@ -1,0 +1,16 @@
+.pdf-viewer {
+    background-color: #FFFFFF;
+    border-radius: 2px;
+    width: 100%;
+    max-width: 1250px;
+    .header {
+        height: 65px;
+        border-radius: 2px;
+        background-color: #90ADC1;
+        color: #FFFFFF;
+        padding: 0 30px;
+    }
+    .content {
+        padding: 20px;
+    }
+}

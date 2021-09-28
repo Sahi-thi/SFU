@@ -1,0 +1,53 @@
+<div *ngIf="!isLoadingAPI  ; else quoteSpinner" class="p-relative h-100">
+
+    <form [formGroup]="dailyWordsFormGroup">
+        <div class="add-daily-main p-t-30 mb-auto-20">
+
+            <div class="f-right flex">
+                <button type="button" (click)="onClickGoBack()" class="auth-button-80 mr-10 fw-400" mat-button
+                    color="primary">CANCEL</button>
+                <button type="submit" class="auth-button-80 btn-shadow fw-400"
+                    (click)="submitDailyWordsForm(buttonTitle)" mat-flat-button color="primary">
+                    <mat-spinner *ngIf="isCallingQuote ;else title" class="auth-spinner" strokeWidth="3" diameter='30'>
+                    </mat-spinner>
+                    <ng-template #title> {{buttonTitle}} </ng-template>
+                </button>
+            </div>
+
+            <h3 class="f-20 mb-auto-20">{{quoteTitle}}</h3>
+
+            <mat-card class="add-daily-card card-shadow mb-auto-30">
+                <mat-error class="pb-30 t-center"> {{responseMessage}} </mat-error>
+
+                <mat-form-field class="custom-textarea w-100" appearance="outline">
+                    <mat-label>Quote</mat-label>
+                    <textarea matInput formControlName="quote" maxlength="150"></textarea>
+                </mat-form-field>
+
+                <mat-error>
+                    {{errorMessage}}</mat-error>
+                <div *ngIf="buttonTitle === 'ADD'" class="or-text f-16 t-center">Or </div>
+                <ng-template #uploadedFile>
+                    <div *ngIf="buttonTitle === 'ADD'" class="upload-wrapper w-100 make-relative">
+                        <span class="make-center flex align-center t-center">
+                            <mat-icon aria-hidden="false" aria-label="document" color="primary" class="mr-10">
+                                description
+                            </mat-icon> Upload File
+                        </span>
+                        <input class="h-100 w-100 glass make-absolute c-pointer" type="file" accept=".csv,.xlsx, .xls,"
+                            (change)="onFileChange($event)" />
+                    </div>
+                </ng-template>
+
+                <div class="uploaded-file flex align-left" *ngIf="fileName else uploadedFile">
+                    <mat-icon aria-hidden="false" aria-label="document" class="mr-10">description</mat-icon>
+                    <div class="mr-10">{{fileName}}</div>
+                    <img src="assets/cancel_gray.svg" class="c-pointer" loading="lazy" alt="close" (click)="cancelFile()">
+                </div>
+            </mat-card>
+        </div>
+    </form>
+</div>
+<ng-template #quoteSpinner>
+    <mat-spinner *ngIf="isLoadingAPI" class="table-no-show" color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

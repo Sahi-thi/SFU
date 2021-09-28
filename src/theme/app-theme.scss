@@ -1,0 +1,74 @@
+@import "~@angular/material/theming";
+@import "./app-theme-styles.scss";
+
+@include mat-core();
+
+$color-primary: (
+  50: #8ba6b9,
+  100: rgba(139, 166, 185, 0.15),
+  150: rgba(74, 74, 74, 0.8),
+  200: rgba(0, 0, 0, 0.16),
+  250: #cccccc,
+  300: #F3F6F7,
+  contrast: (
+    50: #ffffff,
+    100: #6e6e6e,
+    150: #666666,
+    200: #191529,
+    250: #f9f9f9,
+    300: #000000,
+    350: #474454,
+    400: #e8ecef,
+  ),
+);
+
+$color-secondary: (
+  50: #ffffff,
+  100: #dddddd,
+  150: rgba(255, 255, 255, 0.6),
+  200: rgba(0, 0, 0, 0.36),
+  250: rgba(0, 0, 0, 0.8),
+  300: #fafafa,
+  350: rgba(25, 21, 41, 0.8),
+  contrast: (
+    50: #8ba6b9,
+    100: rgba(0, 0, 0, 0.8),
+    150: rgba(0, 0, 0, 0.4),
+    200: rgba(0, 0, 0, 0.16),
+    250: rgba(0, 0, 0, 0.24),
+    300: rgba(0, 0, 0, 0.6),
+    350: rgba(0, 0, 0, 0.5),
+    400: rgba(0, 0, 0, 0.1),
+    450: rgba(0, 0, 0, 0.04),
+  ),
+);
+
+$color-error: (
+  50: #c80000,
+  100: rgba(98, 192, 0, 0.3),
+  150: rgba(171, 237, 221, 0.5),
+  200: #0EC700,
+  contrast: (
+    50: rgba(200, 0, 0, 0.1),
+    100: rgba(77, 151, 0, 0.6),
+    150: #B4B4B4,
+  ),
+);
+
+$app-theme-primary: mat-palette($color-primary, 50, 100);
+$app-theme-accent: mat-palette($color-secondary, 50);
+$app-theme-warn: mat-palette($color-error, 50);
+$app-theme-theme: mat-light-theme(
+  $app-theme-primary,
+  $app-theme-accent,
+  $app-theme-warn
+);
+$app-theme-typography: mat-typography-config(
+  $font-family: "Roboto",
+);
+input.custom-autofill {
+  @include cdk-text-field-autofill-color(transparent, red);
+}
+
+@include angular-material-theme($app-theme-theme);
+@include app-theme-styles($app-theme-theme);

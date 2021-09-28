@@ -1,0 +1,46 @@
+@import "../../../../theme/deep-styles.scss";
+.add-daily-main {
+  max-width: 700px;
+  width: 90%;
+}
+.add-daily-main h3 {
+    line-height: 36px;
+    font-weight: 500;
+}
+
+.add-daily-card {
+    padding: 40px;
+}
+.or-text {
+    line-height: 24px;
+    padding: 0 0 20px;
+}
+.upload-wrapper {
+    box-sizing: border-box;
+    border-radius: 4px;
+    border-width: 1.5px;
+    border-style: dashed;
+    min-height: 65px;
+    height: 65px;
+}
+.preview-image {
+  object-fit: cover;
+}
+
+.uploaded-file {
+  padding: 15px;
+  box-sizing: border-box;
+  height: 65px;
+  border-width: 1.5px;
+  border-style: solid;
+  border-radius: 4px;
+  border-color: #666666;
+  color: #666666;
+  background-color: rgba(139,166,185,0.1);
+  div {
+    flex: 1;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}

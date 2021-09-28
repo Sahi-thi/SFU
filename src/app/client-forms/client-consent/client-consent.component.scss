@@ -1,0 +1,72 @@
+@import "../../../theme/deep-styles.scss";
+
+.client-consent-main {
+  background-color: rgba(158, 158, 158, 0.2);
+  // min-height: 100%;
+  // height: auto;
+  scroll-behavior: smooth;
+}
+
+form {
+  padding: 0 20px 85px 20px;
+  overflow: auto;
+  // height: auto;
+  img {
+    margin-top: 40px !important;
+  }
+  .form-submit-btn {
+    // margin-bottom: 85px !important;
+  }
+}
+.client-consent {
+  max-width: 790px;
+  // padding: 40px 0 85px;
+  // height: 100%;
+  box-sizing: border-box;
+  > * {
+    color: #2c425c;
+  }
+  h3 {
+    line-height: 28px;
+    font-weight: 500;
+  }
+  label span {
+    color: #c80000;
+  }
+}
+.lh-16 {
+  line-height: 16px;
+}
+.lh-20 {
+  line-height: 20px;
+}
+.half-input {
+  width: calc(50% - 10px);
+}
+.phone-number {
+  width: 100%;
+  max-width: 280px;
+}
+.email {
+  width: 100%;
+  max-width: 520px;
+}
+.sig-container {
+  overflow: hidden;
+  background-color: #ffffff;
+}
+.form-submit-btn {
+  max-width: 305px;
+  width: 90%;
+  font-weight: bold;
+}
+.loader-wrapper {
+  position: fixed;
+  top: 0px;
+  left: 0px;
+  background-color: rgba(44, 66, 92, 0.3);
+}
+.form-date-picker input::placeholder {
+  font-size: 14px;
+  font-weight: 400;
+}

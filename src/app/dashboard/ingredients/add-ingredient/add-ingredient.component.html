@@ -1,0 +1,25 @@
+<form [formGroup]="ingredientFormGroup">
+
+    <h2 class="f-18 m-0 filter-heading"> {{dialogTitle}} </h2>
+    <mat-error class="pb-30 p-t-16"> {{responseMessage}} </mat-error>
+
+    <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Ingredient</mat-label>
+        <input (keyup)="emptyResponseMessage()" formControlName="name" type="text" aria-label="ingredient" matInput>
+    </mat-form-field>
+    <div class="flex align-end p-0">
+
+
+        <button [mat-dialog-close] type="button" class="mr-10 fw-400" mat-button color="primary">CANCEL</button>
+        <button (click)='submitFormData()' *ngIf="!isCallingIngredient else showLoader" type="submit" class="fw-400"
+            mat-flat-button color="primary">
+            {{btnTitle}}
+        </button>
+        <ng-template #showLoader>
+            <button type="button" class="fw-400" mat-flat-button color="primary">
+                <mat-spinner class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+            </button>
+        </ng-template>
+
+    </div>
+</form>

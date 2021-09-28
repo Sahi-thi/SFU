@@ -1,0 +1,108 @@
+<div class="client-main-block m-auto">
+    <mat-form-field class="routine-date-picker" appearance="fill">
+        <input disabled (dateChange)="updateDate($event.target.value)" [value]="updatedDate" [min]="clientJoiningDate"
+            [max]="maxDate" class="f-12" matInput [matDatepicker]="picker" placeholder="Pick a Date"
+            (focus)="picker.open()">
+        <mat-datepicker-toggle matSuffix [for]="picker" color="primary"></mat-datepicker-toggle>
+        <mat-datepicker disabled="false" #picker></mat-datepicker>
+    </mat-form-field>
+
+    <div class="clear"></div>
+
+    <mat-accordion *ngIf="!isOverViewCalling else showSpinner">
+        <mat-expansion-panel (afterExpand)="callRitualDetail(overView.ritual_type)" class="mb-10 card-shadow"
+            *ngFor="let overView of rituals">
+            <mat-expansion-panel-header class="client-accordion">
+                <mat-panel-title class="accordion-heading">
+                    <div class="w-100 mb-20" *ngIf="overView.ritual_type == 'MR' else eveRitual">
+                        <b class="mr-10 f-18">Morning Ritual </b><img src="assets/morning.svg" loading="lazy"
+                            alt="morning" />
+                    </div>
+                    <ng-template #eveRitual>
+                        <div class="w-100 mb-20">
+                            <b class="mr-10 f-18">Evening Ritual</b><img src="assets/evening.svg" loading="lazy"
+                                alt="evening" />
+                        </div>
+                    </ng-template>
+                    <div class="w-100">
+                        <span class="mr-10 f-24"> {{overView.percentage}} %</span><small class="f-14">Completed</small>
+                    </div>
+                </mat-panel-title>
+            </mat-expansion-panel-header>
+            <div *ngIf="!isRitualDataLoading ; else ritualSpinner" class="accordion-content">
+                <ng-container *ngIf="isProducts">
+                    <p class="mb-auto-10 f-12 form-heading">Products Added</p>
+
+                    <div *ngFor="let ritualProduct of ritualProducts; let i = index">
+                        <p class="mb-16 f-14 product-name fw-500 mt-20 d-i-table"> {{i+1}} .
+                            {{ritualProduct.category_name}}
+                        </p>
+                        <ng-container *ngIf="ritualProduct.products.length !== 0; else emptyProduct ">
+                            <div *ngFor="let product of ritualProduct.products; let i = index" class="flex">
+                                <div class="product-image mr-16 mb-20">
+                                    <div *ngIf="product.product_img_thumb_url === ''  else productImg"
+                                        class="routine-empty-product flex align-center">
+                                        <img src="assets/empty_profile.svg" alt="avatar" loading="lazy" />
+                                    </div>
+                                    <ng-template #productImg>
+                                        <img src={{product.product_img_thumb_url}} loading="lazy" alt="product_name" />
+                                    </ng-template>
+                                </div>
+                                <div class="product-desp mr-16 mb-20 f-14">
+                                    {{product.product_brand}} <span class="f-12"> {{product.product_name}} </span>
+                                </div>
+                            </div>
+                        </ng-container>
+                        <ng-template #emptyProduct>
+                            <p class="pl-20"> -- </p>
+                        </ng-template>
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="ritualDetails">
+                    <p class="mb-auto-20 p-t-20 f-12 form-heading">How’s your skin feeling and looking?</p>
+                    <p class="f-14 feeling-desp d-i-block m-0">
+                        {{ritualDetails.skin_feel === ''||ritualDetails.skin_feel == null ? '----' :
+                        ritualDetails.skin_feel}}
+                    </p>
+
+                    <p *ngIf="isRitualInfo" class="mb-auto-20 f-12 form-heading p-t-40">Tell me more ...</p>
+                    <p *ngFor="let moreInfo of moreRitualInfo ;  let isLast=last" class="f-14 feeling-desp m-0">
+                        {{moreInfo.ritual_info_name === ''|| moreInfo.ritual_info_name == null ? '----'
+                        :moreInfo.ritual_info_name }}{{isLast ? '' : ', '}}
+                    </p>
+
+                    <p class="mb-auto-20 f-12 form-heading p-t-40">Notes </p>
+                    <p class="f-14 feeling-desp m-0">
+                        {{ritualDetails.note === '' || ritualDetails.note == null ? '----' : ritualDetails.note }}
+                    </p>
+                </ng-container>
+
+                <ng-container>
+                    <p class="mb-auto-20 f-12 form-heading p-t-40">Selfies</p>
+                    <div *ngIf="isSelfies;  else emptySelfies" class="flex align-left selfie-pic">
+                        <ng-container *ngFor="let selfie of selfieUrls">
+                            <img src={{selfie.ritual_media_thumb_url}} alt="selfies" class="mr-10 mb-10" />
+                        </ng-container>
+                    </div>
+
+                    <ng-template #emptySelfies>
+                        <div class="flex align-left f-16">
+                            <img src="assets/empty_profile.svg" class="mr-16" alt="empty-selfie"/> No Selfies Found
+                        </div>
+                    </ng-template>
+                </ng-container>
+
+            </div>
+            <ng-template #ritualSpinner>
+                <div class="routine-spinner flex align-center">
+                    <mat-spinner color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+                </div>
+            </ng-template>
+        </mat-expansion-panel>
+    </mat-accordion>
+</div>
+
+<ng-template #showSpinner>
+    <mat-spinner color="primary" class="table-no-show" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

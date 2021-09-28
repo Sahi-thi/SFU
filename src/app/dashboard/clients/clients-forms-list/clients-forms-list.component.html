@@ -1,0 +1,55 @@
+<div class="show-pdf-block mb-auto-20" *ngIf="isPdfView">
+    <div class="pdf-viewer m-auto card-shadow">
+        <div class="header flex align-seperate">
+            <div> File Name {{fileName}} # {{ appointmentId}} </div>
+            <div>
+                <a href={{pdfUrl}} download target="_blank" rel="noopener">
+                    <mat-icon class="mr-20 c-pointer">save</mat-icon>
+                </a>
+                <mat-icon (click)="closeForm()" class="c-pointer">close</mat-icon>
+            </div>
+
+        </div>
+
+        <div class="content">
+            <pdf-viewer [src]='pdfUrl' [render-text]="true" [original-size]="false" style="display: block;">
+            </pdf-viewer>
+        </div>
+    </div>
+</div>
+
+<div *ngIf="!isPdfView" class="client-main-block m-auto">
+    <ng-container *ngIf="!isFormsListLoader else showFormListLoader">
+
+        <ng-container *ngIf="!isEmptyFormList else emptyFormList">
+            <mat-card (click)="showPdfView(form)" *ngFor="let form of formList"
+                class="mb-auto-10 card-shadow print-block">
+                <img src="assets/page.svg" class="mr-10" alt="page" />
+                <div class="print-cont f-16"> {{form.form_name}} #{{form.appointment_id}}
+                    <div> <a class="mt-10 f-14 pdf-link">
+                            Client Consent {{form.form_name}}.pdf
+                        </a>
+                    </div>
+                </div>
+                <div class="print-date f-14"> {{form.updated_date | date:'MM/dd/yyyy'}} </div>
+            </mat-card>
+        </ng-container>
+    </ng-container>
+</div>
+
+
+
+<ng-template #emptyFormList>
+    <div class="empty-forms flex align-center">
+        <div>
+            <div class="empty-data-icon flex align-center mb-auto-40">
+                <img src="assets/empty_salon.svg" loading="lazy" alt="empty_forms" />
+            </div>
+            <h2 class="f-18 empty-heading mb-auto-20">Forms List is Empty</h2>
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #showFormListLoader>
+    <mat-spinner color="primary" class="table-no-show" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

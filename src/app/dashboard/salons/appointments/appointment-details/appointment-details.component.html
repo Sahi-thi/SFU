@@ -1,0 +1,129 @@
+<div class="appointment-main p-t-30 m-auto" *ngIf="!isLoadingAPI else loadSpinner">
+    <div class="appointment-head mb-20">
+        <div class="f-right flex">
+            <button (click)="goBack()" type="button" class="auth-button-80 mr-10 fw-400" mat-button
+                color="primary">CANCEL</button>
+            <button (click)="navigateToEditAppointment('SAVE',appointmentDetails.client_name)" type="submit"
+                class="auth-button-80 btn-shadow fw-400" mat-flat-button color="primary">
+                <span> EDIT </span>
+            </button>
+        </div>
+        <h3 class="f-20 m-0 fw-500">{{appointmentDetails.client_name}}</h3>
+    </div>
+
+    <mat-error> {{responseMessage}} </mat-error>
+    <mat-card *ngIf="appointmentDetails" class="add-provider-card mb-auto-20 card-shadow p-0">
+        <div class="appointment-info">
+            <div class="appointment-status f-12 f-right {{appointmentDetails.status}}">{{appointmentDetails.status}}
+            </div>
+            <p class="mb-20 f-12 form-heading fw-500 m-0">Appointment Details</p>
+            <ng-container *ngIf="appointmentFrom === 'registered' else showUnregisterTemp ">
+                <div class="flex p-b-16">
+                    <span class="details-labels f-14">Client Name:</span>
+                    <span class="details-cont f-16">{{appointmentDetails.client_name}}</span>
+                </div>
+                <div class="flex p-b-16">
+                    <span class="details-labels f-14">Email:</span>
+                    <span class="details-cont f-16">{{appointmentDetails.client_email}}</span>
+                </div>
+                <div class="flex p-b-16">
+                    <span class="details-labels f-14">Phone:</span>
+                    <span class="details-cont f-16">{{formate.transform(appointmentDetails.client_number, 'US')}}</span>
+                </div>
+            </ng-container>
+            <ng-template #showUnregisterTemp>
+
+                <div class="flex p-b-16">
+                    <span class="details-labels f-14">Email:</span>
+                    <span class="details-cont f-16">{{appointmentDetails.client_email}}</span>
+                </div>
+            </ng-template>
+            <div class="flex p-b-16">
+                <span class="details-labels f-14">Date and Time:</span>
+                <span class="details-cont f-16">{{appointmentDetails.date | date:'MM/dd/yyyy'}},
+                    {{appointmentDetails.time}}</span>
+            </div>
+            <div class="flex p-b-16">
+                <span class="details-labels f-14">Notes:</span>
+                <span class="details-cont f-16">{{appointmentDetails.notes}}</span>
+            </div>
+        </div>
+        <div class="appointment-category">
+            <p class="f-12 form-heading fw-500 m-0">Services</p>
+        </div>
+        <div class="services-items-list m-auto">
+            <ng-container
+                *ngIf="appointmentDetails.services?.length && appointmentDetails.services?.length >0 else emptyServices">
+                <div class="list flex align-left" *ngFor="let service of appointmentDetails?.services">
+                    <div class="product f-14 m-0 fw-500 flex">
+                        <p class="d-i-block m-0 mr-10">{{service.service}}</p>
+                    </div>
+                    <div class="product-details f-12 fw-500 mr-10">
+                        <span>Price:</span>
+                        <!-- <span *ngIf="service.discount && service.discount != 0"> Discount: </span>
+                        <span *ngIf="service.discount && service.discount != 0"> Payable: </span> -->
+                    </div>
+                    <div class="product-bill f-14">
+                        <span>${{service.price}}</span>
+                        <!-- <span *ngIf="service.discount && service.discount != 0">-{{service.discount.toString().trim()}}%
+                        </span>
+                        <span *ngIf="service.discount&& service.discount != 0">
+                            ${{(service.price - (service.price * service.discount / 100)).toFixed(2)}}
+                        </span> -->
+                    </div>
+                </div>
+            </ng-container>
+            <ng-template #emptyServices>
+                <div class="empty-servicesProduct-icon flex align-center m-auto mt-20">
+                    <img src="assets/grooming.svg" loading="lazy" alt="services" />
+                </div>
+                <h2 class="f-14 empty-servicesProduct-heading t-center p-tb-20 m-0">No Services Added</h2>
+            </ng-template>
+        </div>
+        <div class="appointment-category">
+            <p class="f-12 form-heading fw-500 m-0">Products</p>
+        </div>
+        <div class="products-items-list m-auto">
+            <ng-container
+                *ngIf='appointmentDetails.products?.length && appointmentDetails.products?.length > 0 else emptyProducts'>
+
+                <div class="list flex align-left" *ngFor="let product of appointmentDetails.products">
+                    <div class="product f-14 m-0 fw-500 flex">
+                        <p class="d-i-block m-0 mr-10">{{product.name}}</p>
+                    </div>
+                    <div class="product-details f-12 fw-500 mr-10">
+                        <span> Price: </span>
+                        <!-- <span *ngIf="product.discount && product.discount!=0"> Discount: </span>
+                        <span *ngIf="product.discount && product.discount!=0"> Payable: </span> -->
+                    </div>
+                    <div class="product-bill f-14">
+                        <span>${{product.price}}</span>
+                        <!-- <span *ngIf="product.discount && product.discount!=0 "> -{{product.discount.toString().trim()}}%
+                        </span>
+                        <span *ngIf="product.discount && product.discount!=0">${{(product.price - (product.price *
+                            product.discount /
+                            100)).toFixed(2)}}</span> -->
+                    </div>
+                </div>
+            </ng-container>
+
+
+            <ng-template #emptyProducts>
+                <div class="empty-servicesProduct-icon flex align-center m-auto mt-20">
+                    <img src="assets/product.svg" loading="lazy" alt="empty_appointments_table" />
+                </div>
+                <h2 class="f-14 empty-servicesProduct-heading t-center p-tb-20 m-0">No products Added</h2>
+            </ng-template>
+        </div>
+
+        <div class="products-items-list m-auto">
+            <div class="bill f-20">Total: $<span>{{totalPrice | number:'1.2-2'}}</span></div>
+        </div>
+    </mat-card>
+
+</div>
+
+
+<ng-template #loadSpinner>
+    <mat-spinner color="primary" class="filter-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

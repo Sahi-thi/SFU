@@ -1,0 +1,31 @@
+<ng-container>
+    <div *ngIf="!isDeleted else showTemplate">
+        <mat-error></mat-error>
+        <p class="f-16 popup-text">Are you sure you want to delete this note? </p>
+        <div class="align-end flex mt-20">
+            <button type="button" [mat-dialog-close] class="auth-button-80 mr-10 fw-400 f-16" mat-button
+                color="primary">NO</button>
+            <button (click)="callDeleteIngredient()" *ngIf="!isApiLoading else showLoading " type="submit"
+                class="auth-button-80 btn-shadow fw-400 f-16" mat-flat-button color="primary">
+                YES
+            </button>
+            <ng-template #showLoading>
+                <button type="button" class="auth-button-80 btn-shadow fw-400 f-16" mat-flat-button color="primary">
+                    <mat-spinner class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+                </button>
+            </ng-template>
+        </div>
+    </div>
+
+    <ng-template #showTemplate>
+        <div>
+            <img class="mb-auto-20 d-block" src="assets/successIcon.svg" alt="success" loading="lazy">
+            <div class="delete-success mb-auto-20 f-20 t-center">Deleted Successfully</div>
+            <button [mat-dialog-close]='noteId' type="submit"
+                class="auth-button-80 btn-shadow fw-400 f-16 d-block m-auto" mat-flat-button color="primary">
+                OK
+            </button>
+        </div>
+    </ng-template>
+
+</ng-container>

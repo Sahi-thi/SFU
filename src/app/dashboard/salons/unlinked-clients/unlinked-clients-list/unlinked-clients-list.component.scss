@@ -1,0 +1,132 @@
+.clients-main {
+    max-width: 1260px;
+    width: 90%;
+    margin: auto;
+}
+
+
+.table-header {
+    display: flex;
+    align-items: center;
+    flex-flow: wrap;
+}
+.table-header button {
+    padding: 0 26px;
+}
+.search-icon {
+    margin-left: -34px;
+    margin-top: 30px;
+    cursor: pointer;
+    opacity: 0.8;
+    &:hover {
+        opacity: 1;
+    }
+}
+.margin-left-auto {
+    margin-left: auto;
+    margin-top: 30px;
+}
+.search-column {
+    height: 36px;
+    flex: 1;
+}
+.filter-icon {
+    margin-right: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+    padding: 0 !important;
+}
+.search-for-list {
+    height: 36px;
+    width: 283px;
+    border-radius: 3px;
+    border: 0px;
+    padding-left: 16px;
+    font-size: 14px;
+    margin-top: 30px;
+    &:focus {
+      outline: 0px;
+    }
+}
+
+
+.client-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: table;
+    background-color: #e9eef0;
+}
+.client-name {
+    width: 220px;
+    max-width: 220px;
+    min-width: 220px;
+}
+.client-email {
+    width: 350px;
+    max-width: 350px;
+    min-width: 350px;
+}
+.client-phn {
+    width: 180px;
+    max-width: 180px;
+    min-width: 180px;
+}
+
+
+.table-card table {
+    min-width: 870px;
+}
+
+
+.empty-data-box {
+    min-height: calc(100% - 90px)
+}
+
+.client-status {
+    overflow: visible;
+}
+
+
+
+::ng-deep .client-table-status {
+    transform: translateX(-10px);
+}
+::ng-deep .client-table-status .mat-form-field-wrapper {
+    padding: 0;
+    width: 107px;
+}
+::ng-deep .client-table-status .mat-form-field-infix {
+    border-top: 0;
+    padding: 0;
+}
+::ng-deep .client-table-status .mat-form-field-flex {
+    border-radius: 4px !important;
+    padding: 0 10px !important;
+    background-color: transparent;
+    display: flex;
+    align-items: center;
+    height: 30px;
+    background-image: none;
+    background-repeat: no-repeat;
+    background-position: 95% center;
+    &:hover {
+        background-color: rgba(139, 166, 185, 0.15);
+        background-image: url("/assets/arrow_bottom.svg");
+    }
+}
+::ng-deep .client-table-status .mat-form-field-underline,
+::ng-deep .client-table-status .mat-form-field-subscript-wrapper {
+    display: none;
+}
+::ng-deep .client-table-status.mat-form-field-appearance-fill .mat-select-arrow-wrapper {
+    visibility: hidden;
+}
+::ng-deep .client-table-status .mat-select-value-text span {
+    font-size: 16px;
+    color: rgba(0, 0, 0, 0.8);
+}
+::ng-deep .client-table-status .mat-form-field-wrapper {
+    height: max-content;
+}

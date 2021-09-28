@@ -1,0 +1,79 @@
+<mat-spinner class="table-no-show" *ngIf="isDetailsLoading; else clientDetails" color="primary" strokeWidth="3"
+    diameter='30'>
+</mat-spinner>
+<ng-template #clientDetails>
+    <div class="client-main-block m-auto">
+        <mat-card class="mb-auto-10 card-shadow client-first-block">
+            <div class="client-img-block">
+
+                <img *ngIf="clientInformation.profile_pic_thumb_url; else emptyProfile"
+                    src={{clientInformation.profile_pic_url}} loading="lazy" alt="user_photo" class="mb-20">
+                <ng-template #emptyProfile>
+                    <div class="client-empty-profile flex align-center mb-20">
+                        <img src="assets/empty_profile.svg" alt="avatar" loading="lazy" />
+                    </div>
+                </ng-template>
+                <div class="provider-status t-center f-12 mb-auto-20"
+                    [ngClass]="(colorStatus===true)?'status-active':'status-inactive'"> {{clientInformation.status}}
+                </div>
+            </div>
+            <div>
+                <div class="mb-24 f-16 flex align-left client-address">
+                    <mat-icon aria-hidden="false" aria-label="Back" class="mr-20">account_circle</mat-icon>
+                    <span> {{clientInformation.name}} </span>
+                </div>
+                <div class="mb-24 f-16 flex align-left client-address">
+                    <mat-icon aria-hidden="false" aria-label="Back" class="mr-20">email</mat-icon>
+                    <span> {{clientInformation.email}} </span>
+                </div>
+                <div class="mb-24 f-16 flex align-left client-address">
+                    <mat-icon aria-hidden="false" aria-label="Back" class="mr-20">call</mat-icon>
+                    <span> {{formate.transform(clientInformation.phone_number, 'US')}} </span>
+                </div>
+            </div>
+        </mat-card>
+
+        <mat-card class="mb-auto-30 card-shadow client-second-block">
+
+            <div *ngIf="clientInformation.productNotToUseOnSkin.length > 0">
+                <p class="mb-auto-20 f-12 form-heading pt-30">Products not to use on skin.</p>
+                <a (click)="navigateToNotToUseProduct(product)" class="f-16 client-content client-list-link"
+                    *ngFor="let product of clientInformation.productNotToUseOnSkin">
+                    {{product.brand_name}} ({{product.total_count}} )</a>
+            </div>
+
+            <div *ngIf="questionAnswer.length !== 0; else emptyQnA">
+                <ng-container *ngFor="let QnA of questionAnswer">
+                    <div class="client-heading" *ngIf="QnA.question_id === 1 || QnA.question_id === 2">
+                        <p class="mb-auto-20 f-12 form-heading pt-30"> {{QnA.question.replace('?', '')}}</p>
+                        <div class="mb-auto-30 f-16 client-content"
+                            *ngFor="let option of QnA.options  ; let isLast=last">
+                            {{option.option === 'Other' ? option.other_text.trim(): option.option.trim()}}{{isLast ?
+                            '' : ','}}
+                        </div>
+                    </div>
+                </ng-container>
+
+                <p class="mb-auto-20 f-12 form-heading pt-30" *ngIf="questionAnswer.length > 2">Other Details</p>
+
+                <ng-container *ngFor="let QnA of questionAnswer">
+                    <div *ngIf="QnA.question_id === 3 || QnA.question_id === 4;">
+                        <span class="f-14 client-content"><b>{{QnA.question.replace('?', ' :') }} </b>
+                            <span *ngFor="let option of QnA.options ; let isLast=last" class="f-16">
+                                {{option.option.trim()}}{{isLast ? '' : ','}}
+                                {{option.other_text == null || option.other_text == '' ? '' : '- ' + option.other_text}}
+
+                            </span>
+                        </span>
+                    </div>
+                </ng-container>
+            </div>
+
+            <ng-template #emptyQnA>
+                <p class="f-16 p-t-30"> No Question and Answers available </p>
+            </ng-template>
+
+        </mat-card>
+    </div>
+
+</ng-template>

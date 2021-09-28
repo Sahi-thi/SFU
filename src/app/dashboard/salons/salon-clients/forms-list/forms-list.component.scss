@@ -1,0 +1,72 @@
+.print-block {
+  padding: 16px 20px;
+  display: flex;
+  align-items: flex-start;
+  cursor: pointer;
+}
+.print-cont {
+  font-weight: 500;
+  line-height: 19px;
+  flex: 1;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  span {
+    display: block;
+    font-weight: 400;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    overflow: hidden;
+  }
+}
+.pdf-viewer {
+  background-color: #ffffff;
+  border-radius: 2px;
+  width: 100%;
+  max-width: 1250px;
+  .header {
+    height: 65px;
+    border-radius: 2px;
+    background-color: #90adc1;
+    color: #ffffff;
+    padding: 0 30px;
+  }
+  .content {
+    padding: 20px;
+  }
+}
+.print-cont span,
+.print-date {
+  line-height: 16px;
+}
+.empty-forms {
+  height: calc(100% - 160px);
+}
+.empty-state-inner {
+  display: table-cell;
+  vertical-align: middle;
+}
+.client-main-block {
+  max-width: 700px;
+  width: 90%;
+}
+.show-pdf-block {
+  max-width: 1250px;
+  width: 90%;
+  margin-top: -115px;
+  position: relative;
+}
+
+.pdf-link {
+  color: #6e6e6e;
+  letter-spacing: 0;
+  line-height: 16px;
+  font-weight: normal;
+  text-decoration: none;
+  transition: 0.3s all ease-in-out;
+  display: block;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}

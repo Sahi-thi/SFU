@@ -1,0 +1,49 @@
+.ingredents-main {
+    max-width: 1260px;
+    width: 90%;
+    margin: auto;
+}
+
+.table-header {
+    display: flex;
+    align-items: center;
+    margin: 0 auto 20px;
+    flex-flow: wrap;
+}
+.table-header button {
+    padding: 0 26px;
+}
+.search-icon {
+    margin-left: -34px;
+    margin-top: 30px;
+    cursor: pointer;
+    opacity: 0.8;
+    &:hover {
+        opacity: 1;
+    }
+}
+.margin-left-auto {
+    margin-left: auto;
+    margin-top: 30px;
+}
+.search-for-list {
+    height: 36px;
+    width: 283px;
+    border-radius: 3px;
+    border: 0px;
+    padding-left: 16px;
+    font-size: 14px;
+    margin-top: 30px;
+    &:focus {
+        outline: 0px;
+    }
+}
+
+::ng-deep .add-edit-ingredient {
+    min-width: 330px !important;
+    padding: 15px 30px 20px;
+}
+
+.empty-data-box {
+    min-height: calc(100% - 90px)
+}

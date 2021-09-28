@@ -1,0 +1,513 @@
+@import "./mixin-variables.scss";
+
+@mixin font-size($value) {
+  font-size: $value !important;
+} // font-sizes
+
+@mixin width($value) {
+  width: $value;
+} // width
+@mixin max-width($value) {
+  width: $value;
+}
+@mixin height($value) {
+  height: $value;
+} // height
+
+// tv:top-value, bv:bottom-value, lv:left-value, rv:right-value
+@mixin p-tv-bv($tv, $bv) {
+  padding: $tv 0px $bv 0px;
+} // padding top and bottom diff values
+@mixin p-lv-rv($lv, $rv) {
+  padding: 0px $rv 0px $lv;
+} // padding left and right diff values
+@mixin p-tb-v($tb-v) {
+  padding: $tb-v 0px;
+} // padding top and bottom same values
+@mixin p-lr-v($lr-v) {
+  padding: 0px $lr-v;
+} // padding left and right same values
+@mixin padding($value) {
+  padding: $value !important;
+} // padding
+@mixin padding-top($value) {
+  padding-top: $value;
+} // padding top
+@mixin padding-left($value) {
+  padding-left: $value;
+} // padding left
+@mixin padding-bottom($value) {
+  padding-bottom: $value;
+} // padding bottom
+@mixin padding-right($value) {
+  padding-right: $value;
+} // padding right
+@mixin padding-diff-values($tv, $rv, $bv, $lv) {
+  padding: $tv $rv $bv $lv;
+}
+@mixin margin($value) {
+  margin: $value;
+}
+@mixin margin-right($value) {
+  margin-right: $value !important;
+}
+@mixin margin-bottom($value) {
+  margin-bottom: $value !important;
+}
+@mixin opacity($value) {
+  opacity: $value;
+}
+
+// Height
+.h-100 {
+  @include height(100%);
+}
+.h-38 {
+  @include height(38px);
+}
+.h-70 {
+  min-height: 70px;
+}
+
+// width in %
+.w-100 {
+  @include width(100%);
+}
+.w-50 {
+  @include width(50%);
+}
+// width in px
+.w-80 {
+  @include width(80px);
+}
+.w-90 {
+  @include width(90px);
+}
+.w-130 {
+  @include width(130px);
+}
+
+// overflow text/div/container....
+.o-auto {
+  overflow: auto;
+}
+.o-hide {
+  overflow: hidden;
+}
+
+// float blocks
+.f-left {
+  float: left;
+}
+.f-right {
+  float: right;
+}
+
+// margins..
+.m-0 {
+  margin: 0;
+}
+.m-auto {
+  margin: auto !important;
+}
+// ..........margin-bottom............
+.mb-auto-30 {
+  @include margin(0 auto 30px);
+}
+.mb-auto-40 {
+  @include margin(0 auto 40px);
+}
+.mb-auto-20 {
+  @include margin(0 auto 20px);
+}
+.mb-auto-10 {
+  @include margin(0 auto 10px);
+}
+.mb-36 {
+  @include margin-bottom(36px);
+}
+.mb-24 {
+  @include margin-bottom(24px);
+}
+.mb-20 {
+  @include margin-bottom(20px);
+}
+.mb-10 {
+  @include margin-bottom(10px);
+}
+.mb-16 {
+  @include margin-bottom(16px);
+}
+.mb-4 {
+  @include margin-bottom(4px);
+}
+// ..........margin-right............
+.mr-30 {
+  @include margin-right(30px);
+}
+.mr-20 {
+  @include margin-right(20px);
+}
+.mr-10 {
+  @include margin-right(10px);
+}
+.mr-16 {
+  @include margin-right(16px);
+}
+// ..........margin-top............
+.mt-10 {
+  margin-top: 10px;
+}
+.mt-20 {
+  margin-top: 20px !important;
+}
+.mt-30 {
+  margin-top: 30px;
+}
+.ml-20 {
+  margin-left: 20px;
+}
+
+// paddings..
+.p-40 {
+  @include padding(40px);
+}
+.p-0 {
+  @include padding(0);
+}
+//..........top and bottoms..........
+.p-tb-20 {
+  @include p-tb-v(20px);
+}
+.p-tb-40 {
+  @include p-tb-v(40px);
+}
+// ........padding-top........
+.p-t-20 {
+  @include padding-top(20px);
+}
+.p-t-30 {
+  @include padding-top(30px);
+}
+.p-t-40 {
+  @include padding-top(40px);
+}
+.p-t-16 {
+  @include padding-top(16px);
+}
+.pt-30 {
+  padding-top: 30px !important;
+}
+// ..........padding-bottom............
+.pb-30 {
+  @include padding-bottom(30px);
+}
+.p-b-16 {
+  @include padding-bottom(16px);
+}
+// ..........padding-left............
+.pl-20 {
+  padding-left: 20px;
+}
+.pr-20 {
+  padding-right: 20px !important;
+}
+
+//common font-sizes...
+.f-28 {
+  @include font-size(28px);
+}
+.f-24 {
+  @include font-size(24px);
+}
+.f-20 {
+  @include font-size(20px);
+}
+.f-18 {
+  @include font-size(18px);
+}
+.f-16 {
+  @include font-size(16px);
+}
+.f-14 {
+  @include font-size(14px);
+}
+.f-12 {
+  @include font-size(12px);
+}
+.f-11 {
+  @include font-size(11px);
+}
+.fw-400 {
+  font-weight: 400 !important;
+}
+
+.t-center {
+  text-align: center;
+}
+.t-justify {
+  text-align: justify;
+  // max-width: 640px;
+}
+// position property...
+.make-relative {
+  position: relative;
+}
+.make-absolute {
+  @include position(0, 0);
+}
+.make-center {
+  @include position(50%, 50%);
+  @include transform(-50%, -50%);
+}
+
+//transform
+.t-50 {
+  @include transform(-50%, -50%);
+}
+
+//opacity
+.glass {
+  @include opacity(0);
+}
+
+// visibility, display
+.hide {
+  display: none !important;
+}
+.d-table {
+  display: table !important;
+}
+.d-block {
+  display: block !important;
+}
+.d-i-block {
+  display: inline-block !important;
+}
+.d-i-table {
+  display: inline-table !important;
+}
+
+//flex-items
+.flex {
+  @include display(flex);
+}
+.i-flex {
+  @include display(inline-flex);
+}
+.align-center {
+  @include align(center, center);
+}
+.align-left {
+  @include align(center, flex-start);
+}
+.align-seperate {
+  @include align(center, space-between);
+}
+.align-end {
+  @include align(center, flex-end);
+}
+
+.btn-shadow {
+  box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.1) !important;
+}
+
+.card-shadow {
+  box-shadow: 0 0 2px 0 rgba(0, 0, 0, 0.12), 0 2px 2px 0 rgba(0, 0, 0, 0.24) !important;
+}
+// customized
+.clear {
+  clear: both;
+}
+.success-icon {
+  @include display(block);
+  @include margin(10px auto 30px);
+}
+.auth-button-80 {
+  @include width(80px);
+}
+.auth-button-90 {
+  @include width(90px);
+}
+.filter-heading {
+  font-weight: 500;
+}
+.heading-bold {
+  font-weight: 500;
+  line-height: 33px;
+  text-align: center;
+}
+.login-para {
+  // text-align: center;
+  line-height: 20px;
+  text-align: center;
+}
+.auth-spinner {
+  margin: 3px auto;
+}
+.search-input {
+  width: 285px;
+  height: 36px;
+}
+
+.c-pointer {
+  cursor: pointer;
+}
+.disable-hover {
+  cursor: none;
+}
+.error-block {
+  border-width: 0.5px;
+  border-style: solid;
+  border-radius: 4px;
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 15px;
+  line-height: 16px;
+}
+.error-block img:hover {
+  cursor: pointer;
+  transform: scale(1.1);
+}
+
+// components loader
+.table-no-show {
+  margin: 150px auto 0;
+  text-align: center;
+}
+
+// table common styles
+.table-card {
+  overflow: auto;
+  z-index: 2;
+  border-width: 0 1px;
+  border-style: solid;
+}
+.table-card table {
+  width: 100%;
+  border-width: 1px 0 0;
+  border-style: solid;
+}
+.table-card .mat-row {
+  height: 51px;
+}
+.table-card .mat-header-cell {
+  font-size: 14px;
+  line-height: 16px;
+  letter-spacing: 0.4px;
+}
+.table-card .mat-cell {
+  font-size: 16px;
+  line-height: 22px;
+  letter-spacing: 0.4px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  &:focus {
+    outline: none;
+  }
+}
+.table-paginator {
+  line-height: 16px;
+  letter-spacing: 1px;
+  border-width: 0 1px 1px;
+  border-style: solid;
+  box-shadow: 0px 1px 5px 0px rgba(174, 174, 174, 0.8);
+}
+.table-card tr {
+  outline: none;
+  // cursor: pointer;
+}
+.chat-icon {
+  color: #6E6E6E;
+}
+.edit-icon,
+.delete-icon,
+.chat-icon {
+  opacity: 0;
+  transition: all 0.3s ease-in-out;
+}
+tr:hover .edit-icon,
+tr:hover .delete-icon,
+tr:hover .chat-icon {
+  opacity: 1;
+  cursor: pointer;
+}
+.edit-icon:focus,
+.delete-icon:focus,
+.chat-icon:focus {
+  outline: 0;
+}
+
+.table-card .w-70 {
+  width: 70px;
+  min-width: 70px;
+}
+.table-card .w-40 {
+  width: 40px;
+  max-width: 40px;
+  min-width: 40px;
+}
+
+
+.filter-icon span div {
+  margin-top: 8px;
+}
+
+
+// table empty styles
+.table-empty-profile {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  img {
+    width: 60%;
+  }
+}
+// empty pages styles
+.empty-data-icon {
+  height: 170px;
+  width: 170px;
+  border-radius: 50%;
+}
+.empty-heading {
+  font-weight: 500;
+  line-height: 28px;
+  text-align: center;
+}
+.empty-para {
+  max-width: 356px;
+  line-height: 28px;
+  text-align: center;
+}
+
+// upload button styles
+input::-webkit-file-upload-button {
+  cursor: pointer;
+}
+
+// price input styles
+input.price::-webkit-outer-spin-button,
+input.price::-webkit-inner-spin-button {
+  display: none;
+}
+input.price {
+  -moz-appearance: textfield;
+}
+
+.mat-paginator .mat-paginator-range-label {
+  margin: 0 30px 0 0 !important;
+  white-space: nowrap;
+  @media screen and (max-width: 350px) {
+    margin: 0 !important;
+  }
+}
+mat-card:focus {
+  outline: 0;
+}
+
+th {
+  white-space: nowrap;
+}

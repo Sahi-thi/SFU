@@ -1,0 +1,25 @@
+<form [formGroup]="productFormGroup">
+
+    <h3 class="f-18 m-0 filter-heading"> {{tabTitle}} </h3>
+
+    <mat-error class="pb-30 p-t-16 mat-error"> {{responseMessage}} </mat-error>
+
+    <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Brand</mat-label>
+        <input formControlName="brand_name" maxlength="50" placeholder="Brand" matInput type="text" autocomplete="off">
+        <mat-hint>Max 50 Characters</mat-hint>
+    </mat-form-field>
+
+    <div class="p-0 flex align-end">
+        <button [matDialogClose] class="auth-button-80 mr-10 fw-400" mat-button color="primary"
+            [disabled]="isFormAPICalling" type="button">CANCEL</button>
+
+        <button (click)="submitFormData()" type="submit" class="auth-button-80 btn-shadow fw-400" mat-flat-button
+            color="primary">
+            <span *ngIf="!isFormAPICalling else showSpinner"> {{btnTitle}}</span>
+            <ng-template #showSpinner>
+                <mat-spinner class="auth-spinner" strokeWidth="3" diameter='31'></mat-spinner>
+            </ng-template>
+        </button>
+    </div>
+</form>

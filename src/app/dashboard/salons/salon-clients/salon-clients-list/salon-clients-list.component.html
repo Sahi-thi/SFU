@@ -1,0 +1,109 @@
+<div class="clients-main h-100">
+
+    <div class="h-70 mb-auto-20">
+        <div class="table-header" *ngIf="this.searchString || this.status || this.clients">
+            <input [(value)]="searchString" (keyup)="searchSalon($event.target.value)" autocomplete="off"
+                class="search-for-list" placeholder="Search for Email and Name">
+            <mat-icon *ngIf="!searchString" class="search-icon" color="primary" aria-hidden="false" aria-label="search">
+                search </mat-icon>
+            <mat-icon (click)="clearSearch()" *ngIf="searchString" class="search-icon" color="primary"
+                aria-hidden="false" aria-label="close">close</mat-icon>
+
+            <div class="margin-left-auto flex">
+                <button onclick="this.blur()" (click)="openSalonClientFilter()" class="filter-icon" mat-icon-button
+                    color="primary">
+                    <div [inlineSVG]="'assets/filter.svg'"></div>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isLoadingAPI && !isClientsEmpty && clients" class="table-card">
+        <table mat-table [dataSource]="clientsDataSource">
+            <ng-container matColumnDef="avatar">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td (click)="navigateToInfo(element.client_id, element.name, element.created_date)" mat-cell
+                    *matCellDef="let element" class="w-70">
+                    <img *ngIf="element.profile_pic_thumb_url !== '' else emptyImage " class="client-avatar"
+                        alt="empty-avatar" src={{element.profile_pic_thumb_url}} loading="lazy" />
+                    <ng-template #emptyImage>
+                        <div class="table-empty-profile flex align-center">
+                            <div [inlineSVG]="'assets/empty_user.svg'"></div>
+                        </div>
+                    </ng-template>
+                </td>
+            </ng-container>
+
+            <ng-container matColumnDef="name">
+                <th mat-header-cell *matHeaderCellDef> Name </th>
+                <td mat-cell *matCellDef="let element" class="client-name pr-20">
+                    {{element.name}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="email">
+                <th mat-header-cell *matHeaderCellDef> Email </th>
+                <td mat-cell *matCellDef="let element" class="client-email pr-20">
+                    {{element.email}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="phone_number">
+                <th mat-header-cell *matHeaderCellDef> Phone Number </th>
+                <td mat-cell *matCellDef="let element" class="client-phn pr-20">
+                    {{formate.transform(element.phone_number, 'US')}} </td>
+            </ng-container>
+
+            <ng-container matColumnDef="status">
+                <th mat-header-cell *matHeaderCellDef> Status </th>
+                <td mat-cell *matCellDef="let element" class="client-status pr-20">
+                    {{element.status}} </td>
+            </ng-container>
+
+            <ng-container *ngIf="userRole !== 'SA'" matColumnDef="chat_link">
+                <th mat-header-cell *matHeaderCellDef></th>
+                <td mat-cell *matCellDef="let element" class="t-center">
+                    <span (click)="onClickNavigateToChat(element.client_id,element.quickblox_id)"
+                        class="material-icons chat-icon">question_answer</span>
+                </td>
+            </ng-container>
+
+            <ng-container *ngIf="userRole === 'SA' else  adminRows">
+                <tr mat-header-row *matHeaderRowDef="adminDisplayedColumns"></tr>
+                <tr class="c-pointer" (click)="navigateToInfo(row.client_id,row.name,row.created_date)"
+                    [ngClass]="{'inactive-opacity ':activeList(row.status) }" mat-row
+                    *matRowDef="let row; columns: adminDisplayedColumns;"></tr>
+            </ng-container>
+            <ng-template #adminRows>
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr class="c-pointer" (click)="navigateToInfo(row.client_id,row.name,row.created_date)"
+                    [ngClass]="{'inactive-opacity ':activeList(row.status) }" mat-row
+                    *matRowDef="let row; columns: displayedColumns;"></tr>
+            </ng-template>
+        </table>
+    </div>
+
+    <div class="o-hide">
+        <mat-paginator class="table-paginator mb-auto-20 f-14" [pageSize]="offset" [hidePageSize]="true"
+            [pageIndex]="currentPage - 1" [length]="metaData.total" (page)="loadNextData($event)"
+            *ngIf="!isLoadingAPI && !isClientsEmpty" showFirstLastButtons>
+        </mat-paginator>
+    </div>
+
+    <div *ngIf="isClientsEmpty && !isLoadingAPI" class="flex align-center empty-data-box">
+        <div>
+            <div class="empty-data-icon flex align-center mb-auto-40">
+                <div [inlineSVG]="'assets/customer.svg'"></div>
+            </div>
+            <h2 class="f-18 empty-heading mb-auto-20">No Clients Found</h2>
+        </div>
+    </div>
+
+    <div *ngIf="isLoadingAPI">
+        <app-table-loading *ngIf="userRole === 'SA' else adminLoader " [skeletonHead]='adminSkeletonHead'
+            [skeletonColumn]='adminSkeletonColumn' [isEditDelete]=true>
+        </app-table-loading>
+        <ng-template #adminLoader>
+            <app-table-loading [skeletonHead]='skeletonHead' [skeletonColumn]='skeletonColumn' [isEditDelete]=true>
+            </app-table-loading>
+        </ng-template>
+    </div>
+</div>

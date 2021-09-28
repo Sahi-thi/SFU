@@ -1,0 +1,40 @@
+<h2 class="f-18 mb-24 filter-heading">Filter</h2>
+
+<ng-container *ngIf="!isApiLoading else loadSpinner">
+
+    <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Service</mat-label>
+        <mat-select [(value)]="service">
+            <mat-option disabled *ngIf="isServiceListEmpty"> No service found </mat-option>
+            <mat-option *ngFor="let service of services" [value]="service.service_id">{{service.service}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Status</mat-label>
+        <mat-select [(value)]="status">
+
+            <mat-option *ngFor="let status of appointmentStatus" [value]="status.name">{{status.name}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <div class="mb-auto-40">
+        <button (click)="removeFilterData()" mat-dialog-close="clear" type="button" class="auth-button-80 fw-400"
+            mat-button color="primary">CLEAR</button>
+        <div class="f-right">
+            <button [mat-dialog-close] type="button" class="auth-button-80 mr-10 fw-400" mat-button
+                color="primary">CANCEL</button>
+            <button mat-dialog-close="save" (click)="applyFilter()" type="submit" class="auth-button-80 fw-400"
+                mat-flat-button color="primary">
+                <mat-spinner *ngIf="false" class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+                <span>APPLY</span>
+            </button>
+        </div>
+    </div>
+    
+</ng-container>
+
+
+<ng-template #loadSpinner>
+    <mat-spinner color="primary" class="filter-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

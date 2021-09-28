@@ -1,0 +1,146 @@
+<div class="product-lines-main m-auto h-100">
+    <div class="flex align-left product-head p-t-30">
+        <button (click)="backToBrands()" mat-icon-button aria-hidden="false" aria-label="Back"
+            class="mr-10 c-pointer mb-20 product-arrow">
+            <mat-icon>arrow_back</mat-icon>
+        </button>
+        <h3 class="f-20 m-0 mb-20"> {{companyTitle}} </h3>
+    </div>
+    <div class="flex align-seperate product-btns-main" *ngIf="searchString || products && products.length>0">
+        <div class="w-100 mb-20 flex align-seperate">
+            <ng-container *ngIf="!isManageClicked">
+                <div class="make-relative search-block w-100">
+                    <mat-icon *ngIf="!searchString" class="search-product-icon" aria-hidden="false" aria-label="search">
+                        search </mat-icon>
+                    <mat-icon (click)="clearSearch()" *ngIf="searchString" class="search-product-icon"
+                        aria-hidden="false" aria-label="close"> close </mat-icon>
+                    <input (keyup)="searchSalon($event.target.value)" autocomplete="off" class="search-for-list w-100"
+                        placeholder="Search" [(value)]="searchString">
+                </div>
+                <button color="primary" *ngIf="headerTab !== 'Studios'"
+                    [routerLink]="[ '/home/brands/' + brandId + '/products/add']" mat-flat-button
+                    class="f-14 fw-400">ADD PRODUCT</button>
+                <button *ngIf="headerTab === 'Studios'" color="primary" (click)="manageProducts()" mat-flat-button
+                    class="f-14 fw-400"> MANAGE
+                    PRODUCTS</button>
+            </ng-container>
+        </div>
+    </div>
+
+    <ng-container *ngIf="searchString || products">
+        <div *ngIf="isManageClicked" class="mb-auto-20 product-line-edit">
+
+            <div class="f-right flex">
+                <button [disabled]='isManageLoading' (click)="cancelManageProducts()" type="button"
+                    class="auth-button-80 mr-10 fw-400" mat-button color="primary">CANCEL</button>
+                <button *ngIf="!isManageLoading" (click)="saveManagedProducts()" type="submit"
+                    class="auth-button-80 btn-shadow fw-400" mat-flat-button color="primary"> SAVE
+                </button>
+                <button *ngIf="isManageLoading" type="submit" class="auth-button-80 btn-shadow fw-400" mat-flat-button
+                    color="primary">
+                    <mat-spinner class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+                </button>
+            </div>
+            <p class="f-16 m-0"> Please Select/Deselect to Add/Remove Products </p>
+        </div>
+    </ng-container>
+
+    <h4> {{serverErrorMessage}} </h4>
+
+    <ng-container *ngIf="!isLoadingAPI && !isProductsEmpty">
+        <ng-container *ngFor="let product of products ">
+            <mat-card [ngClass]='{"c-pointer":headerTab !== "Studios"}' (click)='navigateToProductDetails(product.id)'
+                class="card-shadow align-left product-card mb-auto-10 make-relative">
+                <button (click)="$event.stopPropagation()" *ngIf="headerTab !== 'Studios'" mat-icon-button
+                    [matMenuTriggerFor]="menu" onclick="this.blur()" class="product-menu">
+                    <mat-icon>more_horiz</mat-icon>
+                </button>
+
+                <mat-menu #menu="matMenu" xPosition="before">
+                    <button (click)="editProduct()"
+                        [routerLink]="[ '/home/brands/' + brandId + '/products/add/' + product.id ]"
+                        mat-menu-item>Edit</button>
+                    <button (click)="openDeleteDialog(product.id ,product.product_name)" mat-menu-item>Delete</button>
+                </mat-menu>
+
+                <div class="product-list-details flex">
+                    <mat-checkbox [checked]='product.is_added === 1' (click)='$event.stopPropagation()'
+                        (change)="OnCheckProducts($event,product.id, product)" *ngIf='isManageClicked' class="mr-20"
+                        color="primary"></mat-checkbox>
+                    <ng-template #emptyAvatar>
+                        <img src={{product.product_pic_thumb_url}} loading="lazy" alt="empty-avatar" class="mr-20 mb-20  profile"
+                            (click)="productDetails(product.product_name)" />
+                    </ng-template>
+
+                    <div *ngIf="product.product_pic_thumb_url === '' else emptyAvatar"
+                        class="empty-profile mr-20 flex align-center mb-20 "
+                        (click)="productDetails(product.product_name)">
+                        <img src="assets/empty_profile.svg" loading="lazy" alt="products" />
+                    </div>
+
+                    <div class="product-cont d-i-block" (click)="productDetails(product.product_name)">
+                        <div class="product-heading f-16 flex align-left mb-auto-10">
+                            <span>
+                                {{product.product_name === '' ? '---' : product.product_name }}
+                            </span>
+                            <button *ngIf="product.is_added === 1" mat-flat-button class="added-tag f-12">Added</button>
+                        </div>
+                        <div class="product-desp f-14">
+                            {{product.notes === null || product.notes === "" ? '----' :product.notes }}
+                        </div>
+                    </div>
+
+                </div>
+                <div class="product-list-price">
+                    <p class="m-0 t-center">${{product.price | number:'1.0-0' }} </p>
+                </div>
+            </mat-card>
+        </ng-container>
+    </ng-container>
+
+    <mat-paginator *ngIf="!isLoadingAPI && !isProductsEmpty" class="product-paginator f-14" [pageSize]="pageSize"
+        [hidePageSize]="true" [pageIndex]="page - 1" [length]="metaData.total" (page)="loadNextData($event)"
+        showFirstLastButtons>
+    </mat-paginator>
+
+
+    <mat-spinner *ngIf="isLoadingAPI && !isProductsEmpty" class="table-no-show" strokeWidth="3" diameter='30'>
+    </mat-spinner>
+
+    <div *ngIf="!isLoadingAPI && isProductsEmpty" class="empty-data-box o-auto">
+        <div class="d-table m-auto h-100">
+            <div class="empty-state-inner">
+                <div class="empty-data-icon flex align-center mb-auto-40 mt-20">
+                    <img src="assets/product.svg" loading="lazy" alt="empty_products" />
+                </div>
+                <ng-container *ngIf="searchString || products && products.length >0 else addProductBtn">
+                    <h2 class="f-18 empty-heading mb-auto-20">No Products Found</h2>
+                </ng-container>
+                <ng-template #addProductBtn>
+
+                    <ng-container *ngIf="isManageProductsEmpty else emptyProducts">
+                        <h2 class="f-18 empty-heading mb-auto-20">No Products Found</h2>
+                        <p class="f-16 empty-para mb-auto-40">There are no Products found. Please click on below button
+                            to
+                            go back</p>
+                        <button [disabled]='isManageLoading' (click)="cancelManageProducts()" type="button"
+                            class="f-14 fw-400 d-block m-auto mb-20" mat-button color="primary">CANCEL</button>
+                    </ng-container>
+
+                    <ng-template #emptyProducts>
+                        <h2 class="f-18 empty-heading mb-auto-20">No Products Added</h2>
+                        <p class="f-16 empty-para mb-auto-40">There are no Products added. Please click on below button
+                            to
+                            add a product</p>
+                        <button color="primary" *ngIf="headerTab !== 'Studios'"
+                            [routerLink]="[ '/home/brands/' + brandId + '/products/add']" mat-flat-button
+                            class="f-14 fw-400 d-block m-auto mb-20">ADD PRODUCT</button>
+                        <button (click)="manageProducts()" color="primary" *ngIf="headerTab === 'Studios'"
+                            mat-flat-button class="f-14 fw-400 d-block m-auto mb-20"> MANAGE PRODUCTS</button>
+                    </ng-template>
+                </ng-template>
+            </div>
+        </div>
+    </div>
+
+</div>

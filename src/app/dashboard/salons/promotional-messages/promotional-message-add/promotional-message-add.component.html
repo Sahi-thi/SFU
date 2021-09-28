@@ -1,0 +1,43 @@
+<div *ngIf="!isLoadingAPI  ; else quoteSpinner" class="p-relative h-100">
+
+    <form [formGroup]="promotionalMessageFormGroup">
+        <div class="add-daily-main p-t-30 mb-auto-20">
+
+            <div class="f-right flex">
+                <button type="button" (click)="onClickGoBack()" class="mr-10 fw-400" mat-button
+                    color="primary">CANCEL</button>
+                <button *ngIf="isCallingQuote ;else title" type="submit" class="btn-shadow fw-400" mat-flat-button
+                    color="primary">
+                    <mat-spinner class="auth-spinner" strokeWidth="3" diameter='30'>
+                    </mat-spinner>
+                </button>
+                <ng-template #title>
+                    <button type="submit" class="btn-shadow fw-400" (click)="submitPromotionalMessageForm()"
+                        mat-flat-button color="primary">
+                        CREATE
+                    </button>
+                </ng-template>
+            </div>
+
+            <h3 class="f-20 mb-auto-20">Create New Notification </h3>
+
+            <mat-card class="add-daily-card card-shadow mb-auto-30">
+                <mat-error class="pb-30 t-center"> {{responseMessage}} </mat-error>
+
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Notification Title</mat-label>
+                    <input type="text" matInput formControlName="title">
+                </mat-form-field>
+
+                <mat-form-field class="custom-textarea description-area w-100" appearance="outline">
+                    <mat-label>Notification Message</mat-label>
+                    <textarea matInput formControlName="message" maxlength="150"></textarea>
+                </mat-form-field>
+                
+            </mat-card>
+        </div>
+    </form>
+</div>
+<ng-template #quoteSpinner>
+    <mat-spinner *ngIf="isLoadingAPI" class="table-no-show" color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

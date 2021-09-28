@@ -1,0 +1,102 @@
+@import "../../../../theme/deep-styles.scss";
+
+.add-products-main {
+  max-width: 640px;
+  width: 90%;
+}
+.add-products-main h3 {
+  font-weight: 500;
+  line-height: 40px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.add-section {
+  padding: 40px;
+}
+.cover-image-wrapper {
+  height: 130px;
+  width: 130px;
+  border-radius: 4px;
+}
+.upload-wrapper {
+  box-sizing: border-box;
+  border-radius: 4px;
+  border-width: 1.5px;
+  border-style: dashed;
+  // text-align: center;
+}
+.preview-image {
+  object-fit: cover;
+}
+.half-input {
+  width: calc(50% - 8px);
+}
+@media screen and (max-width: 430px) {
+  .half-input {
+    width: 100%;
+  }
+}
+
+.product-btns-main {
+  flex-flow: wrap;
+}
+.my-nav-item {
+  width: 115px;
+  border-radius: 0;
+  margin-right: 1px;
+}
+.product-btns {
+  margin-left: auto;
+}
+
+::ng-deep .mat-form-field-suffix {
+  color: #666666;
+}
+.mat-filter::after {
+  content: "\e8b6";
+  font-family: material icons;
+  vertical-align: bottom;
+  font-size: 20px;
+  padding-left: 5px;
+}
+
+.mat-option.hide {
+  display: none;
+}
+
+::ng-deep .product-textarea {
+  margin: 20px 0 5px !important;
+  padding: 0 !important;
+  min-height: calc(56px - 25px) !important;
+  // height: calc(100% - 15px) !important;
+  resize: none !important;
+}
+
+::ng-deep .ingredent-select .mat-form-field-wrapper,
+::ng-deep .ingredent-select .mat-form-field-flex,
+::ng-deep .ingredent-select.mat-form-field-appearance-outline .mat-form-field-infix {
+  height: auto !important;
+}
+::ng-deep .ingredent-select .mat-form-field-flex {
+  min-height: 56px !important;
+}
+::ng-deep
+  .ingredent-select.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-label {
+  top: 35px;
+}
+// ::ng-deep .ingredent-select.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float.mat-form-field-hide-placeholder .mat-form-field-label {
+//   top: 50%;
+// }
+::ng-deep
+  .ingredent-select.mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-has-label
+  .mat-form-field-label-wrapper {
+  top: -1em;
+}
+::ng-deep .ingredent-select.mat-form-field-appearance-outline .mat-form-field-label  {
+  top: 50%;
+}
+::ng-deep .allergies.ng-untouched .mat-form-field-label {
+  color: rgba(0, 0, 0, 0.4) !important;
+}

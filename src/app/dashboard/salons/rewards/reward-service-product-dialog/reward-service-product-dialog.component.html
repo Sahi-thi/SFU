@@ -1,0 +1,77 @@
+<div *ngIf="!isApiLoading else loadSpinner">
+    <ng-container *ngIf="servicesList?.length >0 else emptyServiceTemplate">
+        <div *ngIf="isAddType === 'Service'">
+            <div class="select-heading f-20">Select Services</div>
+
+            <div class="select-items-list m-auto" *ngFor="let serviceType of servicesList">
+                <p class="mt-30 mb-10 f-12 form-heading">{{serviceType.service_type}}</p>
+                <div class="list flex align-left" *ngFor="let service of serviceType.services"
+                    (click)="applyFilter(service.service_id,service.service)">
+
+                    <mat-radio-button color="primary" [checked]="data.rewardSelected == service.service ? true :false">
+                    </mat-radio-button>
+                    <p class="f-14 m-0 c-pointer">
+                        {{service.service}}</p>
+                    <div *ngIf="data.type === 'Product'" class="f-16">$<span>{{service.price}}</span></div>
+                    <div *ngIf="data.type === 'Service'" class="f-16">$<span>{{service.min_price}}</span>
+                        - $<span>{{service.max_price}}</span>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </ng-container>
+
+    <ng-template #emptyServiceTemplate>
+
+        <div class="empty_servicesproduct_dialog flex align-center" *ngIf="isAddType === 'Service'">
+            <div>
+                <div class="empty-data-icon flex align-center m-auto">
+                    <div [inlineSVG]="'assets/grooming.svg'"></div>
+
+                </div>
+                <h2 class="f-18 empty-heading p-tb-20 m-0">Services List is Empty</h2>
+                <button [mat-dialog-close] class="auth-button-80 m-auto d-block btn-shadow fw-400" mat-flat-button
+                    color="primary">OK</button>
+            </div>
+        </div>
+
+    </ng-template>
+    <ng-container *ngIf="!isListEmpty else emptyProductTemplate">
+
+        <div *ngIf="isAddType === 'Product'">
+            <div class="select-heading f-20">Select Products</div>
+
+            <div class="select-items-list m-auto" *ngFor="let product of productsList">
+                <p class="mt-30 mb-10 f-12 form-heading ">{{product.product_type_name}} </p>
+                <div class="list flex align-left" *ngFor="let item of product.products"
+                    (click)="applyFilter(item.id,item.name)">
+                    <mat-radio-button color="primary" [checked]="data.rewardSelected == item.name ? true :false">
+                    </mat-radio-button>
+                    <p class="f-14 m-0 auth-button-80 mr-10 fw-400 c-pointer">{{item.name}}</p>
+                    <div class="f-16">$<span>{{item.price}}</span></div>
+                </div>
+            </div>
+
+        </div>
+    </ng-container>
+    <ng-template #emptyProductTemplate>
+
+        <div class="empty_servicesproduct_dialog flex align-center" *ngIf="isAddType === 'Product'">
+            <div>
+                <div class="empty-data-icon flex align-center m-auto mt-20">
+                    <div [inlineSVG]="'assets/product.svg'"></div>
+                </div>
+                <h2 class="f-18 empty-heading p-tb-20 m-0">Products List is Empty</h2>
+                <button [mat-dialog-close] class="auth-button-80 m-auto d-block btn-shadow fw-400" mat-flat-button
+                    color="primary">OK</button>
+            </div>
+        </div>
+
+    </ng-template>
+</div>
+<ng-template #loadSpinner>
+    <div class="productService-spinner w-100 flex align-center">
+        <mat-spinner color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+    </div>
+</ng-template>

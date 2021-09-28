@@ -1,0 +1,41 @@
+
+.converstaion-main {
+    max-width: 1250px;
+    width: 90%;
+    padding: 30px 0 20px;
+    height: calc(100% - 50px);
+    flex-flow: wrap;
+}
+
+
+.conversations {
+    width: 65%;
+    background-color: #F6FBFF;
+}
+.chat-list {
+    width: 35%;
+    background-color: #FFFFFF;
+    &::-webkit-scrollbar {
+        width: 0;
+    }
+}
+
+
+
+
+@media screen and (max-width: 900px) {
+    .chat-list {
+        width: 40%;
+    }
+    .conversations {
+        width: 60%;
+    }
+}
+
+@media screen and (max-width: 700px) {
+    .chat-list, .conversations {
+        width: 100%;
+        height: max-content;
+        min-height: 50%;
+    }
+}

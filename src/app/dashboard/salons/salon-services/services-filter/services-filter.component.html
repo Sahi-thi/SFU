@@ -1,0 +1,34 @@
+<h2 class="f-18 mb-24 filter-heading">Filter</h2>
+
+<ng-container *ngIf="!isLoadingAPI else loadSpinner">
+    <mat-form-field class="w-100" appearance="outline">
+        <mat-label>Type</mat-label>
+        <mat-select [(value)]="type">
+            <mat-option *ngFor="let type of serviceTypes" [value]="type.type_id">{{type.service_type}}</mat-option>
+        </mat-select>
+    </mat-form-field>
+
+    <mat-form-field class="w-100 filter-check" appearance="outline">
+        <mat-label>Price</mat-label>
+        <input [(ngModel)]="price" placeholder="Price" matInput type="tel" class="price" maxLength="6"
+            (keydown)='validate($event)' />
+        <span *ngIf="price" matPrefix>$ </span>
+    </mat-form-field>
+
+    <div class="mb-auto-40">
+        <button (click)="removeFilterData()" mat-dialog-close="clear" type="button" class="auth-button-80 fw-400"
+            mat-button color="primary">CLEAR</button>
+        <div class="f-right">
+            <button [mat-dialog-close] type="button" class="auth-button-80 mr-10 fw-400" mat-button
+                color="primary">CANCEL</button>
+            <button mat-dialog-close="save" (click)="applyFilter()" type="submit" class="auth-button-80 fw-400"
+                mat-flat-button color="primary">
+                <mat-spinner *ngIf="false" class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+                <span>APPLY</span>
+            </button>
+        </div>
+    </div>
+</ng-container>
+<ng-template #loadSpinner>
+    <mat-spinner color="primary" class="filter-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

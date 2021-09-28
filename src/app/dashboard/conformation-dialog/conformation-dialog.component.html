@@ -1,0 +1,9 @@
+<img *ngIf="profilePhoto" src="assets/profile_pic.png" class="d-block mb-auto-30" alt="profile"/>
+<p class="f-16 mb-auto-30"> Incoming call from the client <b> {{callerName}} </b> </p>
+<div class="flex align-end">
+    <button (click)="rejectCall()" type="button" class="auth-button-80 mr-10 fw-400 f-16" mat-flat-button color="primary">
+        <span>Reject</span>
+    </button>
+    <button type="button" [mat-dialog-close] class="auth-button-80 btn-shadow fw-400 f-16 mr-10" mat-button color="primary"
+        (click)="acceptTheCall()">Accept</button>
+</div>

@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="26px" height="26px" viewBox="0 0 26 26" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>EDA12CDE-F6A9-456E-BDBF-ED34A8E6439B@1x</title>
+    <defs>
+        <path d="M12.8999995,1.84999996 C19.0027457,1.84999996 23.949999,6.79725327 23.949999,12.8999995 C23.949999,19.0027457 19.0027457,23.949999 12.8999995,23.949999 C6.79725327,23.949999 1.84999996,19.0027457 1.84999996,12.8999995 C1.84999996,6.79725327 6.79725327,1.84999996 12.8999995,1.84999996 Z" id="path-1"></path>
+        <filter x="-22.6%" y="-18.1%" width="145.2%" height="145.2%" filterUnits="objectBoundingBox" id="filter-2">
+            <feOffset dx="0" dy="1" in="SourceAlpha" result="shadowOffsetOuter1"></feOffset>
+            <feGaussianBlur stdDeviation="1.5" in="shadowOffsetOuter1" result="shadowBlurOuter1"></feGaussianBlur>
+            <feColorMatrix values="0 0 0 0 0   0 0 0 0 0   0 0 0 0 0  0 0 0 0.161571558 0" type="matrix" in="shadowBlurOuter1"></feColorMatrix>
+        </filter>
+    </defs>
+    <g id="Designs" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="Login-Error" transform="translate(-1174.000000, -341.000000)">
+            <g id="Server-Error" transform="translate(945.000000, 326.000000)">
+                <g id="Close" transform="translate(229.000000, 15.000000)">
+                    <rect id="ic_close" x="1" y="1" width="23.799999" height="23.799999"></rect>
+                    <g id="Combined-Shape">
+                        <use fill="black" fill-opacity="1" filter="url(#filter-2)" xlink:href="#path-1"></use>
+                        <use fill="#C80000" fill-rule="evenodd" xlink:href="#path-1"></use>
+                    </g>
+                    <polygon id="Shape" fill="#FFFFFF" points="16.5833327 9.95859486 15.8414041 9.21666632 12.8999995 12.158071 9.95859486 9.21666632 9.21666632 9.95859486 12.158071 12.8999995 9.21666632 15.8414041 9.95859486 16.5833327 12.8999995 13.641928 15.8414041 16.5833327 16.5833327 15.8414041 13.641928 12.8999995"></polygon>
+                </g>
+            </g>
+        </g>
+    </g>
+</svg>

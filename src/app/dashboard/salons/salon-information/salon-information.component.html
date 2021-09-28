@@ -1,0 +1,132 @@
+<mat-spinner class="table-no-show" *ngIf="isDetailsLoading; else salonDetails" color="primary" strokeWidth="3"
+    diameter='30'>
+</mat-spinner>
+<ng-template #salonDetails>
+    <div class="details-main p-t-20 mb-auto-20">
+
+        <div class="h-38">
+            <div class="f-right flex">
+                <button (click)="navigateToEdit(salon.id)" type="submit" class="auth-button-80 btn-shadow fw-400"
+                    mat-flat-button color="primary">
+                    EDIT
+                </button>
+            </div>
+            <h3 *ngIf="salon" class="f-20 m-0"> {{salon.name}} </h3>
+        </div>
+
+        <mat-card class="details-section  mb-auto-20 mt-20 card-shadow">
+            <mat-error class="pb-30"> {{responseMessage}} </mat-error>
+            <ng-container *ngIf="salon">
+                <div class="flex user-details">
+                    <div class="details-block">
+                        <p class="mb-auto-20 f-12 form-heading">Studio Information</p>
+                        <div class="flex p-b-16">
+                            <span class="details-labels f-14"> Name</span>
+                            <span class="details-cont f-16"> {{salon.name}} </span>
+                        </div>
+                        <div class="flex p-b-16">
+                            <span class="details-labels f-14">Email</span>
+                            <span class="details-cont f-16"> {{salon.email}} </span>
+                        </div>
+                        <div class="flex p-b-16">
+                            <span class="details-labels f-14">Phone Number</span>
+                            <span class="details-cont f-16"> {{ formate.transform( salon.phone_number, 'US')}} </span>
+                        </div>
+                        <div class="mt-20" *ngFor="let owner of salon?.owners">
+                            <div class="flex p-b-16">
+                                <span class="details-labels f-14">Owner Name</span>
+                                <span class="details-cont f-16"> {{owner.salon_owner_name}} </span>
+                            </div>
+                            <div class="flex p-b-16">
+                                <span class="details-labels f-14">Status</span>
+                                <span class="details-cont f-16"> {{owner.status}} </span>
+                            </div>
+                            <div class="flex p-b-16">
+                                <span class="details-labels f-14">Email</span>
+                                <span class="details-cont f-16"> {{owner.email}} </span>
+                            </div>
+                            <!-- <div class="flex p-b-16">
+                                <span class="details-labels f-14">Phone Number</span>
+                                <span class="details-cont f-16"> {{ formate.transform( owner.phone_number, 'US')}}
+                                </span>
+                            </div> -->
+                        </div>
+                        <div class="mt-20 flex p-b-16">
+                            <span class="details-labels f-14">Address</span>
+                            <span class="details-cont f-16"> {{salon.address}} </span>
+                        </div>
+                        <div *ngIf="salon.city" class="flex p-b-16">
+                            <span class="details-labels f-14">City</span>
+                            <span class="details-cont f-16"> {{salon.city}} </span>
+                        </div>
+                        <div *ngIf="salon.state" class="flex p-b-16">
+                            <span class="details-labels f-14">State</span>
+                            <span class="details-cont f-16"> {{salon.state}} </span>
+                        </div>
+                        <div class="flex pb-30">
+                            <span class="details-labels f-14">Status</span>
+                            <span class="details-cont f-16"> {{salon.status}} </span>
+                        </div>
+                        <div class="flex pb-30">
+                            <span class="details-labels f-14">Open days</span>
+                            <span class="details-cont f-16"> {{salon.days_from}} - {{salon.days_to}} </span>
+                        </div>
+                        <div class="flex pb-30">
+                            <span class="details-labels f-14">Time</span>
+                            <span class="details-cont f-16"> {{salon.time_from}} - {{salon.time_to}}</span>
+                        </div>
+                    </div>
+                    <div>
+                        <p class="mb-auto-20 f-12 form-heading">Logo</p>
+                        <img *ngIf="salon.salon_logo_thumb_url !== ''; else emptyInfoLogo " class="mb-auto-30"
+                            src={{salon.salon_logo_thumb_url}} alt="empty avatar" loading="lazy" />
+                        <ng-template #emptyInfoLogo>
+                            <div class="empty-avatar mb-auto-30 flex align-center">
+                                <img src="assets/empty_profile.svg" alt="empty avatar" loading="lazy" />
+                                <!-- <div [inlineSVG]="'assets/empty_profile.svg'"></div> -->
+                            </div>
+                        </ng-template>
+                    </div>
+                </div>
+
+                <div class="picker">
+                    <div *ngIf="salon.primary_color" class="color-half-input mr-16 mb-auto-40 f-left make-relative">
+                        <p class="mb-auto-20 f-12 mt-20 form-heading">Primary Color</p>
+                        <div class="salon-picker" [style.backgroundColor]="salon.primary_color"></div>
+                    </div>
+
+                    <div *ngIf="salon.secondary_color" class="color-half-input mb-auto-40 f-left make-relative">
+                        <p class="mb-auto-20 f-12 mt-20 form-heading">Secondary Color</p>
+                        <div class="salon-picker" [style.backgroundColor]="salon.secondary_color"></div>
+                    </div>
+                </div>
+
+                <p class="mb-auto-20 f-12 form-heading"> Upload Photos/Videos </p>
+                <div *ngIf="salonMedia.length < 1; else mediaTemplate" class="flex align-left">
+                    <div [inlineSVG]="'assets/empty_profile.svg'"></div>No Media available
+                </div>
+                <ng-template #mediaTemplate>
+
+                    <div *ngFor="let salon of salonMedia" class="upload-sec">
+                        <div *ngIf="salon.type === 'video' ||salon.type === '.mp4' ; else infoImages" class=" upload-image mr-10
+                mb-10 make-relative o-hide">
+                            <video controls class="img-resp">
+                                <source src={{salon.salon_media_url}} type="video/mp4">
+                                <source src={{salon.salon_media_url}} type="video/ogg">
+                                Your browser does not support the video tag.
+                            </video>
+                        </div>
+
+                        <ng-template #infoImages>
+                            <div class="upload-image mr-10 mb-10 make-relative o-hide">
+                                <img class="img-resp" src={{salon.salon_media_url}} alt="salon_gallery" loading="lazy">
+                            </div>
+                        </ng-template>
+                    </div>
+                </ng-template>
+
+            </ng-container>
+        </mat-card>
+    </div>
+
+</ng-template>

@@ -1,0 +1,42 @@
+<h2 class="f-18 mb-24 filter-heading">Filter</h2>
+
+<ng-container *ngIf="!isLoadingAPI else loadSpinner">
+
+    <ng-container *ngIf="isProduct else isServiceTypes">
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Products</mat-label>
+            <mat-select [(value)]="product">
+                <mat-option *ngFor="let product of productsResponse" [id]="product.id" [value]="product.id">
+                    {{product.product_name}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-container>
+    <ng-template #isServiceTypes>
+        <mat-form-field class="w-100" appearance="outline">
+            <mat-label>Service Types</mat-label>
+            <mat-select [(value)]="serviceTypeId">
+                <mat-option *ngFor="let service of serviceTypesResponse.serviceTypes" [id]="service.type_id"
+                    [value]="service.type_id">
+                    {{service.service_type}}</mat-option>
+            </mat-select>
+        </mat-form-field>
+    </ng-template>
+    <div class="mb-auto-40">
+        <button (click)="removeFilterData()" mat-dialog-close="clear" type="button" class="auth-button-80 fw-400"
+            mat-button color="primary">CLEAR</button>
+        <div class="f-right">
+            <button [mat-dialog-close] type="button" class="auth-button-80 mr-10 fw-400" mat-button
+                color="primary">CANCEL</button>
+            <button mat-dialog-close="save" (click)="applyFilter()" type="submit" class="auth-button-80 fw-400"
+                mat-flat-button color="primary">
+                <mat-spinner *ngIf="false" class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+                <span>APPLY</span>
+            </button>
+        </div>
+    </div>
+</ng-container>
+
+
+<ng-template #loadSpinner>
+    <mat-spinner color="primary" class="filter-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

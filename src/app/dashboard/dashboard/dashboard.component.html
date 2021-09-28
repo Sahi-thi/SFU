@@ -1,0 +1,23 @@
+<div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+
+    <app-headers [userRole]='userRole' [sidenav]='sidenav'></app-headers>
+
+    <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+
+        <mat-sidenav class="salon-side-nav card-shadow" color="primary" #sidenav
+            [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+            <mat-nav-list>
+                <a class="salon-menu-items f-14" mat-list-item routerLinkActive="side-menu-active"
+                    [routerLink]="[ '/home/salons/salon/' +  salonId   + menu.routerLink]"
+                    *ngFor="let menu of checkMenuOnUserRole()"><span class="side-menu-padd">{{ menu.name}}
+                    </span></a>
+            </mat-nav-list>
+        </mat-sidenav>
+
+        <mat-sidenav-content>
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+
+    </mat-sidenav-container>
+
+</div>

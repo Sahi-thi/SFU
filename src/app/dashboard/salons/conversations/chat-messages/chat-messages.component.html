@@ -1,0 +1,65 @@
+<div class="candet-details card-shadow flex align-left online">
+    <div class="status mr-10"></div>
+    <div class="f-16">{{chatHeading}}</div>
+    <mat-icon class="f-24 mr-10 c-pointer" (click)="onClickVideoButton()" *ngIf="isChatSelected">videocam</mat-icon>
+</div>
+
+<!-- <ngx-file-drag-drop [formControl]="fileDropControl" activeBorderColor="#3F51B5" multiple
+    (valueChanged)="uploadAttachment($event)">
+</ngx-file-drag-drop> -->
+
+<div class="messages-list-block make-relative o-auto" *ngIf="isChatSelected">
+
+    <div *ngIf="isChatMessagesLoading" class="flex align-center empty-state">
+        <mat-spinner strokeWidth="3" diameter='30'></mat-spinner>
+    </div>
+
+    <div *ngIf="isChatMessageListEmpty && !isChatMessagesLoading" class="o-auto empty-state">
+        <div class="align-empty">
+            <div class="empty-data-icon flex align-center mb-auto-40 mt-20">
+                <img src="assets/chat.svg" loading="lazy" alt="empty_conversations" />
+            </div>
+            <h2 class="f-18 empty-heading mb-auto-20">No Conversation Yet!</h2>
+            <p class="f-16 empty-para mb-auto-40">No conversation yet. Start chat by sending messages</p>
+        </div>
+    </div>
+
+    <div *ngIf="!isChatMessagesLoading && !isChatMessageListEmpty" infiniteScroll [infiniteScrollDistance]="2"
+        [scrollWindow]="false" [infiniteScrollThrottle]="50" class="candet-conversations  j-messages search-results"
+        (scrolledUp)="onScroll()" id="chat-conversation">
+        <mat-progress-bar *ngIf="isLoadMoreCalling" mode="indeterminate" class="horizontal-progress w-100">
+        </mat-progress-bar>
+        <div *ngFor="let messageTop of messages">
+            <p class="message-day">{{ messageTop[0]}}</p>
+            <app-message-item *ngFor="let message of messageTop[1];" [message]="message" class="message__wrap"
+                id="{{message._id}}">
+                ></app-message-item>
+        </div>
+    </div>
+
+    <div class="message-send-block flex align-center">
+        <textarea (keydown)="onKeydown($event)" (keyup.shift)="shiftDown = false" matInput class="w-100 f-14 mr-10 p-0"
+            placeholder="Type Something to Send ..." [(ngModel)]="messageField"></textarea>
+        <!-- <img *ngFor="let url of uploadedImageURL" [src]="url" width="40" height="40"> -->
+        <img *ngFor="let data of attachments" alt="loading" src="assets/loading.gif" width="40" height="40">
+        <label *ngIf="!isUploadingMedia" class="attach-label" for="attach_btn">
+            <i class="material-icons attach-icon">attachment</i>
+            <input multiple class="attach-input" accept="image/jpeg,image/jpg,image/png,application/pdf"
+                (change)="uploadAttachment($event)" name="attach_file" type="file" />
+        </label>
+        <img src="assets/send.svg" alt="send" class="send-arrow c-pointer" (click)="sendMessage()">
+    </div>
+
+    <div *ngIf="isUploadButtonClicked" [ngClass]="isUploadButtonClicked ? 'div-height' : 'zero-height' ">
+        <button (click)="closeOverDropScreen()" mat-icon-button> close </button>
+        <img width="200" [src]="uploadImgUrl" alt="Image" />
+        <img src="assets/send.svg" alt="send" class="send-arrow c-pointer" (click)="sendMessage()">
+    </div>
+</div>
+
+
+
+<div *ngIf="!isChatSelected" class="welcome-message flex align-center">
+    <img src="assets/loginLogo.svg" alt="logo" class="d-block mb-auto-20">
+    <h2>Welcome to Skinforyou</h2>
+</div>

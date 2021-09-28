@@ -1,0 +1,109 @@
+.daily-words-main {
+    width: 90%;
+    max-width: 700px;
+    margin: auto;
+}
+.daily-words-main h3 {
+    line-height: 36px;
+    font-weight: 500;
+}
+.daily-word-card {
+    padding: 20px 0 20px 20px;
+    .title {
+        font-weight: 500;
+        text-transform: capitalize;
+    }
+    .content {
+        color: rgba(0,0,0,0.8);
+        letter-spacing: 0.4px;
+        line-height: 23px;
+        flex: 1;
+    }
+    .icons {
+        height: 25px;
+        line-height: 25px;
+        min-width: 40px;
+        border-radius: 50%;
+        visibility: hidden;
+        svg {
+            fill: #6e6e6e;
+        }
+    }
+}
+::ng-deep .daily-word-card .icons.mat-button:hover .mat-button-focus-overlay {
+    opacity: 0 !important;
+}
+.daily-word-card .icons.mat-button:hover svg {
+    fill: #8ba6b9;
+}
+.daily-word-card:hover .icons svg {
+    visibility: visible;
+}
+
+.daily-words-paginator {
+    background: none;
+    line-height: 16px;
+    letter-spacing: 1px;
+}
+
+.empty-align-center {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+
+
+
+
+
+
+
+.promotional-messages {
+    max-width: 1260px;
+    width: 90%;
+    margin: auto;
+}
+.table-header {
+    display: flex;
+    align-items: center;
+    margin: 0 auto 20px;
+    flex-flow: wrap;
+}
+.table-header button {
+    padding: 0 26px;
+}
+.search-icon {
+    margin-left: -34px;
+    margin-top: 30px;
+    cursor: pointer;
+    opacity: 0.8;
+    &:hover {
+        opacity: 1;
+    }
+}
+.margin-left-auto {
+    margin-left: auto;
+    margin-top: 30px;
+}
+.search-for-list {
+    height: 36px;
+    width: 283px;
+    border-radius: 3px;
+    border: 0px;
+    padding-left: 16px;
+    font-size: 14px;
+    margin-top: 30px;
+    &:focus {
+      outline: 0px;
+    }
+}
+.notify-title {
+    width: 250px;
+    max-width: 250px;
+    min-width: 250px;
+}
+.notify-body {
+    white-space: normal;
+    padding-top: 5px;
+    padding-bottom: 5px;
+}

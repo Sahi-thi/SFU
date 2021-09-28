@@ -1,0 +1,362 @@
+// global custom input styles
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline {
+  top: 0 !important;
+}
+::ng-deep .mat-form-field-wrapper {
+  padding-bottom: 20px;
+  margin: 0 !important;
+  height: 56px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-flex {
+  padding: 0 15px !important;
+  margin-top: 0 !important;
+  height: 56px;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-suffix {
+  position: absolute;
+  top: 50% !important;
+  right: 14px;
+  transform: translateY(-50%);
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-label {
+  top: 45%;
+  margin-top: 0;
+}
+::ng-deep .description-area.mat-form-field-appearance-outline .mat-form-field-label {
+  top: 25%;
+  margin-top: 0;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix {
+  padding: 0;
+  border: 0;
+}
+input.mat-input-element {
+  height: 56px !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-infix,
+::ng-deep .mat-select-trigger {
+  height: 56px !important;
+}
+::ng-deep .mat-select-value {
+  color: #666666;
+}
+::ng-deep .mat-select-value {
+  vertical-align: middle !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-select-arrow-wrapper {
+  transform: initial !important;
+}
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-start,
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-end,
+::ng-deep .mat-form-field-appearance-outline .mat-form-field-outline-gap,
+::ng-deep .mat-form-field-label {
+  border-color: #666666 !important;
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-outline-gap,
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-can-float.mat-form-field-should-float
+  .mat-form-field-outline-gap {
+  border-top-color: transparent !important;
+}
+::ng-deep .mat-form-field.ng-valid .mat-form-field-label,
+::ng-deep .mat-form-field.mat-form-field-should-float .mat-form-field-label {
+  color: #666666 !important;
+}
+::ng-deep .mat-form-field.mat-focused .mat-form-field-outline-start,
+::ng-deep .mat-form-field.mat-focused .mat-form-field-outline-end,
+::ng-deep .mat-form-field.mat-focused .mat-form-field-outline-gap,
+::ng-deep .mat-form-field.mat-focused .mat-form-field-label {
+  border-color: #8ba6b9 !important;
+  color: #8ba6b9 !important;
+}
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-outline-start,
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-outline-end,
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-outline-gap,
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-label {
+  border-color: #c80000 !important;
+  color: #c80000 !important;
+}
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-disabled
+  .mat-form-field-outline-start,
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-disabled
+  .mat-form-field-outline-end,
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-disabled
+  .mat-form-field-outline-gap,
+::ng-deep
+  .mat-form-field-appearance-outline.mat-form-field-disabled
+  .mat-form-field-label {
+  border-color: rgba(0, 0, 0, 0.4) !important;
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+
+::ng-deep .mat-pseudo-checkbox {
+  color: #a4a4a4;
+}
+::ng-deep .mat-option.mat-active {
+  color: rgba(0, 0, 0, 0.8) !important;
+  background-color: rgba(0, 170, 204, 0.12) !important;
+}
+::ng-deep .mat-form-field .mat-form-field-label-wrapper {
+  top: -0.78em;
+}
+// price prefix styles
+::ng-deep
+  .mat-form-field.mat-form-field-appearance-outline
+  .mat-form-field-prefix {
+  top: -32%;
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+::ng-deep .mat-form-field.ng-valid .mat-form-field-prefix {
+  color: #666666 !important;
+}
+::ng-deep .mat-form-field.mat-form-field-invalid .mat-form-field-prefix {
+  color: #c80000 !important;
+}
+::ng-deep
+  .filter-check.mat-form-field-appearance-outline
+  .mat-form-field-flex
+  mat-label {
+  padding-right: 4px;
+  background-color: #ffffff;
+}
+::ng-deep .filter-check.mat-form-field.ng-dirty .mat-form-field-label,
+::ng-deep .filter-check.mat-form-field.ng-dirty .mat-form-field-prefix {
+  color: #666666 !important;
+}
+::ng-deep
+  .filter-check.mat-form-field
+  .mat-form-field-label.mat-form-field-empty,
+::ng-deep .filter-check.mat-form-field .mat-form-field-prefix,
+::ng-deep
+  .filter-check.mat-form-field.ng-dirty.mat-form-field-hide-placeholder
+  .mat-form-field-prefix {
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+::ng-deep .filter-check.mat-form-field.mat-focused .mat-form-field-label {
+  color: #8ba6b9 !important;
+}
+
+// text area styles
+::ng-deep
+  .custom-textarea.mat-form-field-appearance-outline
+  .mat-form-field-flex,
+::ng-deep
+  .custom-textarea.mat-form-field-appearance-outline
+  .mat-form-field-infix {
+  height: 93px;
+}
+::ng-deep .custom-textarea textarea {
+  padding: 0 !important;
+  margin: 0 !important;
+  height: 71px;
+  margin-top: 16px !important;
+  color: #666666;
+  font-size: 16px;
+  line-height: 23px;
+  resize: none !important;
+}
+
+::ng-deep .custom-textarea .mat-form-field-wrapper {
+  padding-bottom: 20px;
+  margin: 0 !important;
+  height: 93px;
+}
+::ng-deep
+  .custom-textarea.mat-form-field-hide-placeholder
+  .mat-form-field-label {
+  color: rgba(0, 0, 0, 0.4) !important;
+}
+.custom-textarea .mat-hint {
+  color: #666666;
+}
+.custom-textarea.mat-form-field-disabled .mat-hint {
+  color: rgba(0, 0, 0, 0.4);
+}
+::ng-deep .custom-textarea .mat-form-field-subscript-wrapper {
+  padding: 0 !important;
+}
+
+//description styles
+::ng-deep
+  .description-area.mat-form-field-appearance-outline
+  .mat-form-field-flex,
+::ng-deep
+  .description-area.mat-form-field-appearance-outline
+  .mat-form-field-infix {
+  height: 115px !important;
+}
+::ng-deep .description-area textarea {
+  height: 90px;
+}
+::ng-deep .description-area .mat-form-field-wrapper {
+  padding-bottom: 20px;
+  margin: 0 !important;
+  height: 115px;
+}
+
+::ng-deep .routine-date-picker .mat-button-focus-overlay {
+  display: none;
+}
+::ng-deep .mat-option {
+  color: rgba(0, 0, 0, 0.8);
+}
+::ng-deep .product-main-card .mat-checkbox-frame {
+  border-color: #a4a4a4;
+}
+
+::ng-deep .date-form .mat-select-trigger {
+  height: 36px !important;
+}
+::ng-deep .date-form .mat-select-trigger .mat-select-arrow-wrapper {
+  transform: translateY(0%) !important;
+}
+
+::ng-deep .radio .mat-radio-container {
+  width: 20px;
+  height: 20px;
+}
+::ng-deep .radio .mat-radio-outer-circle {
+  border: none;
+  background-color: #ffffff;
+  width: 20px;
+  height: 20px;
+}
+::ng-deep .radio.mat-radio-checked .mat-radio-inner-circle {
+  transform: scale(1);
+}
+::ng-deep .mat-radio-inner-circle {
+  width: 14px !important;
+  height: 14px !important;
+  top: 3px !important;
+  left: 3px !important;
+}
+::ng-deep .radio .mat-radio-label-content {
+  line-height: 20px;
+  font-weight: 300;
+  white-space: normal;
+  padding-left: 8px;
+}
+
+::ng-deep .checkbox .mat-checkbox-inner-container {
+  margin-right: 8px;
+  height: 20px;
+  width: 20px;
+}
+::ng-deep .checkbox.conf .mat-checkbox-inner-container {
+  margin-top: 0;
+}
+::ng-deep .checkbox .mat-checkbox-layout .mat-checkbox-label {
+  line-height: 20px;
+  font-weight: 300;
+  white-space: normal;
+}
+::ng-deep .checkbox.conf .mat-checkbox-layout .mat-checkbox-label {
+  font-weight: 400;
+}
+::ng-deep .checkbox .mat-checkbox-layout .mat-checkbox-frame {
+  border-width: 0;
+  background-color: #ffffff;
+  border-radius: 0;
+}
+
+::ng-deep .custom-form .mat-form-field-wrapper,
+::ng-deep .form-textarea .mat-form-field-wrapper {
+  padding-bottom: 0;
+}
+::ng-deep .custom-form.mat-form-field-appearance-fill .mat-form-field-flex,
+::ng-deep .form-textarea.mat-form-field-appearance-fill .mat-form-field-flex {
+  border-radius: 0;
+  padding: 0;
+  background-color: #ffffff;
+}
+::ng-deep .custom-form.mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 0 10px;
+  border: 0;
+}
+::ng-deep
+  .custom-form.mat-form-field-appearance-fill
+  .mat-form-field-infix
+  input.mat-input-element {
+  height: 36px !important;
+  margin-top: 0;
+}
+::ng-deep .custom-form .mat-form-field-label-wrapper,
+::ng-deep .custom-form .mat-form-field-underline,
+::ng-deep .form-textarea .mat-form-field-label-wrapper,
+::ng-deep .form-textarea .mat-form-field-underline {
+  display: none;
+}
+::ng-deep .form-textarea.mat-form-field-appearance-fill .mat-form-field-infix {
+  padding: 0;
+  border: 0;
+}
+::ng-deep
+  .form-textarea.mat-form-field-appearance-fill
+  .mat-form-field-infix
+  textarea.mat-input-element {
+  height: 125px !important;
+  margin: 0;
+  padding: 10px;
+  box-sizing: border-box;
+  resize: none;
+  white-space: pre-wrap;
+}
+::ng-deep
+  .custom-form.mat-form-field-appearance-fill
+  .mat-form-field-subscript-wrapper,
+::ng-deep
+  .form-textarea.mat-form-field-appearance-fill
+  .mat-form-field-subscript-wrapper {
+  top: 100%;
+  padding: 0;
+  margin-top: 5px;
+  white-space: nowrap;
+  overflow: visible;
+}
+
+.form-date-picker {
+  height: 36px;
+}
+.form-date-picker input,
+.form-date-picker input::placeholder {
+  font-weight: 500;
+  line-height: 36px;
+  color: #757575;
+  height: 36px !important;
+  caret-color: transparent;
+}
+::ng-deep .form-date-picker button {
+  position: relative;
+}
+::ng-deep .form-date-picker .mat-form-field-wrapper {
+  padding-bottom: 20px;
+  width: 230px;
+}
+::ng-deep .form-date-picker .mat-form-field-flex {
+  border-radius: 1px !important;
+  padding: 0 0 0 10px !important;
+  background-color: #ffffff !important;
+  display: flex;
+  align-items: center;
+  height: 36px;
+}
+::ng-deep .form-date-picker .mat-form-field-infix {
+  border-top: 0;
+  padding: 0;
+}
+::ng-deep .form-date-picker .mat-form-field-underline,
+::ng-deep .form-date-picker .mat-form-field-subscript-wrapper,
+::ng-deep .form-date-picker .mat-button-focus-overlay {
+  display: none;
+}
+::ng-deep .client-table-status .mat-select-trigger {
+  height: 48px !important;
+}
+
+::ng-deep .service-textarea {
+  margin-top: 0px !important;
+}

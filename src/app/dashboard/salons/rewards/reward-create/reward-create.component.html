@@ -1,0 +1,106 @@
+<form [formGroup]="rewardFormGroup">
+    <div class="add-rewards-main p-t-30 mb-auto-20">
+        <div class="heading-block mb-20">
+            <div class="f-right flex">
+                <button (click)="cancelRewardForm(buttonTitle)" type="button" class="auth-button-80 mr-10 fw-400"
+                    mat-button color="primary">CANCEL</button>
+
+                <button type="submit" (click)="submitRewardForm(buttonTitle)" class="auth-button-80 btn-shadow fw-400"
+                    mat-flat-button color="primary">
+                    <mat-spinner *ngIf="isCallingReward ;else title" class="auth-spinner" strokeWidth="3" diameter='30'>
+                    </mat-spinner>
+                    <ng-template #title> {{buttonTitle}} </ng-template>
+                </button>
+            </div>
+            <h3 class="f-20 m-0">{{rewardTitle}}</h3>
+        </div>
+
+
+        <mat-card class="add-section mb-auto-20 card-shadow">
+            <mat-error class="pb-30"> {{responseMessage}} </mat-error>
+            <!-- <mat-error class="pb-30" *ngIf="rewardFormGroup.controls['required_points'].hasError('max')">
+                Required points must be less than or equal to 100
+            </mat-error> -->
+
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Title</mat-label>
+                <input placeholder="Title" formControlName="title" matInput type="text" autocomplete="off">
+            </mat-form-field>
+
+            <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Start Date</mat-label>
+                    <input formControlName="start_date" (dateChange)="onDateSlect($event.value)" [min]="currentDate"
+                        (focus)="startDatePicker.open()" matInput [matDatepicker]="startDatePicker" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="startDatePicker">
+                        <mat-icon matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #startDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="half-input f-right">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>End Date</mat-label>
+                    <input formControlName="end_date" (focus)="endDatePicker.open()" [min]="minDate" matInput
+                        [matDatepicker]="endDatePicker" readonly>
+                    <mat-datepicker-toggle matSuffix [for]="endDatePicker" class="date-icon">
+                        <mat-icon matDatepickerToggleIcon>arrow_drop_down</mat-icon>
+                    </mat-datepicker-toggle>
+                    <mat-datepicker #endDatePicker></mat-datepicker>
+                </mat-form-field>
+            </div>
+            <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Reward for</mat-label>
+                    <mat-select (selectionChange)="onSelectionRewardChange($event)" formControlName="reward_for">
+                        <mat-option *ngFor="let reward of rewards" [value]="reward.id">{{reward.value}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+            <div class="half-input f-right">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Select {{rewardType}}</mat-label>
+                    <input placeholder="select {{rewardType}}" (click)="openDialog($event)"
+                        formControlName="select_reward" matInput type="text" value="{{rewardSelected}}"
+                        autocomplete="off">
+                </mat-form-field>
+            </div>
+            <!-- <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Required Points</mat-label>
+                    <input formControlName="required_points" min="1" max="100" placeholder="Required Points" matInput
+                        type="text" autocomplete="off">
+                </mat-form-field>
+            </div> -->
+            <div class="half-input f-right">
+                <mat-form-field class="w-100" appearance="outline">
+                    <!-- percent -->
+                    <mat-label>Percentage</mat-label>
+                    <!-- pattern='^[0-9]*$' -->
+                    <span matSuffix *ngIf="rewardFormGroup.value.percentage">%</span>
+                    <!-- id="percent-value" -->
+                    <input (keydown)='validate($event)' pattern="^[0-9]*$" formControlName="percentage" maxlength='3'
+                        min="1" max="100" placeholder="Percentage" matInput type="text" autocomplete="off">
+                    <!-- (ngModelChange)="changePercentPost()" -->
+                    <mat-error *ngIf="rewardFormGroup.hasError('min','percentage')"> Enter the percentage value
+                        in between 1 and 100 </mat-error>
+                    <mat-error *ngIf="rewardFormGroup.hasError('max','percentage')"> Enter the percentage value
+                        in between 1 and 100 </mat-error>
+                </mat-form-field>
+            </div>
+            <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Status</mat-label>
+                    <mat-select autocomplete="off" formControlName="status">
+                        <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.value}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </mat-card>
+    </div>
+</form>
+
+
+<ng-template #rewardSpinner>
+    <mat-spinner class="table-no-show" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

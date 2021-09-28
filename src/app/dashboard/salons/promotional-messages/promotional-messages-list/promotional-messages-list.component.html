@@ -1,0 +1,59 @@
+<div class="promotional-messages h-100" *ngIf="!isQuoteListEmpty">
+    <div class="h-70 mb-auto-20">
+        <div class="table-header">
+            <div class="margin-left-auto flex">
+                <button class="btn-shadow fw-400" [routerLink]="['add']" type="button" mat-flat-button color="primary">
+                    <span>CREATE NEW NOTIFICATION</span>
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div *ngIf="!isLoadingApi && !isQuoteListEmpty">
+        <div class="table-card">
+            <table mat-table [dataSource]="promotionalMessagesDataSource">
+                <ng-container matColumnDef="title">
+                    <th mat-header-cell *matHeaderCellDef> Notification Title </th>
+                    <td mat-cell *matCellDef="let element" class="notify-title pr-20"> {{element.title}} </td>
+                </ng-container>
+
+                <ng-container matColumnDef="body">
+                    <th mat-header-cell *matHeaderCellDef> Notification Body </th>
+                    <td mat-cell *matCellDef="let element" class="notify-body pr-20"> {{element.message}} </td>
+                </ng-container>
+
+                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+            </table>
+        </div>
+
+        <div class="o-hide" *ngIf="!isLoadingApi && !isQuoteListEmpty">
+            <mat-paginator class="table-paginator mb-auto-20 f-14" (page)="loadNextData($event)"
+                [length]="metaData.total" [pageSize]="offset" [pageIndex]="currentPage - 1" showFirstLastButtons
+                [hidePageSize]="true"></mat-paginator>
+        </div>
+    </div>
+
+    <div *ngIf="isLoadingApi">
+        <app-table-loading [skeletonHead]='skeletonHead' [skeletonColumn]='skeletonColumn' [isAvatar]=true
+            [isEditDelete]=true></app-table-loading>
+    </div>
+</div>
+
+<div *ngIf="isQuoteListEmpty" class="d-table m-auto h-100">
+    <div class="empty-align-center">
+        <div class="empty-data-icon flex align-center mb-auto-40 mt-20">
+            <div [inlineSVG]="'assets/quote.svg'"></div>
+        </div>
+        <h2 class="f-18 empty-heading mb-auto-20">No Notification Messages Added</h2>
+        <p class="empty-para f-16 mb-auto-40">Please click on Add A
+            Notification Message
+            button below
+            to add Notification Messages</p>
+        <button class="btn-shadow fw-400 d-block mb-20 m-auto" type="button" mat-flat-button color="primary"
+            [routerLink]="['add']">
+            <mat-spinner *ngIf="false" class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+            <span>CREATE NEW NOTIFICATION</span>
+        </button>
+    </div>
+</div>

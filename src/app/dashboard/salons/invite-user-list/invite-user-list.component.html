@@ -1,0 +1,79 @@
+<div class="invite-user h-100">
+  <div class="h-70 mb-auto-20">
+    <div class="table-header" *ngIf="invitations || searchString">
+      <input [(value)]="searchString" (keyup)="searchSalon($event.target.value)" autocomplete="off"
+        class="search-for-list" placeholder="Search">
+      <mat-icon *ngIf="!searchString" class="search-icon" color="primary" aria-hidden="false" aria-label="search">search
+      </mat-icon>
+      <mat-icon *ngIf="searchString" (click)="clearSearch()" class="search-icon" color="primary" aria-hidden="false"
+        aria-label="close"> close
+      </mat-icon>
+
+      <div class="margin-left-auto flex">
+        <button class="btn-shadow fw-400" (click)="openDialog()" type="button" mat-flat-button color="primary">
+          <span>INVITE A USER</span>
+        </button>
+      </div>
+    </div>
+  </div>
+
+
+  <div *ngIf="!isLoadingAPI && !isUsersEmpty " class="table-card">
+    <table mat-table [dataSource]="inviteUsersDataSource">
+
+      <ng-container matColumnDef="email">
+        <th mat-header-cell *matHeaderCellDef> Email </th>
+        <td mat-cell *matCellDef="let element" class="invite-email pr-20"> {{element.client_email}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="invited_by">
+        <th mat-header-cell *matHeaderCellDef> Invited By </th>
+        <td mat-cell *matCellDef="let element" class="invite-by pr-20"> {{element.invited_by}} </td>
+      </ng-container>
+
+      <ng-container matColumnDef="invited_on">
+        <th mat-header-cell *matHeaderCellDef> Invited On </th>
+        <td mat-cell *matCellDef="let element" class="pr-20"> {{element.sent_time | DateFormatePipe }} </td>
+      </ng-container>
+
+      <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+      <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+    </table>
+
+  </div>
+
+  <div class="o-hide">
+    <mat-paginator (page)="loadNextData($event)" *ngIf="!isLoadingAPI && !isUsersEmpty" [pageIndex]="currentPage - 1"
+      [length]="metaData.total" [pageSize]="offset" class="table-paginator mb-auto-20 f-14" showFirstLastButtons
+      [hidePageSize]="true">
+    </mat-paginator>
+  </div>
+
+  <div *ngIf="isUsersEmpty && !isLoadingAPI" class="flex align-center empty-data-box">
+    <div>
+      <div class="empty-data-icon flex align-center mb-auto-40 mt-20">
+        <div [inlineSVG]="'assets/empty_salon.svg'"></div>
+      </div>
+      <ng-container *ngIf="searchString ||invitations else addSalonBtn">
+        <h2 class="f-18 empty-heading mb-auto-20">No Invitations Found</h2>
+      </ng-container>
+      <ng-template #addSalonBtn>
+        <h2 class="f-18 empty-heading mb-auto-20">No Invitations Added</h2>
+        <p class="f-16 empty-para mb-auto-40">There are no invitations added. Please click on below button to add a
+          invitations</p>
+
+        <button class="btn-shadow fw-400 d-block m-auto mb-20" (click)="openDialog()" type="button" mat-flat-button
+          color="primary">
+          <span>INVITE A USER</span>
+        </button>
+      </ng-template>
+    </div>
+  </div>
+
+  <div *ngIf="isLoadingAPI">
+    <app-table-loading [skeletonHead]='skeletonHead' [skeletonColumn]='skeletonColumn' [isEditDelete]=true
+      [isAvatar]=true>
+    </app-table-loading>
+  </div>
+
+</div>

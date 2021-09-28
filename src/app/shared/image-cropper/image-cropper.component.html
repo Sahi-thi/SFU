@@ -1,0 +1,15 @@
+<div class="image-cropper">
+    <div class="btn-wrapper">
+        <button [mat-dialog-close] color="primary" class="margin-right-12" mat-button> CANCEL </button>
+        <button [mat-dialog-close]='croppedImage' color="primary" mat-flat-button> OK </button>
+    </div>
+    <div>
+        <image-cropper [imageChangedEvent]="imageChangedEvent" [maintainAspectRatio]="true"
+            [containWithinAspectRatio]="containWithinAspectRatio" [aspectRatio]="4 / 3" [resizeToWidth]="156"
+            [cropperMinWidth]="88" [onlyScaleDown]="true" [roundCropper]="false" [alignImage]="'left'"
+            [style.display]="showCropper ? null : 'none'" format="png" (imageCropped)="imageCropped($event)"
+            (imageLoaded)="imageLoaded()" (cropperReady)="cropperReady($event)" (loadImageFailed)="loadImageFailed()">
+        </image-cropper>
+    </div>
+    <!-- [resizeToWidth]="256"[cropperMinWidth]="128"  -->
+</div>

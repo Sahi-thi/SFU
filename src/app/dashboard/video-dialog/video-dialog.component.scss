@@ -1,0 +1,61 @@
+.svgActiveIcon {
+  background-color: #d93025;
+  border: 1px solid #d93025;
+  color: #ffffff;
+  transition: fill 0.3s ease;
+  box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.302),
+    0 4px 8px 3px rgba(60, 64, 67, 0.149);
+}
+
+.svgIcon {
+  height: 50px;
+  width: 50px;
+  border: 1px solid #dadce0;
+  color: #5f6368;
+  transition: fill 0.3s ease;
+}
+.svgIcon:hover {
+  box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.302),
+    0 4px 8px 3px rgba(60, 64, 67, 0.149);
+}
+.localVideo {
+  width: 20%;
+}
+.userVideo {
+  width: 75%;
+  background-color: #000000;
+  height: 60vh;
+}
+.call-controls {
+  position: absolute;
+  bottom: -94px;
+  left: 0;
+  z-index: 10;
+  padding: 10px 0;
+  background-color: #ffffff;
+  transition: fill 1s ease;
+}
+.userVideo:hover .call-controls {
+  bottom: -1px;
+  transition: fill 1s ease;
+}
+.call-btns {
+  height: 50px;
+  width: 50px;
+  .mat-icon {
+    font-size: 27px;
+    width: auto;
+  }
+}
+.call-end {
+  border: 1px solid #dadce0;
+  color: #d93025;
+}
+.call-end:hover {
+  box-shadow: 0 1px 3px 0 rgba(60, 64, 67, 0.302),
+    0 4px 8px 3px rgba(60, 64, 67, 0.149);
+}
+
+.mt-0 {
+  margin-top: 0px;
+}

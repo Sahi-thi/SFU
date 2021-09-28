@@ -1,0 +1,28 @@
+<mat-toolbar *ngIf="userRole === 'SA' " color="primary" class="admin-header">
+    <img src="assets/mainLogo.svg" alt="logo">
+
+    <mat-nav-list class="my-nav-list">
+        <a class="my-nav-item" (click)="menuHeaderClick(menu.name)" mat-list-item routerLinkActive="header-active" [routerLink]="[menu.routerLink]"
+            *ngFor="let menu of headerMenu">
+            <div class="menu-title">{{ menu.name }}</div>
+        </a>
+    </mat-nav-list>
+    <button (click)="navigateToLogout()" type="button" mat-flat-button color="primary" class="fw-400 auth-button-90">
+        <mat-spinner *ngIf="isSubmitted" class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+        <span *ngIf="!isSubmitted">LOG OUT</span>
+    </button>
+</mat-toolbar>
+
+
+<mat-toolbar *ngIf="userRole !== 'SA'" color="primary" class="admin-header-others">
+    <button mat-icon-button (click)="sidenav.toggle()">
+        <mat-icon>menu</mat-icon>
+    </button>
+    <div class="flex others-logo">
+        <img src="assets/mainLogo.svg" alt="logo">
+    </div>
+    <button (click)="navigateToLogout()" type="button" mat-flat-button color="primary" class="fw-400 auth-button-90">
+        <mat-spinner *ngIf="isSubmitted" class="auth-spinner" strokeWidth="3" diameter='30'></mat-spinner>
+        <span *ngIf="!isSubmitted">LOG OUT</span>
+    </button>
+</mat-toolbar>

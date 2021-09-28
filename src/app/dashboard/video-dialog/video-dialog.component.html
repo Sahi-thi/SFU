@@ -1,0 +1,19 @@
+<h5 class="mt-0"> {{callingStatus}} </h5>
+
+<div class="userVideo make-relative f-left h-100 o-hide c-pointer">
+    <video id="remote_video" autoplay playsinline height="100%" width="100%"></video>
+
+    <div class="call-controls w-100 t-center">
+        <button (click)="endIncomingCall()" mat-icon-button class="call-btns call-end mr-10">
+            <mat-icon>call_end</mat-icon>
+        </button>
+        <button (click)="toggleLocalAudio()" mat-icon-button data-target="audio" class="call-btns"
+            [ngClass]=" !isAudioEnabled ? 'svgActiveIcon' : 'svgIcon'  ">
+            <mat-icon>mic_off</mat-icon>
+        </button>
+    </div>
+
+</div>
+
+
+<video id="localVideo" height="360" width="640" class="localVideo f-right" autoplay playsinline></video>

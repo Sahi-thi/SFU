@@ -1,0 +1,205 @@
+.appointments-main {
+  max-width: 1260px;
+  width: 90%;
+  margin: auto;
+}
+
+.table-header {
+  display: flex;
+  align-items: center;
+  margin: 0 auto 20px;
+  flex-flow: wrap;
+}
+.table-header button {
+  padding: 0 26px;
+}
+.search-icon {
+  cursor: pointer;
+  opacity: 0.8;
+  position: absolute;
+  bottom: 5px;
+  right: 33px;
+  &:hover {
+    opacity: 1;
+  }
+}
+.margin-left-auto {
+  margin-left: auto;
+  margin-top: 30px;
+}
+.search-column {
+  height: 36px;
+  flex: 1;
+}
+.filter-icon {
+  margin-right: 30px;
+  margin-left: 10px;
+  cursor: pointer;
+  padding: 0 !important;
+}
+.search-for-list {
+  height: 36px;
+  width: 283px;
+  border-radius: 3px;
+  border: 0px;
+  padding-left: 16px;
+  font-size: 14px;
+  margin-top: 30px;
+  &:focus {
+    outline: 0px;
+  }
+}
+
+.switch {
+  width: 72px;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.switch .tab {
+  width: 36px;
+  height: 36px;
+  cursor: pointer;
+}
+.switch .tab:focus {
+  outline: none;
+}
+.tab-unsel {
+  color: #6e6e6e;
+}
+.tab-unsel:hover {
+  background-color: rgba(139, 166, 185, 0.15);
+}
+.tab-sel {
+  color: #ffffff;
+  background-color: #8ba6b9;
+}
+
+.empty-data-box {
+  min-height: calc(100% - 90px);
+}
+.date-block {
+  button {
+    padding: 0;
+    height: 36px;
+    width: 36px;
+    border: none;
+    border-radius: 2px;
+    cursor: pointer;
+  }
+  p {
+    font-size: 14px;
+    line-height: 16px;
+    font-weight: 500;
+    text-align: center;
+    width: 229px;
+  }
+}
+.date-block button:focus {
+  outline: none;
+}
+::ng-deep .cal-month-view .cal-day-cell.cal-today {
+  background-color: rgba(139, 166, 185, 0.15);
+}
+::ng-deep .cal-month-view .cal-day-cell.cal-today .cal-day-number,
+::ng-deep .cal-month-view .cal-day-number {
+  font-size: 20px;
+}
+::ng-deep .cal-month-view .cal-day-number {
+  text-align: center;
+  margin-top: 10px;
+  margin-bottom: 5px;
+  display: block;
+  margin-right: 0;
+  float: none;
+  opacity: 1;
+}
+::ng-deep .cal-month-view .cal-day-cell.cal-out-month .cal-day-number {
+  opacity: 0.3;
+}
+::ng-deep .cal-month-view .cal-header .cal-cell {
+  height: 55px;
+  line-height: 55px;
+  font-weight: normal;
+  border-width: 1px 0 0 1px;
+  border-style: solid;
+  border-color: rgba(151, 151, 151, 0.3);
+  background-color: #ffffff;
+}
+::ng-deep .cal-month-view .cal-header .cal-cell:hover {
+  background-color: #ffffff;
+}
+::ng-deep .cal-month-view .cal-day-cell {
+  min-height: 100px;
+  background: #ffffff;
+  width: 14.2%;
+}
+::ng-deep .cal-month-view .cal-header .cal-cell:focus,
+::ng-deep .cal-month-view .cal-cell-top:focus,
+::ng-deep .cal-month-view .cal-cell:focus,
+.events:focus {
+  outline: none;
+}
+::ng-deep .cal-month-view .cal-header .cal-cell:last-child {
+  border-width: 1px 1px 0;
+}
+::ng-deep .cal-month-view .cal-day-cell.cal-in-month.cal-has-events {
+  cursor: default;
+}
+::ng-deep .cal-month-view .month-grid-active {
+  background-color: rgba(139, 166, 185, 0.15) !important;
+  color: #000;
+  pointer-events: visible;
+}
+
+::ng-deep .cal-month-view .month-grid-past {
+  background-color: #fff !important;
+  color: #000;
+  pointer-events: visible;
+}
+::ng-deep .cal-month-view .month-grid-disable {
+  background-color: #efefef !important;
+  color: #b1b1b1;
+  pointer-events: none;
+}
+::ng-deep .cal-month-view .weekend-color {
+  color: #b1b1b1 !important ;
+}
+::ng-deep .cal-month-view .pointer-event {
+  pointer-events: visible;
+}
+.cal-cell-top {
+  min-height: 112px;
+}
+.events {
+  line-height: 17px;
+  font-weight: 500;
+  padding: 4px 8px;
+  margin: 0 4px 4px !important;
+  color: rgba(0, 0, 0, 0.8);
+  border-radius: 2px;
+  height: 16px;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+.view-more {
+  background-color: transparent;
+  padding: 0 3px 3px;
+  width: max-content;
+}
+.view-more:hover {
+  text-decoration: underline;
+}
+::ng-deep .more-events-menu {
+  min-width: 150px !important;
+  margin-top: -129px;
+  border-radius: 0 !important;
+  padding: 8px;
+}
+::ng-deep .more-events-menu .mat-menu-content:not(:empty) {
+  padding: 0;
+}
+.calender-table {
+  min-width: 700px;
+}

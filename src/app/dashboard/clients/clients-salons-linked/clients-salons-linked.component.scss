@@ -1,0 +1,75 @@
+.salon-link-block {
+    max-width: 700px;
+    width: 90%;
+}
+.salon-link-card {
+    padding: 20px 20px 10px;
+    display: flex;
+    align-items: flex-start;
+    img {
+        width: 54px;
+        height: 54px;
+        object-fit: cover;
+        border-radius: 3px;
+    }
+    .salon-status {
+        width: 80px;
+        font-weight: 500;
+        line-height: 16px;
+        padding: 5px 0;
+        border-radius: 15.5px;
+        text-align: center;
+        cursor: auto;
+    }
+    .salon-details {
+        flex: 1;
+        div {
+            color: rgba(0,0,0,0.8);
+            font-weight: 500;
+            line-height: 19px;
+            white-space: nowrap;
+            text-overflow: ellipsis;
+        }
+        ul {
+            margin: 0;
+            padding: 0;
+            list-style: none;
+            color: #6E6E6E;
+            line-height: 16px;
+            li {
+                margin-bottom: 10px;
+                overflow: hidden;
+                white-space: nowrap;
+                text-overflow: ellipsis;
+            }
+        }
+    }
+}
+
+.salon-linked-paginator {
+    background: none;
+    line-height: 16px;
+    letter-spacing: 1px;
+}
+
+@media screen and (max-width: 560px) {
+    .salon-link-card {
+        flex-flow: wrap;
+        .img-sec {
+            flex: 1;
+        }
+        .salon-status {
+            order: 2;
+        }
+        .salon-details {
+            order: 3;
+            flex-basis: 100%;
+        }
+    }
+}
+
+.empty-salon-linked {
+    width: 90%;
+    max-width: 700px;
+    height: calc(100% - 160px);
+}

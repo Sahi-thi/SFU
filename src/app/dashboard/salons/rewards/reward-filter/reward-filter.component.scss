@@ -1,0 +1,14 @@
+@import '../../../../../theme/deep-styles.scss';
+
+.filter-spinner {
+    margin: 111px auto;
+}
+.half-input {
+  width: calc(50% - 8px);
+}
+::ng-deep .date-icon button.mat-icon-button {
+  margin-right: -10px;
+  .mat-button-focus-overlay {
+      opacity: 0;
+  }
+}

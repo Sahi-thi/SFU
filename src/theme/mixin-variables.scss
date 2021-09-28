@@ -1,0 +1,40 @@
+@mixin transition($property) {
+  -moz-transition: $property 0.3s ease-in-out;
+  -o-transition: $property 0.3s ease-in-out;
+  -webkit-transition: $property 0.3s ease-in-out;
+  transition: $property 0.3s ease-in-out;
+}
+
+@mixin border-radius($radius) {
+  -webkit-border-radius: $radius;
+  -moz-border-radius: $radius;
+  -ms-border-radius: $radius;
+  border-radius: $radius;
+}
+
+@mixin background-image($URL, $size) {
+  background-image: url($URL);
+  background-repeat: no-repeat;
+  // background-attachment: fixed;
+  background-size: $size;
+  background-position: center;
+}
+
+@mixin align($ai, $jc) {
+  align-items: $ai;
+  justify-content: $jc;
+}
+
+@mixin display($di) {
+  display: $di;
+}
+
+@mixin position($ti, $lc) {
+  position: absolute;
+  top: $ti;
+  left: $lc
+}
+
+@mixin transform($xi, $yc) {
+  transform: translate($xi, $yc);
+}

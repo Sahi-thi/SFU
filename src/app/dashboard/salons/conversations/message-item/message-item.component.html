@@ -1,0 +1,121 @@
+<div *ngIf="message.sender_id == userId; then thenBlock else elseBlock"></div>
+<ng-template #thenBlock>
+    <div class=" message-out" *ngIf="message.sender_id == userId">
+        <div class="candet-message flex" (visibility)="visibility($event)" #element>
+            <div>
+                <ng-template #showMessage>
+                    <div class="f-14 card-shadow text make-relative mr-30">
+                        <span class="message-name name-right-color"
+                            *ngIf="message.profile_name && message.profile_name.length > 0">
+                            {{message.profile_name}} </span>
+                        <div>{{message.message}} </div>
+                        <mat-icon class="desp-arrow text-arrow" color="primary">arrow_drop_down</mat-icon>
+                    </div>
+                </ng-template>
+                <div *ngIf="message.attachments && message.attachments.length > 0 else showMessage"
+                    class="f-14 card-shadow text  make-relative mr-30">
+                    <span class="message-name name-right-color"
+                        *ngIf="message.profile_name && message.profile_name.length > 0">
+                        {{message.profile_name}} </span>
+                    <div>
+
+                        <div *ngFor="let attachment of message.attachments">
+                            <a *ngIf="attachment.type != 'pdf'" [href]="attachment.src" target="_blank">
+                                <img class="attach-img" download width="120" (load)="loadImagesEvent($event)"
+                                    alt="attachment" src="{{attachment.src}}" />
+                            </a>
+                            <a *ngIf="attachment.type === 'pdf'" [href]="attachment.src" target="_blank"
+                                class="pdf-main-wrapper">
+                                <div class="pdf-wrapper">
+                                    <div class="pdf-header">
+                                        <img src="assets/pdf.png" alt="pdf-image">
+                                        <div class="pdf-content">
+                                            <div>{{attachment.name}}</div>
+                                        </div>
+                                    </div>
+                                    <div class="pdf-frame">
+                                        <iframe [src]="attachment.src|sanitizeUrl" width="180" height="120"
+                                            frameborder="0"></iframe>
+                                        <div class="pdf-frame-dupe"></div>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+
+                    </div>
+                    <mat-icon class="desp-arrow text-arrow" color="primary">arrow_drop_down</mat-icon>
+                </div>
+            </div>
+            <div class="msg-info">
+                <img class="w-100 h-100 d-block m-auto" alt="profile"
+                    *ngIf="message.profile_picture && message.profile_picture.length > 0"
+                    [src]="message.profile_picture">
+                <mat-icon class="no-profile d-block m-auto"
+                    *ngIf="message.profile_picture == null ||  message.profile_picture == undefined || message.profile_picture == ''">
+                    account_circle
+                </mat-icon>
+                <div class="time f-12 t-center mt-10">{{message.date_sent | DateTimePipe }} </div>
+            </div>
+        </div>
+    </div>
+</ng-template>
+<ng-template #elseBlock>
+    <div class="message-in" *ngIf="message.sender_id != userId">
+        <div class="candet-message flex " (visibility)="visibility($event)" #element>
+            <div class="msg-info">
+                <img class="w-100 h-100 d-block m-auto" alt="profile"
+                    *ngIf="message.profile_picture && message.profile_picture.length > 0"
+                    [src]="message.profile_picture">
+                <mat-icon class="no-profile d-block m-auto"
+                    *ngIf="message.profile_picture == null || message.profile_picture == undefined || message.profile_picture == ''">
+                    account_circle
+                </mat-icon>
+
+                <div class="time f-12 t-center mt-10">{{message.date_sent | DateTimePipe}} </div>
+            </div>
+            <div>
+                <ng-template #showMessage>
+                    <div class="f-14 card-shadow text make-relative">
+                        <span class="message-name name-left-color"
+                            *ngIf="message.profile_name && message.profile_name.length > 0">
+                            {{message.profile_name}} </span>
+                        <div>{{message.message}} </div>
+                        <mat-icon class="desp-arrow" color="accent">arrow_drop_down</mat-icon>
+                    </div>
+                </ng-template>
+                <div *ngIf="message.attachments && message.attachments.length > 0 else showMessage"
+                    class="f-14 card-shadow img-bg text make-relative">
+
+                    <span class="message-name name-left-color"
+                        *ngIf="message.profile_name && message.profile_name.length > 0">
+                        {{message.profile_name}} </span>
+
+                    <div *ngFor="let attachment of message.attachments">
+                        <a *ngIf="attachment.type !== 'pdf'" [href]="attachment.src" target="_blank">
+                            <img class="attach-img" download width="120" (load)="loadImagesEvent($event)"
+                                alt="attachment" src="{{attachment.src}}" />
+                        </a>
+                        <a *ngIf="attachment.type === 'pdf'" [href]="attachment.src" target="_blank"
+                            class="pdf-main-wrapper">
+                            <div class="pdf-wrapper">
+                                <div class="pdf-header">
+                                    <img src="assets/pdf.png" alt="pdf-image">
+                                    <div class="pdf-content">
+                                        <div>{{attachment.name}}</div>
+                                    </div>
+                                </div>
+                                <div class="pdf-frame">
+                                    <iframe [src]="attachment.src|sanitizeUrl" width="180" height="120"
+                                        frameborder="0"></iframe>
+                                    <div class="pdf-frame-dupe"></div>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <mat-icon class="desp-arrow" color="accent">arrow_drop_down</mat-icon>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</ng-template>

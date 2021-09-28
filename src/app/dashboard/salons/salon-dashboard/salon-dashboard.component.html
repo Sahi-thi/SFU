@@ -1,0 +1,39 @@
+<div>
+    <div class="example-container" [class.example-is-mobile]="mobileQuery.matches">
+
+        <mat-toolbar *ngIf="userRole === 'SA'" color="accent" class="salon-inner-header"
+            [ngClass]="{'active':isMenuClicked} ">
+            <div class="salon-back-menu h-100 flex align-left card-shadow">
+                <button mat-icon-button [routerLink]="['/home/salons']" (click)="backToNavigation()" aria-hidden="false"
+                    aria-label="Back" class="mr-10 c-pointer">
+                    <mat-icon>arrow_back</mat-icon>
+                </button>
+                <h1>{{salonTitle}} </h1>
+            </div>
+            <button mat-icon-button (click)="clickNavigationMenu()">
+                <mat-icon>menu</mat-icon>
+            </button>
+            <h1> {{headerTitle}} </h1>
+
+        </mat-toolbar>
+
+        <mat-sidenav-container class="example-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">
+            <mat-sidenav class="salon-side-nav card-shadow" opened #salonSidenav
+                [mode]="mobileQuery.matches ? 'over' : 'side'" [fixedInViewport]="mobileQuery.matches" fixedTopGap="56">
+                <mat-nav-list *ngIf="userRole === 'SA'">
+
+                    <a (click)="handleClick(menu)" class="salon-menu-items f-14" mat-list-item
+                        routerLinkActive="side-menu-active" [routerLink]="[salonId+menu.routerLink]"
+                        *ngFor="let menu of checkMenuOnUserRole()"><span class="side-menu-padd">{{menu.name}}
+                        </span></a>
+                </mat-nav-list>
+            </mat-sidenav>
+
+            <mat-sidenav-content>
+                <router-outlet></router-outlet>
+            </mat-sidenav-content>
+
+        </mat-sidenav-container>
+
+    </div>
+</div>

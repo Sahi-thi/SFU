@@ -1,0 +1,232 @@
+<form *ngIf="!isLoadingAPI && !isServicesListLoading; else loadSpinner" [formGroup]="providerFormGroup"
+    class="add-provider-main p-t-30 mb-auto-20">
+    <div class="f-right flex">
+        <button [disabled]="isCallingProvider" (click)="cancelProviderForm(buttonTitle)" type="button"
+            class="auth-button-80 mr-10 fw-400" mat-button color="primary">CANCEL</button>
+        <ng-template #title>
+            <button (click)="submitProviderForm(buttonTitle)" type="submit" class="auth-button-80 btn-shadow fw-400"
+                mat-flat-button color="primary">
+                {{buttonTitle}}
+            </button>
+        </ng-template>
+        <button *ngIf="isCallingProvider ;else title" type="button" class="auth-button-80 btn-shadow fw-400"
+            mat-flat-button color="primary">
+            <mat-spinner class="auth-spinner" strokeWidth="3" diameter='30'>
+            </mat-spinner>
+        </button>
+    </div>
+    <div class="provider-back flex align-left mb-20">
+        <h3 class="f-20 m-0"> {{providerTitle}} </h3>
+    </div>
+
+    <mat-card class="add-provider-card mb-auto-20 card-shadow">
+        <mat-error> {{responseMessage}} </mat-error>
+        <mat-error> {{servicesListEmptyMessage}} </mat-error>
+        <mat-error> {{serviceIdErrorMessage}} </mat-error>
+        <mat-error> {{inOfficeTimeError}} </mat-error>
+        <div class="pb-30"></div>
+        <p *ngIf="isUploading" class="loading t-center">Uploading profile Image</p>
+        <div class="cover-image-wrapper mb-auto-30 make-relative o-hide">
+            <div class="upload-wrapper h-100 make-relative">
+                <span *ngIf="imgURL === null || imgURL === ''; else showImage"
+                    class="make-center t-center">Upload<br>Image</span>
+                <input (keyup)="emptyServiceMessage()" [disabled]="buttonTitle === 'EDIT'" #inputLogo
+                    (change)="onClickUploadLogo($event)" class="h-100 w-100 glass make-absolute c-pointer" type="file"
+                    accept=".png,.jpg,.jpeg" />
+                <ng-template #showImage>
+                    <img src={{imgURL}} (click)="inputLogo.open()" alt="avatar" loading="lazy" class="preview-image h-100 w-100" />
+                </ng-template>
+            </div>
+        </div>
+        <div class="providers-details-block">
+
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Name</mat-label>
+                <input (keyup)="emptyServiceMessage()" formControlName="name" placeholder="Name" matInput type="text"
+                    autocomplete="off">
+            </mat-form-field>
+
+            <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Email</mat-label>
+                    <input (keyup)="emptyServiceMessage()" formControlName="email" placeholder="Email" matInput
+                        type="text">
+                </mat-form-field>
+            </div>
+
+            <div class="half-input f-right">
+                <mat-form-field class="w-100 " appearance="outline">
+                    <mat-label>Phone Number</mat-label>
+                    <input id='tel' formControlName="phone_number" placeholder="Phone Number" matInput type="tel"
+                        [preValue]="providerFormGroup.controls['phone_number'].value" maxlength="14"
+                        [phoneControl]="providerFormGroup.controls['phone_number']" appPhoneNumberFormat>
+                </mat-form-field>
+            </div>
+
+            <div class="half-input f-left">
+                <mat-form-field class="w-100 " appearance="outline">
+                    <mat-label>City</mat-label>
+                    <input formControlName="city" placeholder="City" matInput type="text" autocomplete="off">
+                </mat-form-field>
+            </div>
+
+            <div class="half-input f-right">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>State</mat-label>
+                    <input formControlName="state" type="text" aria-label="Number" matInput
+                        (keyup)="searchState($event.target.value)" [matAutocomplete]="auto">
+                    <mat-autocomplete [displayWith]="displayContactFn" #auto="matAutocomplete">
+                        <mat-option *ngFor="let state of states"
+                            (onSelectionChange)="onSelectionChanged($event,state.state_id)" [id]="state.state_id"
+                            [value]="state.state_id">
+                            {{state.state_name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+
+            </div>
+
+            <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Status</mat-label>
+                    <mat-select formControlName="status">
+                        <mat-option *ngFor="let status of statuses" [value]="status.id">{{status.value}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+        </div>
+
+        <div class="provider-divider"></div>
+
+        <div class="make-relative mb-36">
+            <div formArrayName="services" class="add-service-floating">
+                <p class="mb-auto-10 f-12 form-heading flex align-seperate d-block">
+                    Add Service
+                </p>
+
+                <div *ngFor="let serviceData of providerFormGroup.get('services')['controls'];let i=index;">
+
+                    <div [formGroupName]="buttonTitle === 'EDIT' ? i : i ">
+                        <div class="add-service-block">
+                            <div class="mt-20">
+                                <mat-form-field class="w-100 f-left" appearance="outline">
+                                    <mat-label>Service Type</mat-label>
+                                    <mat-select formControlName="service_type">
+                                        <mat-option (onSelectionChange)="onSelectionServiceType($event,service,i)"
+                                            [value]="service.service_type"
+                                            *ngFor="let service of servicesData; let typeIndex=index ">
+                                            {{service.service_type}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+
+                            <div class="half-input f-left">
+                                <mat-form-field class="w-100 services" appearance="outline">
+                                    <mat-label>Services</mat-label>
+                                    <mat-select formControlName="service_name">
+                                        <ng-container
+                                            *ngIf="serviceTypeMapData &&  serviceTypeMapData.get('item_'+ i) &&  serviceTypeMapData.get('item_'+ i).services">
+                                            <mat-option
+                                                *ngFor="let service of serviceTypeMapData.get('item_'+ i).services"
+                                                (onSelectionChange)="onSelectionServiceChanged($event,service,i)"
+                                                [value]="service.service">
+                                                {{ service.service}}
+                                            </mat-option>
+                                        </ng-container>
+                                        <mat-option *ngIf="emptyServices">
+                                            {{emptyServices}}
+                                        </mat-option>
+                                    </mat-select>
+                                </mat-form-field>
+                            </div>
+
+                            <div class="half-input f-right">
+                                <mat-form-field class="w-100" appearance="outline">
+                                    <mat-label>Price</mat-label>
+                                    <input formControlName="price" placeholder="Price" matInput type="text"
+                                        class="price" maxlength="6" (keydown)='validate($event)' />
+                                    <span *ngIf="providerFormGroup.controls.services.value[i].price" matPrefix>$</span>
+                                    <mat-error *ngIf="serviceData.getRawValue().price">
+                                        <ng-container
+                                            *ngIf="serviceTypeMapData &&  serviceTypeMapData.get('item_'+ i) &&  serviceTypeMapData.get('item_'+ i).services">
+                                            <ng-container
+                                                *ngFor="let service of serviceTypeMapData.get('item_'+ i).services">
+                                                <span
+                                                    *ngIf="service.service == providerFormGroup.controls.services['controls'][i].getRawValue().service_name">
+                                                    <span *ngIf="service.max_price == '0.00' ">
+                                                        <div
+                                                            *ngIf="providerFormGroup.controls.services.value[i].price > '999999' ">
+                                                            Enter a value below 6 digits.
+                                                        </div>
+                                                        <div
+                                                            *ngIf="providerFormGroup.controls.services.value[i].price < '999999' ">
+                                                            price value is more than
+                                                            {{service.min_price| number:'1.0-0'}}
+                                                        </div>
+
+                                                    </span>
+                                                    <span
+                                                        *ngIf="service.max_price != '0.00' && service.max_price < '999999.00'">
+
+                                                        Price range must be in between {{service.min_price|
+                                                        number:'1.0-0'}}
+                                                        and
+                                                        {{service.max_price| number: '1.0-0'}} values
+                                                    </span>
+                                                </span>
+
+                                            </ng-container>
+                                        </ng-container>
+                                    </mat-error>
+
+                                </mat-form-field>
+                            </div>
+                        </div>
+
+                        <button *ngIf="i > 0 && (buttonTitle === 'ADD') " (click)="removeService(i,serviceData)"
+                            type="button" mat-button color="primary" class="f-14 fw-400 auth-button-90 remove-btn">
+                            REMOVE
+                        </button>
+
+                        <div *ngIf="providerDetails && providerDetails.services">
+                            <button *ngIf="buttonTitle === 'SAVE' && i > 0 " (click)="removeService(i,serviceData)"
+                                type="button" mat-button color="primary" class="f-14 fw-400 auth-button-90 remove-btn">
+                                REMOVE
+                            </button>
+                        </div>
+
+                    </div>
+                </div>
+            </div>
+
+            <div *ngIf="buttonTitle !== 'EDIT' " appearance="outline" [ngClass]="{'add-service-btn' : false }">
+                <!-- *ngIf="totalAddedServices !== servicesData.length + selectedServices.length" -->
+                <button type="button" mat-raised-button color="primary"
+                    class="f-14 fw-400 flex align-center auth-button-80" (click)="onClickAddService()">
+                    <b>+</b> ADD
+                </button>
+            </div>
+
+        </div>
+
+        <div class="provider-divider w-100"></div>
+
+
+        <p class="mb-auto-20 f-12 form-heading">Days Available</p>
+        <div class="recommend-rituals">
+            <mat-checkbox [disabled]='isDisabled' *ngFor="let day of officeDays" (click)="$event.stopPropagation()"
+                value="" (change)="onClickFrequencies(day,$event.checked)" [checked]="day.isChecked"
+                class="rituals rituals-cat d-i-block mr-10 mb-16" color="primary">
+                {{day.day}}
+            </mat-checkbox>
+        </div>
+
+    </mat-card>
+</form>
+
+<ng-template #loadSpinner>
+    <mat-spinner class="table-no-show" color="primary" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>

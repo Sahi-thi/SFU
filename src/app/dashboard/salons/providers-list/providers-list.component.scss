@@ -1,0 +1,87 @@
+.providers-main {
+    max-width: 1260px;
+    width: 90%;
+    margin: auto;
+}
+
+.table-header {
+    display: flex;
+    align-items: center;
+    margin: 0 auto 20px;
+    flex-flow: wrap;
+}
+.table-header button {
+    padding: 0 26px;
+}
+.search-icon {
+    margin-left: -34px;
+    margin-top: 30px;
+    cursor: pointer;
+    opacity: 0.8;
+    &:hover {
+        opacity: 1;
+    }
+}
+.margin-left-auto {
+    margin-left: auto;
+    margin-top: 30px;
+}
+.search-column {
+    height: 36px;
+    flex: 1;
+}
+.filter-icon {
+    margin-right: 30px;
+    margin-left: 10px;
+    cursor: pointer;
+    padding: 0 !important;
+}
+.search-for-list {
+    height: 36px;
+    width: 283px;
+    border-radius: 3px;
+    border: 0px;
+    padding-left: 16px;
+    font-size: 14px;
+    margin-top: 30px;
+    &:focus {
+      outline: 0px;
+    }
+}
+
+
+
+.provider-avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    object-fit: cover;
+    display: table;
+    background-color: #e9eef0;
+}
+.provider-name {
+    width: 150px;
+    max-width: 150px;
+    min-width: 150px;
+}
+.provider-email {
+    width: 260px;
+    max-width: 260px;
+    min-width: 260px;
+}
+.provider-city {
+    width: 150px;
+    max-width: 150px;
+    min-width: 150px;
+}
+.provider-state {
+    width: 70px;
+    max-width: 70px;
+    min-width: 70px;
+}
+.table-card table {
+    min-width: 1050px;
+}
+.empty-data-box {
+    min-height: calc(100% - 90px)
+}

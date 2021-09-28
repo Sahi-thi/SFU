@@ -1,0 +1,173 @@
+<form *ngIf="!isLoadingAPI && !isDropDownApi; else recommendSpinner" [formGroup]="recommendFormGroup"
+    class="add-recommend-main p-t-30 mb-auto-20">
+
+    <div class="f-right flex">
+        <button type="button" class="auth-button-80 mr-10 fw-400" mat-button color="primary"
+            [disabled]="isCallingRecommendation" type="button"
+            (click)="cancelRecommendationForm(buttonTitle)">CANCEL</button>
+
+        <button type="submit" (click)="submitRecommendationForm(buttonTitle)" class="auth-button-80 btn-shadow fw-400"
+            mat-flat-button color="primary">
+            <mat-spinner *ngIf="isCallingRecommendation ;else title" class="auth-spinner" strokeWidth="3" diameter='30'>
+            </mat-spinner>
+            <ng-template #title> {{buttonTitle}} </ng-template>
+        </button>
+    </div>
+
+    <div class="provider-back flex align-left mb-20">
+        <h3 class="f-20 m-0"> {{recommendationTitle}} </h3>
+    </div>
+
+    <mat-card class="add-section mb-auto-20 card-shadow">
+        <mat-error class="pb-30"> {{responseMessage}} </mat-error>
+        <p class="mb-auto-20 mt-20 f-12 form-heading">Salon Information</p>
+
+        <div>
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Client Name</mat-label>
+                <input formControlName="client_name" type="text" aria-label="Number" matInput
+                    (keyup)="searchClient($event.target.value)" [matAutocomplete]="autoClient">
+                <mat-autocomplete (optionSelected)="onSelectionClientChange($event)" [displayWith]="displayClientFn"
+                    #autoClient="matAutocomplete">
+                    <mat-option [disabled]='true' *ngIf="!isEmptyClientList"> Select Client </mat-option>
+                    <mat-option [disabled]='true' *ngIf="isEmptyClientList"> No Client Found
+                    </mat-option>
+                    <mat-option *ngFor="let client  of clientsList " [id]="client.client_id" [value]="client.name">
+                        {{client.name}}
+                    </mat-option>
+                </mat-autocomplete>
+            </mat-form-field>
+        </div>
+
+
+        <div class="half-input f-left">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input formControlName="email" placeholder="Email" matInput type="email">
+            </mat-form-field>
+        </div>
+
+        <div class="half-input f-right mb-20">
+            <mat-form-field class="w-100 " appearance="outline">
+                <mat-label>Phone Number</mat-label>
+                <input [preValue]="recommendFormGroup.value.phone_number" maxlength="14"
+                    [phoneControl]="recommendFormGroup.controls['phone_number']" appPhoneNumberFormat
+                    formControlName="phone_number" placeholder="Phone Number" id="tel" matInput type="tel">
+            </mat-form-field>
+        </div>
+
+        <div class="half-input f-left">
+            <mat-form-field class="w-100" appearance="outline">
+                <mat-label>Recommended for</mat-label>
+                <mat-select placeholder="Recommended for" (selectionChange)="onSelectionChangeRecommendType($event)"
+                    formControlName="recommendation_for">
+                    <mat-option *ngFor="let recommend of recommendTypes" [value]="recommend.id">{{recommend.value}}
+                    </mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+
+        <p class="mb-auto-30 f-12 form-heading clear">{{ isFromProduct ? 'Product' : 'Service'}} Recommendation</p>
+        <div *ngIf="isFromProduct else servicesInputs">
+            <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Brand</mat-label>
+                    <input formControlName="brand_id" type="text" aria-label="Number" matInput
+                        (keyup)="searchCompany($event.target.value)" [matAutocomplete]="auto">
+                    <mat-autocomplete (optionSelected)="onSelectionCompanyChanged($event)"
+                        [displayWith]="displayContactFn" #auto="matAutocomplete">
+                        <mat-option [disabled]='true' *ngIf="isEmptyCompaniesList"> No Companies Found
+                        </mat-option>
+                        <mat-option *ngFor="let brand  of companiesList" [id]="brand.brand_id"
+                            [value]="brand.brand_name">
+                            {{brand.brand_name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+
+
+            <div class="half-input f-right mb-auto-10">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Product</mat-label>
+                    <input formControlName="product_id" type="text" aria-label="Number" matInput
+                        (keyup)="searchProduct($event.target.value)" [matAutocomplete]="autoProduct">
+                    <mat-autocomplete (optionSelected)="onSelectionProductChange($event)"
+                        [displayWith]="displayProductFn" #autoProduct="matAutocomplete">
+                        <mat-option *ngIf="!isEmptyProducts" [disabled]='true'> Select Product
+                        </mat-option>
+                        <mat-option [disabled]='true' *ngIf="isEmptyProducts"> No Products Found
+                        </mat-option>
+                        <mat-option *ngFor="let product of productsList" [id]="product.id"
+                            [value]="product.product_name">
+                            {{product.product_name}}
+                        </mat-option>
+                    </mat-autocomplete>
+                </mat-form-field>
+            </div>
+        </div>
+
+
+        <ng-template #servicesInputs>
+            <div class="half-input f-left">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Service Type</mat-label>
+                    <mat-select placeholder="Service Type" (selectionChange)="onSelectionServiceType($event)"
+                        formControlName="service_type">
+                        <mat-option *ngFor="let type of serviceTypes" [value]="type.service_type">{{type.service_type}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+
+            <div class="half-input f-right">
+                <mat-form-field class="w-100" appearance="outline">
+                    <mat-label>Service</mat-label>
+                    <mat-select placeholder="Service" (selectionChange)="onSelectionService($event)"
+                        formControlName="service_id">
+                        <mat-option *ngFor="let services of services" [value]="services.service_id">{{services.service}}
+                        </mat-option>
+                    </mat-select>
+                </mat-form-field>
+            </div>
+        </ng-template>
+
+        <mat-form-field class="custom-textarea w-100" appearance="outline">
+            <mat-label>Notes</mat-label>
+            <textarea formControlName="notes" matInput maxlength="150"></textarea>
+        </mat-form-field>
+
+        <ng-container *ngIf="isFromProduct">
+
+            <p class="mb-auto-10 f-12 form-heading clear">Select Ritual (Both can be selected)</p>
+
+            <div class="recommend-rituals mb-20">
+                <mat-checkbox [disabled]='isDisabled' *ngFor="let ritual of rituals" [checked]='ritual.isChecked'
+                    (click)='$event.stopPropagation()' (change)="onClickAddRitual(ritual,$event.checked)" value=""
+                    color="primary" class="rituals d-i-block mr-10">
+                    <img *ngIf="ritual.id === 'MR' " src="assets/morning.svg" class="d-i-block mr-10" loading="lazy"
+                        alt="morning" />
+                    <img *ngIf="ritual.id === 'ER' " src="assets/evening.svg" class="d-i-block mr-10" loading="lazy"
+                        alt="evening" />
+                    {{ritual.value}}
+                </mat-checkbox>
+
+            </div>
+
+            <p class="mb-auto-10 f-12 form-heading clear">Select Category</p>
+            <div class="recommend-rituals">
+                <mat-checkbox [disabled]='isDisabled' (click)='$event.stopPropagation()'
+                    *ngFor="let item of frequencies" [checked]="item.isChecked" value=""
+                    (change)="onClickFrequencies(item,$event.checked)" color="primary"
+                    class="rituals rituals-cat d-i-block mr-10 mb-20">
+                    {{item.day}}
+                </mat-checkbox>
+            </div>
+        </ng-container>
+    </mat-card>
+
+</form>
+
+<ng-template #recommendSpinner>
+    <mat-spinner class="table-no-show" strokeWidth="3" diameter='30'></mat-spinner>
+</ng-template>
